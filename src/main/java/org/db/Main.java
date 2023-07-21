@@ -4,10 +4,12 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.db.database.Datasource;
 
 public class Main extends Application {
 
     public static void main(String[] args) {
+        Datasource.init();
         launch();
     }
 
