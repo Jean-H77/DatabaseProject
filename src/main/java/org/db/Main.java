@@ -9,16 +9,17 @@ import org.db.database.Datasource;
 public class Main extends Application {
 
     public static void main(String[] args) {
-        Datasource.init();
+        //Datasource.init();
         launch();
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        Scene scene = new Scene(fxmlLoader.load(), 300, 400);
         primaryStage.setTitle("App");
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 }
