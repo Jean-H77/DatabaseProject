@@ -1,4 +1,14 @@
 package org.db.service;
 
-public interface Service {
+import org.db.database.Database;
+
+public abstract class Service {
+
+    protected final Database database;
+
+    protected Service(Database database) {
+        this.database = database;
+    }
+
+
 }

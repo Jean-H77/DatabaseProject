@@ -26,7 +26,6 @@ public class LoginPageController implements Controller {
     @FXML
     private Label errorMessageLabel;
 
-
     @FXML
     public void onLoginButtonClick() {
         if(usernameTextField.getText().isEmpty())
