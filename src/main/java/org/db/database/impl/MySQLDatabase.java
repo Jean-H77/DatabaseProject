@@ -10,7 +10,6 @@ import java.sql.SQLException;
 
 public class MySQLDatabase extends Database {
 
-
     @Override
     public void login(LoginDetails loginDetails) {
 
@@ -18,7 +17,7 @@ public class MySQLDatabase extends Database {
 
     @Override
     public void register(RegistrationDetails registrationDetails) {
-        try(Connection conn = Datasource.getInstance().getConnection()) {
+        try(Connection conn = getConnection()) {
 
         } catch (SQLException e) {
             e.printStackTrace();
