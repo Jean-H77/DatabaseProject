@@ -5,9 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beb4391e-f41e-46b5-90bf-d712a0721b17" name="Changes" comment="Project setup">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/db/controllers/LoginPageController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/db/controller/Controller.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/db/model/LoginDetails.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/db/model/RegistrationDetails.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/db/service/Service.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/db/service/ServiceType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/db/service/impl/LoginService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/db/service/impl/RegistrationService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/controllers/LoginPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/LoginPageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/database/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/database/Database.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/database/impl/MySQLDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/database/impl/MySQLDatabase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/db/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/db/login-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -25,6 +34,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -65,8 +75,8 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.db.Main" />
+    <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.db.Application" />
       <module name="databaseProject.main" />
       <extension name="coverage">
         <pattern>
@@ -94,7 +104,7 @@
       <updated>1689960897399</updated>
       <workItem from="1689960898432" duration="1016000" />
       <workItem from="1689963590429" duration="2610000" />
-      <workItem from="1689984141486" duration="822000" />
+      <workItem from="1689984141486" duration="3037000" />
     </task>
     <task id="LOCAL-00001" summary="Project setup">
       <created>1689961706132</created>
