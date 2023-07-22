@@ -1,7 +1,6 @@
 package org.db.database.impl;
 
 import org.db.database.Database;
-import org.db.database.Datasource;
 import org.db.model.LoginDetails;
 import org.db.model.RegistrationDetails;
 

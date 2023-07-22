@@ -6,7 +6,6 @@ import javafx.stage.Stage;
 import org.db.database.Database;
 import org.db.database.DatabaseType;
 import org.db.database.Datasource;
-import org.db.database.impl.MySQLDatabase;
 import org.db.service.Service;
 import org.db.service.ServiceType;
 import org.db.service.impl.LoginService;
