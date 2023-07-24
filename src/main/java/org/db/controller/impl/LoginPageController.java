@@ -25,14 +25,14 @@ public class LoginPageController implements Controller {
     @FXML
     private Label errorMessageLabel;
 
+    private final LoginService loginService = (LoginService) getService(ServiceType.LOGIN);
+
     @FXML
     public void onLoginButtonClick() {
         if(usernameTextField.getText().isEmpty() || passwordTextField.getText().isEmpty())
             return;
 
-        LoginService service = (LoginService) getService(ServiceType.LOGIN);
-        
-        if(!service.validate(new LoginDetails())) {
+        if(!loginService.validate(new LoginDetails())) {
             errorMessageLabel.setText("Invalid username or password.");
         }
     }
