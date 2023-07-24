@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import org.db.Application;
 import org.db.controller.Controller;
 import org.db.model.LoginDetails;
+import org.db.service.Service;
 import org.db.service.ServiceType;
 import org.db.service.impl.LoginService;
 
@@ -14,8 +15,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginPageController implements Controller {
-
-    private static final LoginService LOGIN_SERVICE = (LoginService) Application.getService(ServiceType.LOGIN);
 
     @FXML
     private TextField usernameTextField;
@@ -28,11 +27,12 @@ public class LoginPageController implements Controller {
 
     @FXML
     public void onLoginButtonClick() {
-        if(usernameTextField.getText().isEmpty())
+        if(usernameTextField.getText().isEmpty() || passwordTextField.getText().isEmpty())
             return;
-        if(passwordTextField.getText().isEmpty())
-            return;
-        if(!LOGIN_SERVICE.validate(new LoginDetails())) {
+
+        LoginService service = (LoginService) getService(ServiceType.LOGIN);
+        
+        if(!service.validate(new LoginDetails())) {
             errorMessageLabel.setText("Invalid username or password.");
         }
     }
