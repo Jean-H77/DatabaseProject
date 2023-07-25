@@ -7,12 +7,12 @@
 
 <AnchorPane prefHeight="449.0" prefWidth="388.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.db.controller.impl.LoggedInPageController">
    <children>
-      <Button fx:id="button_logout" layoutX="146.0" layoutY="278.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="97.0" style="-fx-background-color: #ff6666;" text="Logout">
+      <Button layoutX="146.0" layoutY="278.0" mnemonicParsing="false" onAction="#onLogoutButtonClick" prefHeight="26.0" prefWidth="97.0" style="-fx-background-color: #ff6666;" text="Logout">
          <font>
             <Font name="Arial Rounded MT Bold" size="16.0" />
          </font>
       </Button>
-      <Label fx:id="label_signedin" layoutX="86.0" layoutY="170.0" text="You are signed in!">
+      <Label fx:id="signedInLabel" layoutX="86.0" layoutY="170.0" text="You are signed in!">
          <font>
             <Font name="Arial Rounded MT Bold" size="25.0" />
          </font>

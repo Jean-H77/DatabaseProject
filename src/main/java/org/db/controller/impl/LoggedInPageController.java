@@ -10,27 +10,23 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import org.db.controller.Navigator;
+
 //--
 public class LoggedInPageController implements Controller{
 
     // link id's
 
     @FXML
-    private Label label_signedin;
+    private Label signedInLabel;
 
     @FXML
-    private Button button_logout;
+    public void onLogoutButtonClick() {
+        Navigator.switchScene("Login");
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        button_logout.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event){
-
-            }
-        });
 
     }
 }
