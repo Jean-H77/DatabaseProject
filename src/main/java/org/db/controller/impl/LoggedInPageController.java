@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import org.db.controller.Navigator;
+import org.db.model.SceneType;
 
 //--
 public class LoggedInPageController implements Controller{
@@ -22,7 +23,7 @@ public class LoggedInPageController implements Controller{
 
     @FXML
     public void onLogoutButtonClick() {
-        Navigator.switchScene("Login");
+        Navigator.switchScene(SceneType.LOGIN);
     }
 
     @Override

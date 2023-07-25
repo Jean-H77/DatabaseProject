@@ -8,6 +8,7 @@ import org.db.Application;
 import org.db.controller.Controller;
 import org.db.controller.Navigator;
 import org.db.model.LoginDetails;
+import org.db.model.SceneType;
 import org.db.service.Service;
 import org.db.service.ServiceType;
 import org.db.service.impl.LoginService;
@@ -37,13 +38,13 @@ public class LoginPageController implements Controller {
             errorMessageLabel.setText("Invalid username or password.");
         }
         else {
-            Navigator.switchScene("LoggedIn");
+            Navigator.switchScene(SceneType.HOME_PAGE);
         }
     }
 
     @FXML
     public void onRegisterButtonClick() {
-        Navigator.switchScene("Register");
+        Navigator.switchScene(SceneType.REGISTER);
     }
 
     @Override

@@ -28,14 +28,14 @@ public class Application extends javafx.application.Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 388, 449); // resized
-        primaryStage.setTitle("App");
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-        primaryStage.show();
-        this.primaryStage = primaryStage;
+        stage.setTitle("App");
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+        primaryStage = stage;
     }
 
     public static void updateScene(Scene scene) {
