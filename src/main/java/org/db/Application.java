@@ -16,6 +16,7 @@ import java.util.HashMap;
 public class Application extends javafx.application.Application {
 
     private static final HashMap<ServiceType, Service> SERVICES = new HashMap<>();
+    private static Stage primaryStage;
 
     public static void main(String[] args) {
         // init database
@@ -31,6 +32,13 @@ public class Application extends javafx.application.Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 388, 449); // resized
         primaryStage.setTitle("App");
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.show();
+        this.primaryStage = primaryStage;
+    }
+
+    public static void updateScene(Scene scene) {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();

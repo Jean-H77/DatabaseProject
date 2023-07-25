@@ -6,6 +6,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.db.Application;
 import org.db.controller.Controller;
+import org.db.controller.Navigator;
 import org.db.model.LoginDetails;
 import org.db.service.Service;
 import org.db.service.ServiceType;
@@ -35,11 +36,14 @@ public class LoginPageController implements Controller {
         if(!loginService.validate(new LoginDetails())) {
             errorMessageLabel.setText("Invalid username or password.");
         }
+        else {
+            Navigator.switchScene("LoggedIn");
+        }
     }
 
     @FXML
     public void onRegisterButtonClick() {
-
+        Navigator.switchScene("Register");
     }
 
     @Override

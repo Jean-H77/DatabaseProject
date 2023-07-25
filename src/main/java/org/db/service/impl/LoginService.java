@@ -12,6 +12,6 @@ public class LoginService extends Service {
 
     public boolean validate(LoginDetails loginDetails) {
 
-        return false;
+        return true; // temporarily default true for testing
     }
 }
