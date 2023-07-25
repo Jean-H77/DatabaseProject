@@ -3,9 +3,11 @@ package org.db;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.db.controller.Navigator;
 import org.db.database.Database;
 import org.db.database.DatabaseType;
 import org.db.database.Datasource;
+import org.db.model.SceneType;
 import org.db.service.Service;
 import org.db.service.ServiceType;
 import org.db.service.impl.LoginService;
@@ -28,14 +30,10 @@ public class Application extends javafx.application.Application {
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("login-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 388, 449); // resized
+    public void start(Stage stage) {
         stage.setTitle("App");
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
         primaryStage = stage;
+        Navigator.switchScene(SceneType.LOGIN);
     }
 
     public static void updateScene(Scene scene) {
