@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beb4391e-f41e-46b5-90bf-d712a0721b17" name="Changes" comment="Project setup">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/controller/Navigator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/controller/Navigator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/LoggedInPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/LoggedInPageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/LoginPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/LoginPageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/RegisterPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/RegisterPageController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,23 +37,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/John/Dropbox/My PC (DESKTOP-23JBHS7)/Documents/GitHub/databaseProject/build/resources/main/org/db&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/John/Dropbox/My PC (DESKTOP-23JBHS7)/Documents/GitHub/databaseProject/build/resources/main/org/db",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Problems",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\John\Dropbox\My PC (DESKTOP-23JBHS7)\Documents\GitHub\databaseProject\build\resources\main\org\db" />
@@ -100,7 +102,8 @@
       <workItem from="1690305398808" duration="156000" />
       <workItem from="1690312267493" duration="185000" />
       <workItem from="1690313011228" duration="1301000" />
-      <workItem from="1690316567965" duration="1086000" />
+      <workItem from="1690316567965" duration="1381000" />
+      <workItem from="1690319524472" duration="426000" />
     </task>
     <task id="LOCAL-00001" summary="Project setup">
       <created>1689961706132</created>
