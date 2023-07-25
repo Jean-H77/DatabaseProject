@@ -29,7 +29,7 @@ public class Application extends javafx.application.Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("login-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 388, 449); // modified window size
+        Scene scene = new Scene(fxmlLoader.load(), 388, 449); // resized
         primaryStage.setTitle("App");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
