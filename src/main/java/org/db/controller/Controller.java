@@ -10,4 +10,5 @@ public interface Controller extends Initializable {
     default Service getService(ServiceType serviceType) {
         return Application.getService(serviceType);
     }
+    void destory();
 }

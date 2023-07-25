@@ -30,4 +30,9 @@ public class LoggedInPageController implements Controller{
     public void initialize(URL location, ResourceBundle resources) {
 
     }
+
+    @Override
+    public void destory() {
+
+    }
 }

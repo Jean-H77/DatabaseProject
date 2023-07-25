@@ -59,4 +59,9 @@ public class RegisterPageController implements Controller {
         });
 
     }
+
+    @Override
+    public void destory() {
+
+    }
 }

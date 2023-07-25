@@ -3,6 +3,7 @@ package org.db;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.db.controller.Controller;
 import org.db.controller.Navigator;
 import org.db.database.Database;
 import org.db.database.DatabaseType;
@@ -36,7 +37,8 @@ public class Application extends javafx.application.Application {
         Navigator.switchScene(SceneType.LOGIN);
     }
 
-    public static void updateScene(Scene scene) {
+    public static void updateScene(Scene scene, Controller controller) {
+        controller.destory();
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();

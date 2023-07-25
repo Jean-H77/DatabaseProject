@@ -51,4 +51,11 @@ public class LoginPageController implements Controller {
     public void initialize(URL location, ResourceBundle resources) {
 
     }
+
+    @Override
+    public void destory() {
+        usernameTextField.setText("");
+        passwordTextField.setText("");
+        errorMessageLabel.setText("");
+    }
 }
