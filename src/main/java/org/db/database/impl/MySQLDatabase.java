@@ -38,16 +38,18 @@ public class MySQLDatabase extends Database {
             stmt.setString(2, (details instanceof LoginDetails ?
                     details.getPassword() : ((RegistrationDetails)details).getEmail()));
             resultSet = stmt.executeQuery(query);
+            User user = null;
             if(resultSet.isBeforeFirst()) {
-                return Optional.of(new User(
+                 user = new User(
                         resultSet.getString("USERNAME"),
                         resultSet.getString("PASSWORD"),
                         resultSet.getString("FIRST_NAME"),
                         resultSet.getString("LAST_NAME"),
                         resultSet.getString("EMAIL")
-                ));
+                );
             }
             resultSet.close();
+            return Optional.ofNullable(user);
         } catch (SQLException e) {
             e.printStackTrace();
         }
