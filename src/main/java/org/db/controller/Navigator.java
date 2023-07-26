@@ -21,7 +21,7 @@ public class Navigator {
         if((scene = cachedScenes.get(sceneType)) != null && (controller = cachedControllers.get(sceneType)) != null)
             Client.getInstance().switchScene(scene, controller);
         else {
-            String fileName = SceneType.VALUES.get(sceneType);
+            String fileName = sceneType.getFileName();
             FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource(fileName));
             try {
                 Parent parent = fxmlLoader.load();
