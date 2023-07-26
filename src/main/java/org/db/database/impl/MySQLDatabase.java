@@ -31,7 +31,6 @@ public class MySQLDatabase extends Database {
     public Optional<User> getUser(Details details) {
         String query = "SELECT * FROM users WHERE USERNAME = ? AND " + (details instanceof LoginDetails ?
                  "PASSWORD" : "EMAIL") + " = ? LIMIT 1";
-        boolean result = false;
         ResultSet resultSet;
         try(PreparedStatement stmt = getConnection().prepareStatement(query)) {
             stmt.setString(1, details.getUsername());
