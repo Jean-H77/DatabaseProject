@@ -33,13 +33,13 @@ public class LoginPageController implements Controller {
     public void onLoginButtonClick() {
         if(usernameTextField.getText().isEmpty() || passwordTextField.getText().isEmpty())
             return;
-
-        if(!loginService.validate(new LoginDetails())) {
-            errorMessageLabel.setText("Invalid username or password.");
-        }
-        else {
+        String response = loginService.validate(new LoginDetails());
+        if(response.equals("Success")) {
             Navigator.switchScene(SceneType.HOME_PAGE);
+            return;
         }
+        destory();
+        errorMessageLabel.setText("Invalid username or password.");
     }
 
     @FXML
@@ -54,8 +54,8 @@ public class LoginPageController implements Controller {
 
     @Override
     public void destory() {
-        usernameTextField.setText("");
-        passwordTextField.setText("");
+        usernameTextField.clear();
+        passwordTextField.clear();
         errorMessageLabel.setText("");
     }
 }

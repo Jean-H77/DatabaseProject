@@ -2,16 +2,19 @@ package org.db.service.impl;
 
 import org.db.database.Database;
 import org.db.model.LoginDetails;
-import org.db.service.Service;
+import org.db.service.AccountService;
 
-public class LoginService extends Service {
+public class LoginService extends AccountService {
 
     public LoginService(Database database) {
         super(database);
     }
 
-    public boolean validate(LoginDetails loginDetails) {
-
-        return true; // temporarily default true for testing
+    @Override
+    public String validate(Object object) {
+        if(!(object instanceof LoginDetails))
+            return "Error while logging in.";
+        LoginDetails loginDetails = (LoginDetails) object;
+        return "Success";
     }
 }

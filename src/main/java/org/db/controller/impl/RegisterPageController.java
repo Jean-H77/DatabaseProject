@@ -1,37 +1,20 @@
 package org.db.controller.impl;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.db.controller.Controller;
-import javafx.scene.control.Label;
 import org.db.controller.Navigator;
-import org.db.database.impl.MySQLDatabase;
 import org.db.model.RegistrationDetails;
 import org.db.model.SceneType;
+import org.db.service.ServiceType;
+import org.db.service.impl.RegistrationService;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class RegisterPageController implements Controller {
-
-    @FXML
-    private Label label_register;
-    @FXML
-    private Label label_username;
-    @FXML
-    private Label label_newpassword;
-    @FXML
-    private Label label_confirmpassword;
-    @FXML
-    private Label label_firstname;
-    @FXML
-    private Label label_lastname;
-    @FXML
-    private Label label_email;
-    @FXML
-    private Label label_haveaccount;
 
     @FXML
     private TextField tf_username;
@@ -49,25 +32,10 @@ public class RegisterPageController implements Controller {
     @FXML
     private Label label_unmatchedPassword;
 
+    private final RegistrationService registrationService = (RegistrationService) getService(ServiceType.REGISTRATION);
+
     @Override
     public void destory() {
-
-    }
-
-
-    public void button_registerNewClicked(ActionEvent actionEvent) {
-        // check if passwords match
-        if(!pf_newpassword.getText().equals(pf_confirmpassword.getText())){
-            label_unmatchedPassword.setText("Passwords do not match");
-        } else{
-            label_unmatchedPassword.setText(null);
-            createAccount();
-            clearText();
-            //Navigator.switchScene(SceneType.HOME_PAGE);
-        }
-    }
-
-    public void clearText(){
         tf_username.clear();
         pf_newpassword.clear();
         pf_confirmpassword.clear();
@@ -76,36 +44,37 @@ public class RegisterPageController implements Controller {
         tf_email.clear();
     }
 
-    public void button_returnToSignIn(ActionEvent actionEvent) {
-        // clear text
-        clearText();
-        // change scene
-        Navigator.switchScene(SceneType.LOGIN);
-    }
-
-    public void createAccount() {
+    @FXML
+    public void button_registerNewClicked() {
+        if(!pf_newpassword.getText().equals(pf_confirmpassword.getText())) {
+            label_unmatchedPassword.setText("Passwords do not match");
+            return;
+        }
         String username = tf_username.getText();
         String newPassword = pf_newpassword.getText();
         String firstName = tf_firstname.getText();
         String lastName = tf_lastname.getText();
         String email = tf_email.getText();
 
-        // Create RegistrationDetails object with the user details
         RegistrationDetails registrationDetails = new RegistrationDetails(username, newPassword, firstName, lastName, email);
+        String response = registrationService.validate(registrationDetails);
 
-        // Call the register method with the created RegistrationDetails object
-        MySQLDatabase reg = new MySQLDatabase();
-        reg.register(registrationDetails);
+        if(response.equals("Success")) {
+            Navigator.switchScene(SceneType.HOME_PAGE);
+            return;
+        }
 
-        clearText();
+        destory();
+        // print error message from response
+    }
+
+    @FXML
+    public void button_returnToSignIn() {
+        Navigator.switchScene(SceneType.LOGIN);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }
-
-
-
-
 }

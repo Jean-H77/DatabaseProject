@@ -9,6 +9,4 @@ public abstract class Service {
     protected Service(Database database) {
         this.database = database;
     }
-
-
 }
