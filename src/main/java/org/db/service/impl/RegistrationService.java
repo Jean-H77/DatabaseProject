@@ -18,8 +18,16 @@ public class RegistrationService extends AccountService {
 
         RegistrationDetails registrationDetails = (RegistrationDetails) details;
 
-        if(database.doesAccountExist(registrationDetails))
+        if(!registrationDetails.getPassword().equals(registrationDetails.getConfirmPassword()))
+            return "Passwords must match";
+
+        if(registrationDetails.getUsername().length() > 16)
+            return "Passwords must not be more than 16 characters long";
+
+        if(database.getUser(registrationDetails).isPresent())
             return "Account already exists.";
+
+        database.createUser(registrationDetails);
 
         return "Success";
     }

@@ -42,30 +42,26 @@ public class RegisterPageController implements Controller {
         tf_firstname.clear();
         tf_lastname.clear();
         tf_email.clear();
+        label_unmatchedPassword.setText("");
     }
 
     @FXML
     public void button_registerNewClicked() {
-        if(!pf_newpassword.getText().equals(pf_confirmpassword.getText())) {
-            label_unmatchedPassword.setText("Passwords do not match");
-            return;
-        }
         String username = tf_username.getText();
         String newPassword = pf_newpassword.getText();
         String firstName = tf_firstname.getText();
         String lastName = tf_lastname.getText();
         String email = tf_email.getText();
 
-        RegistrationDetails registrationDetails = new RegistrationDetails(username, newPassword, firstName, lastName, email);
+        RegistrationDetails registrationDetails = new RegistrationDetails(username, newPassword, firstName, lastName, email, pf_confirmpassword.getText());
         String response = registrationService.validate(registrationDetails);
 
         if(response.equals("Success")) {
             Navigator.switchScene(SceneType.HOME_PAGE);
             return;
         }
-
         destory();
-        // print error message from response
+        label_unmatchedPassword.setText(response);
     }
 
     @FXML

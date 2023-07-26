@@ -1,11 +1,10 @@
 package org.db.controller;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Region;
-import org.db.Application;
+import org.db.Client;
 import org.db.model.SceneType;
 
 import java.util.HashMap;
@@ -20,10 +19,10 @@ public class Navigator {
         Scene scene;
         Controller controller;
         if((scene = cachedScenes.get(sceneType)) != null && (controller = cachedControllers.get(sceneType)) != null)
-            Application.updateScene(scene, controller);
+            Client.getInstance().switchScene(scene, controller);
         else {
             String fileName = SceneType.VALUES.get(sceneType);
-            FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource(fileName));
+            FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource(fileName));
             try {
                 Parent parent = fxmlLoader.load();
                 Region region = (Region) parent;
@@ -31,7 +30,7 @@ public class Navigator {
                 controller = fxmlLoader.getController();
                 cachedScenes.put(sceneType, scene);
                 cachedControllers.put(sceneType, controller);
-                Application.updateScene(scene, controller);
+                Client.getInstance().switchScene(scene, controller);
             } catch (Exception e) {
                 e.printStackTrace();
             }

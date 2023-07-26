@@ -1,18 +1,27 @@
 package org.db.model;
 
-public class RegistrationDetails extends Details {
+public class User {
 
+    private final String username;
+    private final String password;
     private final String firstName;
     private final String lastName;
     private final String email;
-    private final String confirmPassword;
 
-    public RegistrationDetails(String username, String password, String firstName, String lastName, String email, String confirmPassword) {
-        super(username, password);
+    public User(String username, String password, String firstName, String lastName, String email) {
+        this.username = username;
+        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.confirmPassword = confirmPassword;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getFirstName() {
@@ -26,9 +35,4 @@ public class RegistrationDetails extends Details {
     public String getEmail() {
         return email;
     }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
 }
-

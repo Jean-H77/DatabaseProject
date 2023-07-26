@@ -4,18 +4,16 @@ import org.db.database.Database;
 import org.db.model.Details;
 import org.db.model.LoginDetails;
 import org.db.model.RegistrationDetails;
+import org.db.model.User;
 
 import java.sql.*;
+import java.util.Optional;
 
 public class MySQLDatabase extends Database {
 
-    @Override
-    public void login(LoginDetails loginDetails) {
-
-    }
 
     @Override
-    public void register(RegistrationDetails registrationDetails) {
+    public void createUser(RegistrationDetails registrationDetails) {
         String query = "INSERT INTO users(USERNAME, PASSWORD, FIRST_NAME, LAST_NAME, EMAIL) VALUES(?,?,?,?,?)";
         try(PreparedStatement preparedStatement =  getConnection().prepareStatement(query)) {
             preparedStatement.setString(1, registrationDetails.getUsername());
@@ -30,7 +28,7 @@ public class MySQLDatabase extends Database {
     }
 
     @Override
-    public boolean doesAccountExist(Details details) {
+    public Optional<User> getUser(Details details) {
         String query = "SELECT * FROM users WHERE USERNAME = ? AND " + (details instanceof LoginDetails ?
                  "PASSWORD" : "EMAIL") + " = ? LIMIT 1";
         boolean result = false;
@@ -40,12 +38,19 @@ public class MySQLDatabase extends Database {
             stmt.setString(2, (details instanceof LoginDetails ?
                     details.getPassword() : ((RegistrationDetails)details).getEmail()));
             resultSet = stmt.executeQuery(query);
+            if(resultSet.isBeforeFirst()) {
+                return Optional.of(new User(
+                        resultSet.getString("USERNAME"),
+                        resultSet.getString("PASSWORD"),
+                        resultSet.getString("FIRST_NAME"),
+                        resultSet.getString("LAST_NAME"),
+                        resultSet.getString("EMAIL")
+                ));
+            }
             resultSet.close();
-            if(resultSet.isBeforeFirst())
-                result = true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return result;
+        return Optional.empty();
     }
 }

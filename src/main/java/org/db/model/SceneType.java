@@ -17,10 +17,6 @@ public enum SceneType {
         this.fileName = fileName;
     }
 
-    public String getFileName() {
-        return fileName;
-    }
-
     public static final HashMap<SceneType, String> VALUES = (HashMap<SceneType, String>) Arrays.stream(values())
             .collect(Collectors.toMap(Function.identity(), i -> i.fileName));
 }

@@ -1,11 +1,12 @@
 package org.db.database;
 
 import org.db.model.Details;
-import org.db.model.LoginDetails;
 import org.db.model.RegistrationDetails;
+import org.db.model.User;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public abstract class Database {
 
@@ -13,9 +14,7 @@ public abstract class Database {
         return Datasource.getInstance().getConnection();
     }
 
-    public abstract void login(LoginDetails loginDetails);
+    public abstract void createUser(RegistrationDetails registrationDetails);
 
-    public abstract void register(RegistrationDetails registrationDetails);
-
-    public abstract boolean doesAccountExist(Details details);
+    public abstract Optional<User> getUser(Details details);
 }

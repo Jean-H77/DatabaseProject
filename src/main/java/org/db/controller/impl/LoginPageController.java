@@ -4,12 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import org.db.Application;
 import org.db.controller.Controller;
 import org.db.controller.Navigator;
 import org.db.model.LoginDetails;
 import org.db.model.SceneType;
-import org.db.service.Service;
 import org.db.service.ServiceType;
 import org.db.service.impl.LoginService;
 
@@ -33,7 +31,9 @@ public class LoginPageController implements Controller {
     public void onLoginButtonClick() {
         if(usernameTextField.getText().isEmpty() || passwordTextField.getText().isEmpty())
             return;
-        String response = loginService.validate(new LoginDetails());
+        String username = usernameTextField.getText();
+        String password = passwordTextField.getText();
+        String response = loginService.validate(new LoginDetails(username, password));
         if(response.equals("Success")) {
             Navigator.switchScene(SceneType.HOME_PAGE);
             return;
