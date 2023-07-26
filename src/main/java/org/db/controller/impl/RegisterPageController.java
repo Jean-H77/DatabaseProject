@@ -12,8 +12,6 @@ import org.db.model.RegistrationDetails;
 import org.db.model.SceneType;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.ResourceBundle;
 
 public class RegisterPageController implements Controller {
@@ -56,7 +54,6 @@ public class RegisterPageController implements Controller {
 
     }
 
-    // create method: I think I need to check if all text fields are not null
 
     public void button_registerNewClicked(ActionEvent actionEvent) {
         // check if passwords match
