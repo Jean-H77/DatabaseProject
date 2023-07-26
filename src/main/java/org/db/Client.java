@@ -32,7 +32,7 @@ public class Client extends Application {
     public static void main(String[] args) {
         Client client = new Client();
         Database database = client.setupDatabase();
-        Client.getInstance().setupServices(database);
+        client.setupServices(database);
         launch();
     }
 
