@@ -17,8 +17,7 @@ public class MySQLDatabase extends Database {
     @Override
     public void register(RegistrationDetails registrationDetails) {
         String query = "INSERT INTO users(USERNAME, PASSWORD, FIRST_NAME, LAST_NAME, EMAIL) VALUES(?,?,?,?,?)";
-        try(Connection conn = getConnection();
-            PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+        try(PreparedStatement preparedStatement =  getConnection().prepareStatement(query)) {
             preparedStatement.setString(1, registrationDetails.getUsername());
             preparedStatement.setString(2, registrationDetails.getPassword());
             preparedStatement.setString(3, registrationDetails.getFirstName());
