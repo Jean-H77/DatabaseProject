@@ -20,10 +20,12 @@ public class MySQLDatabase extends Database {
         String query = "INSERT INTO users(USERNAME, PASSWORD, FIRST_NAME, LAST_NAME, EMAIL) VALUES(?,?,?,?,?)";
         try(Connection conn = getConnection();
             PreparedStatement preparedStatement = conn.prepareStatement(query)) {
-
-
+            preparedStatement.setString(1, registrationDetails.getUsername());
+            preparedStatement.setString(2, registrationDetails.getPassword());
+            preparedStatement.setString(3, registrationDetails.getFirstName());
+            preparedStatement.setString(4, registrationDetails.getLastName());
+            preparedStatement.setString(5, registrationDetails.getEmail());
             preparedStatement.executeUpdate();
-            
         } catch (SQLException e) {
             e.printStackTrace();
         }
