@@ -33,7 +33,7 @@ public class MySQLDatabase extends Database {
     @Override
     public boolean doesAccountExist(Details details) {
         String query = "SELECT * FROM users WHERE USERNAME = ? AND " + (details instanceof LoginDetails ?
-                 "PASSWORD" : "EMAIL") + " = ?";
+                 "PASSWORD" : "EMAIL") + " = ? LIMIT 1";
         boolean result = false;
         ResultSet resultSet;
         try(PreparedStatement stmt = getConnection().prepareStatement(query)) {
