@@ -1,6 +1,7 @@
 package org.db.service;
 
 import org.db.database.Database;
+import org.db.model.Details;
 
 public abstract class AccountService extends Service {
 
@@ -8,5 +9,5 @@ public abstract class AccountService extends Service {
         super(database);
     }
 
-    public abstract String validate(Object object);
+    public abstract String validate(Details details);
 }

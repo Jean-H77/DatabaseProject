@@ -1,27 +1,16 @@
 package org.db.model;
 
-public class RegistrationDetails {
-    private String username;
-    private String password;
-    private String firstName;
-    private String lastName;
-    private String email;
+public class RegistrationDetails extends Details {
+
+    private final String firstName;
+    private final String lastName;
+    private final String email;
 
     public RegistrationDetails(String username, String password, String firstName, String lastName, String email) {
-        this.username = username;
-        this.password = password;
+        super(username, password);
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-    }
-
-    // Getters
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public String getFirstName() {

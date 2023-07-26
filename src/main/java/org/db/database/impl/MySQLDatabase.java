@@ -1,11 +1,11 @@
 package org.db.database.impl;
 
 import org.db.database.Database;
+import org.db.model.Details;
 import org.db.model.LoginDetails;
 import org.db.model.RegistrationDetails;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+
+import java.sql.*;
 
 public class MySQLDatabase extends Database {
 
@@ -28,5 +28,25 @@ public class MySQLDatabase extends Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean doesAccountExist(Details details) {
+        String query = "SELECT * FROM users WHERE USERNAME = ? AND " + (details instanceof LoginDetails ?
+                 "PASSWORD" : "EMAIL") + " = ?";
+        boolean result = false;
+        ResultSet resultSet;
+        try(PreparedStatement stmt = getConnection().prepareStatement(query)) {
+            stmt.setString(1, details.getUsername());
+            stmt.setString(2, (details instanceof LoginDetails ?
+                    details.getPassword() : ((RegistrationDetails)details).getEmail()));
+            resultSet = stmt.executeQuery(query);
+            resultSet.close();
+            if(resultSet.isBeforeFirst())
+                result = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }
