@@ -7,55 +7,55 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="449.0" prefWidth="388.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.db.controller.impl.RegisterPageController">
+<AnchorPane prefHeight="486.0" prefWidth="388.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.db.controller.impl.RegisterPageController">
    <children>
-      <Label fx:id="label_register" layoutX="144.0" layoutY="14.0" text="Register">
+      <Label fx:id="label_register" layoutX="110.0" layoutY="24.0" text="Registeration">
          <font>
-            <Font name="Arial Rounded MT Bold" size="21.0" />
+            <Font name="Arial Rounded MT Bold" size="26.0" />
          </font>
       </Label>
-      <Label fx:id="label_username" layoutX="25.0" layoutY="54.0" text="Username">
-         <font>
-            <Font name="Arial Rounded MT Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="label_newpassword" layoutX="26.0" layoutY="109.0" text="New Password">
-         <font>
-            <Font name="Arial Rounded MT Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="label_confirmpassword" layoutX="26.0" layoutY="167.0" text="Confirm Password">
-         <font>
-            <Font name="Arial Rounded MT Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="label_firstname" layoutX="28.0" layoutY="222.0" text="First Name">
-         <font>
-            <Font name="Arial Rounded MT Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="label_lastname" layoutX="29.0" layoutY="274.0" text="Last Name">
-         <font>
-            <Font name="Arial Rounded MT Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="label_email" layoutX="29.0" layoutY="328.0" text="Email">
-         <font>
-            <Font name="Arial Rounded MT Bold" size="18.0" />
-         </font>
-      </Label>
-      <Button fx:id="button_signin" layoutX="247.0" layoutY="391.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="68.0" style="-fx-background-color: transparent;" text="Sign-in" textFill="#0020ff" underline="true">
-         <font>
-            <Font name="Arial Rounded MT Bold" size="14.0" />
-         </font>
-      </Button>
-      <TextField fx:id="tf_username" layoutX="25.0" layoutY="76.0" prefHeight="26.0" prefWidth="332.0" />
-      <TextField fx:id="tf_firstname" layoutX="28.0" layoutY="244.0" prefHeight="26.0" prefWidth="332.0" />
-      <TextField fx:id="tf_lastname" layoutX="28.0" layoutY="296.0" prefHeight="26.0" prefWidth="332.0" />
-      <TextField fx:id="tf_email" layoutX="28.0" layoutY="350.0" prefHeight="26.0" prefWidth="332.0" />
-      <Label fx:id="label_haveaccount" layoutX="41.0" layoutY="394.0" text="Already have an account?">
+      <Label fx:id="label_username" layoutX="33.0" layoutY="77.0" text="Username">
          <font>
             <Font name="Arial Rounded MT Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="label_newpassword" layoutX="30.0" layoutY="130.0" text="New Password">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="label_confirmpassword" layoutX="30.0" layoutY="186.0" text="Confirm Password">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="label_firstname" layoutX="31.0" layoutY="251.0" text="First Name">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="label_lastname" layoutX="32.0" layoutY="303.0" text="Last Name">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="label_email" layoutX="31.0" layoutY="358.0" text="Email">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="16.0" />
+         </font>
+      </Label>
+      <Button fx:id="button_returnToSignIn" layoutX="234.0" layoutY="450.0" mnemonicParsing="false" onAction="#button_returnToSignIn" prefHeight="27.0" prefWidth="68.0" style="-fx-background-color: transparent;" text="Sign-in" textFill="#0020ff" underline="true">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="13.0" />
+         </font>
+      </Button>
+      <TextField fx:id="tf_username" layoutX="28.0" layoutY="97.0" prefHeight="26.0" prefWidth="332.0" />
+      <TextField fx:id="tf_firstname" layoutX="30.0" layoutY="271.0" prefHeight="26.0" prefWidth="332.0" />
+      <TextField fx:id="tf_lastname" layoutX="30.0" layoutY="323.0" prefHeight="26.0" prefWidth="332.0" />
+      <TextField fx:id="tf_email" layoutX="30.0" layoutY="378.0" prefHeight="26.0" prefWidth="332.0" />
+      <Label fx:id="label_haveaccount" layoutX="53.0" layoutY="453.0" text="Already have an account?">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
          </font>
          <graphic>
             <Label>
@@ -65,7 +65,17 @@
             </Label>
          </graphic>
       </Label>
-      <PasswordField fx:id="pf_newpassword" layoutX="27.0" layoutY="131.0" prefHeight="26.0" prefWidth="332.0" />
-      <PasswordField fx:id="pf_confirmpassword" layoutX="27.0" layoutY="189.0" prefHeight="26.0" prefWidth="332.0" />
+      <PasswordField fx:id="pf_newpassword" layoutX="30.0" layoutY="150.0" prefHeight="26.0" prefWidth="332.0" />
+      <PasswordField fx:id="pf_confirmpassword" layoutX="30.0" layoutY="206.0" prefHeight="26.0" prefWidth="332.0" />
+      <Button fx:id="button_registerNewClicked" layoutX="30.0" layoutY="416.0" mnemonicParsing="false" onAction="#button_registerNewClicked" prefHeight="26.0" prefWidth="332.0" style="-fx-background-color: #64B5F6;" text="Register" textFill="WHITE">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="13.0" />
+         </font>
+      </Button>
+      <Label fx:id="label_unmatchedPassword" layoutX="30.0" layoutY="236.0" prefHeight="15.0" prefWidth="144.0" textFill="RED">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="10.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
