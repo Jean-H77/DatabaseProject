@@ -21,7 +21,7 @@ public class Client extends Application {
 
     private static Client INSTANCE;
 
-    private final HashMap<ServiceType, Service> SERVICES = new HashMap<>();
+    private static final HashMap<ServiceType, Service> SERVICES = new HashMap<>();
     private Stage primaryStage;
     private User myUser;
 
@@ -32,7 +32,7 @@ public class Client extends Application {
     public static void main(String[] args) {
         Client client = new Client();
         Database database = client.setupDatabase();
-        client.setupServices(database);
+        setupServices(database);
         launch();
     }
 
@@ -55,12 +55,12 @@ public class Client extends Application {
         return DatabaseType.MYSQL.getDatabase();
     }
 
-    public void setupServices(Database database) {
+    private static void setupServices(Database database) {
         SERVICES.put(ServiceType.LOGIN, new LoginService(database));
         SERVICES.put(ServiceType.REGISTRATION, new RegistrationService(database));
     }
 
-    public Service getService(ServiceType serviceType) {
+    public static Service getService(ServiceType serviceType) {
         return SERVICES.get(serviceType);
     }
 

@@ -8,7 +8,7 @@ import org.db.service.ServiceType;
 public interface Controller extends Initializable {
 
     default Service getService(ServiceType serviceType) {
-        return Client.getInstance().getService(serviceType);
+        return Client.getService(serviceType);
     }
     void destory();
 }

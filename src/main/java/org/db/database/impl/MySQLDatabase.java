@@ -29,26 +29,22 @@ public class MySQLDatabase extends Database {
 
     @Override
     public Optional<User> getUser(Details details) {
-        String query = "SELECT * FROM users WHERE USERNAME = ? AND " + (details instanceof LoginDetails ?
-                 "PASSWORD" : "EMAIL") + " = ? LIMIT 1";
-        ResultSet resultSet;
-        try(PreparedStatement stmt = getConnection().prepareStatement(query)) {
+        String query = "SELECT * FROM users WHERE USERNAME = ? AND " + (details instanceof LoginDetails ? "PASSWORD" : "EMAIL") + " = ? LIMIT 1";
+        try (PreparedStatement stmt = getConnection().prepareStatement(query)) {
             stmt.setString(1, details.getUsername());
-            stmt.setString(2, (details instanceof LoginDetails ?
-                    details.getPassword() : ((RegistrationDetails)details).getEmail()));
-            resultSet = stmt.executeQuery(query);
-            User user = null;
-            if(resultSet.isBeforeFirst()) {
-                 user = new User(
-                        resultSet.getString("USERNAME"),
-                        resultSet.getString("PASSWORD"),
-                        resultSet.getString("FIRST_NAME"),
-                        resultSet.getString("LAST_NAME"),
-                        resultSet.getString("EMAIL")
-                );
+            stmt.setString(2, (details instanceof LoginDetails ? details.getPassword() : ((RegistrationDetails) details).getEmail()));
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    User user = new User(
+                            resultSet.getString("USERNAME"),
+                            resultSet.getString("PASSWORD"),
+                            resultSet.getString("FIRST_NAME"),
+                            resultSet.getString("LAST_NAME"),
+                            resultSet.getString("EMAIL")
+                    );
+                    return Optional.of(user);
+                }
             }
-            resultSet.close();
-            return Optional.ofNullable(user);
         } catch (SQLException e) {
             e.printStackTrace();
         }
