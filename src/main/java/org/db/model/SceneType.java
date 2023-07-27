@@ -1,14 +1,9 @@
 package org.db.model;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
 public enum SceneType {
     LOGIN("login-view.fxml"),
     REGISTER("register-view.fxml"),
-    HOME_PAGE("logged-in-view.fxml")
+    HOME_PAGE("homepage-view.fxml")
     ;
 
     private final String fileName;

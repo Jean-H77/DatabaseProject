@@ -5,15 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beb4391e-f41e-46b5-90bf-d712a0721b17" name="Changes" comment="Project setup">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/db/model/Details.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/CardComponent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/db/homepage-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/database/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/database/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/database/impl/MySQLDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/database/impl/MySQLDatabase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/model/LoginDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/model/LoginDetails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/model/RegistrationDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/model/RegistrationDetails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/service/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/service/AccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/service/impl/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/service/impl/LoginService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/service/impl/RegistrationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/service/impl/RegistrationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/HomepageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/HomepageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/model/SceneType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/model/SceneType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/db/logged-in-view.fxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,8 +75,8 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.db.Application" />
+    <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.db.Client" />
       <module name="databaseProject.main" />
       <extension name="coverage">
         <pattern>
@@ -110,7 +108,12 @@
       <workItem from="1690313011228" duration="1301000" />
       <workItem from="1690316567965" duration="1381000" />
       <workItem from="1690319524472" duration="721000" />
-      <workItem from="1690348955021" duration="2540000" />
+      <workItem from="1690348955021" duration="3412000" />
+      <workItem from="1690360187982" duration="2213000" />
+      <workItem from="1690362790494" duration="485000" />
+      <workItem from="1690399817636" duration="404000" />
+      <workItem from="1690412764441" duration="11170000" />
+      <workItem from="1690431686723" duration="2348000" />
     </task>
     <task id="LOCAL-00001" summary="Project setup">
       <created>1689961706132</created>

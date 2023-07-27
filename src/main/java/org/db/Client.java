@@ -40,7 +40,7 @@ public class Client extends Application {
     public void start(Stage stage) {
         stage.setTitle("App");
         primaryStage = stage;
-        Navigator.switchScene(SceneType.LOGIN);
+        Navigator.switchScene(SceneType.HOME_PAGE);
     }
 
     public void switchScene(Scene scene, Controller controller) {
