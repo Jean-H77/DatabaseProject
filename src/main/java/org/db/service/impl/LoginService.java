@@ -15,6 +15,8 @@ public class LoginService extends AccountService {
 
     @Override
     public String validate(Details details) {
+        User user;
+
         if(!(details instanceof LoginDetails))
             return "Error while logging in.";
         LoginDetails loginDetails = (LoginDetails) details;
@@ -23,13 +25,13 @@ public class LoginService extends AccountService {
             return "Incorrect username or password.";
         }
 
-        User user = Client.getMyUser();
-
-
+        user = database.getUser(loginDetails).get();
 
         if(!(user.getUsername().equals(loginDetails.getUsername())) && (user.getPassword().equals(loginDetails.getPassword()))) {
             return "Incorrect username or password.";
         }
+
+        Client.getInstance().setMyUser(user);
 
         return "Success";
     }

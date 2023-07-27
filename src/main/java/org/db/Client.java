@@ -60,6 +60,10 @@ public class Client extends Application {
         SERVICES.put(ServiceType.REGISTRATION, new RegistrationService(database));
     }
 
+    public void setMyUser(User myUser) {
+        this.myUser = myUser;
+    }
+
     public static Service getService(ServiceType serviceType) {
         return SERVICES.get(serviceType);
     }
