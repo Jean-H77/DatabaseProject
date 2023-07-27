@@ -67,4 +67,6 @@ public class Client extends Application {
     public static Client getInstance() {
         return INSTANCE;
     }
+
+    public static User getMyUser() { return INSTANCE.myUser; }
 }

@@ -4,6 +4,7 @@ import org.db.database.Database;
 import org.db.model.Details;
 import org.db.model.LoginDetails;
 import org.db.model.User;
+import org.db.Client;
 import org.db.service.AccountService;
 
 public class LoginService extends AccountService {
@@ -22,7 +23,9 @@ public class LoginService extends AccountService {
             return "Incorrect username or password.";
         }
 
-        User user = database.getUser(loginDetails).get();
+        User user = Client.getMyUser();
+
+
 
         if(!(user.getUsername().equals(loginDetails.getUsername())) && (user.getPassword().equals(loginDetails.getPassword()))) {
             return "Incorrect username or password.";
