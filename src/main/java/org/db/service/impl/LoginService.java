@@ -19,7 +19,7 @@ public class LoginService extends AccountService {
         LoginDetails loginDetails = (LoginDetails) details;
 
         if(!database.getUser(loginDetails).isPresent()) {
-            return "Account not found.";
+            return "Incorrect username or password.";
         }
 
         User user = database.getUser(loginDetails).get();
