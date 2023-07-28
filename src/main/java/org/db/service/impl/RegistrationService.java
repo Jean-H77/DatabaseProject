@@ -27,6 +27,9 @@ public class RegistrationService extends AccountService {
         if(database.exists(details.getUsername(), registrationDetails.getEmail()))
             return "Account already exists.";
 
+        if(database.exists(details.getUsername(), registrationDetails.getEmail()))
+            return "Invalid Email or Username ";
+
         database.createUser(registrationDetails);
 
         return "Success";

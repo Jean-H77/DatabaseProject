@@ -55,6 +55,16 @@ public class MySQLDatabase extends Database {
 
     @Override
     public boolean exists(String username, String email) {
+        String query = "SELECT * FROM users WHERE USERNAME = ? OR EMAIL = ? LIMIT 1";
+        try (PreparedStatement stmt = getConnection().prepareStatement(query)) {
+            stmt.setString(1, username);
+            stmt.setString(2, email);
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                return resultSet.isBeforeFirst();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 }
