@@ -28,13 +28,15 @@ public class MySQLDatabase extends Database {
     }
 
     @Override
-    public Optional<User> getUser(Details details) {
-        String query = "SELECT * FROM users WHERE USERNAME = ? AND " + (details instanceof LoginDetails ? "PASSWORD" : "EMAIL") + " = ? LIMIT 1";
+    public Optional<User> getUser(LoginDetails details) {
+        String query = "SELECT * FROM users WHERE USERNAME = ? AND PASSWORD = ? LIMIT 1";
+        System.out.println(query);
         try (PreparedStatement stmt = getConnection().prepareStatement(query)) {
             stmt.setString(1, details.getUsername());
-            stmt.setString(2, (details instanceof LoginDetails ? details.getPassword() : ((RegistrationDetails) details).getEmail()));
+            stmt.setString(2, details.getPassword());
             try (ResultSet resultSet = stmt.executeQuery()) {
-                if (resultSet.next()) {
+                if (resultSet.isBeforeFirst()) {
+                    resultSet.next();
                     User user = new User(
                             resultSet.getString("USERNAME"),
                             resultSet.getString("PASSWORD"),

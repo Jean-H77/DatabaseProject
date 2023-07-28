@@ -19,20 +19,14 @@ public class LoginService extends AccountService {
 
         if(!(details instanceof LoginDetails))
             return "Error while logging in.";
+
         LoginDetails loginDetails = (LoginDetails) details;
 
-        if(!database.getUser(loginDetails).isPresent()) {
+        if(!database.getUser(loginDetails).isPresent())
             return "Incorrect username or password.";
-        }
 
         user = database.getUser(loginDetails).get();
-
-        if(!(user.getUsername().equals(loginDetails.getUsername())) && (user.getPassword().equals(loginDetails.getPassword()))) {
-            return "Incorrect username or password.";
-        }
-
         Client.getInstance().setMyUser(user);
-
         return "Success";
     }
 }

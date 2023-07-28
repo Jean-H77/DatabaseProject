@@ -1,6 +1,7 @@
 package org.db.database;
 
 import org.db.model.Details;
+import org.db.model.LoginDetails;
 import org.db.model.RegistrationDetails;
 import org.db.model.User;
 
@@ -16,5 +17,5 @@ public abstract class Database {
 
     public abstract void createUser(RegistrationDetails registrationDetails);
 
-    public abstract Optional<User> getUser(Details details);
+    public abstract Optional<User> getUser(LoginDetails details);
 }
