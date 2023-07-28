@@ -1,12 +1,13 @@
 package org.db.database.impl;
 
 import org.db.database.Database;
-import org.db.model.Details;
 import org.db.model.LoginDetails;
 import org.db.model.RegistrationDetails;
 import org.db.model.User;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Optional;
 
 public class MySQLDatabase extends Database {
@@ -51,5 +52,10 @@ public class MySQLDatabase extends Database {
             e.printStackTrace();
         }
         return Optional.empty();
+    }
+
+    @Override
+    public boolean exists(String username, String email) {
+        return false;
     }
 }
