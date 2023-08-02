@@ -1,10 +1,12 @@
 package org.db.database.impl;
 
 import org.db.database.Database;
+import org.db.model.HomepageDetails;
 import org.db.model.LoginDetails;
 import org.db.model.RegistrationDetails;
 import org.db.model.User;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -67,4 +69,36 @@ public class MySQLDatabase extends Database {
         }
         return false;
     }
+
+    public void addItem(HomepageDetails homepageDetails) {
+        String query = "INSERT INTO items(TITLE, DESCRIPTION, CATEGORY, PRICE, USERNAME, TIMES_POSTED) VALUES(?,?,?,?,?,?)";
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
+            preparedStatement.setString(1, homepageDetails.getTitle());
+            preparedStatement.setString(2, homepageDetails.getDescription());
+            preparedStatement.setString(3, homepageDetails.getCategory());
+            preparedStatement.setDouble(4, homepageDetails.getPrice());
+            preparedStatement.setString(5, homepageDetails.getUsername());
+            preparedStatement.setDate(6,homepageDetails.getDate());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getPostCountForUserOnDate(String username, Date date) {
+        String query = "SELECT COUNT(*) AS postCount FROM items WHERE USERNAME = ? AND TIMES_POSTED = ?";
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
+            preparedStatement.setString(1, username);
+            preparedStatement.setDate(2, date);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("postCount");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 }

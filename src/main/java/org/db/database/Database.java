@@ -1,5 +1,6 @@
 package org.db.database;
 
+import org.db.model.HomepageDetails;
 import org.db.model.LoginDetails;
 import org.db.model.RegistrationDetails;
 import org.db.model.User;
@@ -19,4 +20,6 @@ public abstract class Database {
     public abstract Optional<User> getUser(LoginDetails details);
 
     public abstract boolean exists(String username, String email);
+
+    public abstract void addItem(HomepageDetails homepageDetails);
 }
