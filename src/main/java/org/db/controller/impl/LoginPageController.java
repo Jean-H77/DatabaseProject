@@ -34,7 +34,11 @@ public class LoginPageController implements Controller {
         String username = usernameTextField.getText();
         String password = passwordTextField.getText();
         String response = loginService.validate(new LoginDetails(username, password));
+
         if(response.equals("Success")) {
+            // pass current user logged in into homepage
+            Navigator.setLoggedInUsername(username);
+            // switch scene
             Navigator.switchScene(SceneType.HOME_PAGE);
             return;
         }

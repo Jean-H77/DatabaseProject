@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import org.db.Client;
+import org.db.controller.impl.HomepageController;
 import org.db.model.SceneType;
 
 import java.util.HashMap;
@@ -34,6 +35,23 @@ public class Navigator {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private static HomepageController homepageController;
+    private static String loggedInUsername;
+
+    public static void setHomepageController(HomepageController controller) {
+        homepageController = controller;
+        if (loggedInUsername != null) {
+            homepageController.setLoggedInUser(loggedInUsername);
+        }
+    }
+
+    public static void setLoggedInUsername(String username) {
+        loggedInUsername = username;
+        if (homepageController != null) {
+            homepageController.setLoggedInUser(username);
         }
     }
 }
