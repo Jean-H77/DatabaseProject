@@ -38,20 +38,5 @@ public class Navigator {
         }
     }
 
-    private static HomepageController homepageController;
-    private static String loggedInUsername;
 
-    public static void setHomepageController(HomepageController controller) {
-        homepageController = controller;
-        if (loggedInUsername != null) {
-            homepageController.setLoggedInUser(loggedInUsername);
-        }
-    }
-
-    public static void setLoggedInUsername(String username) {
-        loggedInUsername = username;
-        if (homepageController != null) {
-            homepageController.setLoggedInUser(username);
-        }
-    }
 }

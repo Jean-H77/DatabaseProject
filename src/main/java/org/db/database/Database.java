@@ -6,6 +6,7 @@ import org.db.model.RegistrationDetails;
 import org.db.model.User;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -22,4 +23,7 @@ public abstract class Database {
     public abstract boolean exists(String username, String email);
 
     public abstract void addItem(HomepageDetails homepageDetails);
+
+    public abstract int getPostCountForUserOnDate(String username, Date date);
+
 }
