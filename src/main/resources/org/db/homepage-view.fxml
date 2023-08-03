@@ -25,7 +25,7 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="644.0" prefWidth="202.0" spacing="15.0">
                            <children>
-                              <Label fx:id="l_welcomeUser" alignment="CENTER" prefHeight="17.0" prefWidth="75.0" text="user" textFill="#2f00ff" underline="true">
+                              <Label fx:id="l_welcomeUser" alignment="CENTER" prefHeight="17.0" prefWidth="75.0" text="Welcome!" textFill="#2f00ff" underline="true">
                                  <font>
                                     <Font name="Arial Rounded MT Bold" size="14.0" />
                                  </font>
@@ -58,7 +58,7 @@
                                     <Font name="Arial Rounded MT Bold" size="13.0" />
                                  </font>
                               </Button>
-                              <Label fx:id="l_itemStatus" alignment="CENTER" layoutX="74.0" layoutY="70.0" text="Status">
+                              <Label fx:id="l_itemStatus" alignment="CENTER" layoutX="74.0" layoutY="70.0" textFill="RED">
                                  <font>
                                     <Font name="Arial Rounded MT Bold" size="15.0" />
                                  </font>
