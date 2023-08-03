@@ -5,12 +5,14 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.db.Client;
 import org.db.controller.Controller;
 import org.db.controller.Navigator;
-import org.db.database.Database;
-import org.db.database.impl.MySQLDatabase;
 import org.db.model.HomepageDetails;
 import org.db.model.SceneType;
+import org.db.model.User;
+import org.db.service.ServiceType;
+import org.db.service.impl.HomepageService;
 
 import java.net.URL;
 import java.sql.Date;
@@ -37,6 +39,7 @@ public class HomepageController implements Controller{
 
     private String loggedInUsername = null;
 
+    public final HomepageService homepageService = (HomepageService) getService(ServiceType.HOMEPAGE);
 
     // JOHN USE GROUP LAYOUT FOR THIS
     @Override
@@ -47,8 +50,6 @@ public class HomepageController implements Controller{
         hBox.spacingProperty().set(10);
 
         cb_category.getItems().addAll("category1", "category2", "category3");
-        Navigator.setHomepageController(this);
-        l_welcomeUser.setText(loggedInUsername.toUpperCase());
 
         for(int i = 0; i < 20; i++) {
             if(i%4 == 0 && i != 0) {
@@ -63,6 +64,12 @@ public class HomepageController implements Controller{
     }
 
     public void button_itemSubmitClicked(){
+        User loggedInUser = Client.getMyUser();
+        if (loggedInUser != null) {
+            loggedInUsername = loggedInUser.getUsername();
+            l_welcomeUser.setText(loggedInUsername);
+        }
+
         String tittle = tf_tittle.getText();
         String description = ta_description.getText();
         String category = (String) cb_category.getValue();
@@ -70,31 +77,24 @@ public class HomepageController implements Controller{
         String username = loggedInUsername;
         Date numOfPost = Date.valueOf(LocalDate.now());
 
-        Database database = new MySQLDatabase();
+        HomepageDetails homepageDetails = new HomepageDetails(tittle,description,category,price,username,numOfPost);
+        String response = homepageService.validate(homepageDetails);
 
-        // Check the number of posts made by the user on the current date
-        int postCountToday = ((MySQLDatabase) database).getPostCountForUserOnDate(loggedInUsername, numOfPost);
-        if (postCountToday >= 3) {
-            l_itemStatus.setText("Daily post limit\n(3 posts per day).");
+        if(response.equals("Success")){
+            l_itemStatus.setText("New Item Added");
+            destory();
             return;
         }
-
-        HomepageDetails homepageDetails = new HomepageDetails(tittle,description,category,price,username,numOfPost);
-
-        database.addItem(homepageDetails);
-
-        l_itemStatus.setText("New Item Added");
-
+        l_itemStatus.setText("Daily Limit reached");
         destory();
         return;
     }
 
-    public void setLoggedInUser(String username) {
-        this.loggedInUsername = username;
-    }
-
     public void button_logoutClicked(){
+        loggedInUsername = null;
         l_welcomeUser.setText("");
+        l_itemStatus.setText("");
+        destory();
         Navigator.switchScene(SceneType.LOGIN);
     }
 
