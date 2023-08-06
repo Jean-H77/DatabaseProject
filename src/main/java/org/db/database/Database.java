@@ -1,13 +1,11 @@
 package org.db.database;
 
-import org.db.model.HomepageDetails;
-import org.db.model.LoginDetails;
-import org.db.model.RegistrationDetails;
-import org.db.model.User;
+import org.db.model.*;
 
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 public abstract class Database {
@@ -25,5 +23,7 @@ public abstract class Database {
     public abstract void addItem(HomepageDetails homepageDetails);
 
     public abstract int getPostCountForUserOnDate(String username, Date date);
+
+    public abstract List<Item> searchItems(String category);
 
 }

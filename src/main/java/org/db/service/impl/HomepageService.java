@@ -2,7 +2,10 @@ package org.db.service.impl;
 
 import org.db.database.Database;
 import org.db.model.HomepageDetails;
+import org.db.model.Item;
 import org.db.service.Service;
+
+import java.util.List;
 
 
 public class HomepageService extends Service {
@@ -20,5 +23,11 @@ public class HomepageService extends Service {
         return "Success";
     }
 
+    public List<Item> search(String category) {
+        List<Item> itemList = database.searchItems(category);
+
+        return itemList;
+
+    }
 
 }

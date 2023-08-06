@@ -35,7 +35,7 @@ public class CardComponent extends VBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-      //  this.itemName.setText(itemName);
-     //   this.description.setText(description);
+        this.itemName.setText(itemName);
+        this.description.setText(description);
     }
 }

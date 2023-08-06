@@ -1,15 +1,14 @@
 package org.db.database.impl;
 
 import org.db.database.Database;
-import org.db.model.HomepageDetails;
-import org.db.model.LoginDetails;
-import org.db.model.RegistrationDetails;
-import org.db.model.User;
+import org.db.model.*;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class MySQLDatabase extends Database {
@@ -99,6 +98,32 @@ public class MySQLDatabase extends Database {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public List<Item> searchItems(String categorySearch) {
+        List<Item> itemList = new ArrayList<Item>();
+        String query = "SELECT * FROM items";
+        try (PreparedStatement stmt = getConnection().prepareStatement(query)) {
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                if (resultSet.getString("CATEGORY").equals(categorySearch)) {
+                    String title = resultSet.getString("TITLE");
+                    String description = resultSet.getString("DESCRIPTION");
+                    String category = resultSet.getString("CATEGORY");
+                    double price = resultSet.getDouble("PRICE");
+
+                    Item item = new Item(title, description, category, price);
+
+                    itemList.add(item);
+                }
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return itemList;
+
     }
 
 }

@@ -9,6 +9,7 @@ import org.db.Client;
 import org.db.controller.Controller;
 import org.db.controller.Navigator;
 import org.db.model.HomepageDetails;
+import org.db.model.Item;
 import org.db.model.SceneType;
 import org.db.model.User;
 import org.db.service.ServiceType;
@@ -17,6 +18,8 @@ import org.db.service.impl.HomepageService;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class HomepageController implements Controller{
@@ -37,6 +40,9 @@ public class HomepageController implements Controller{
     @FXML
     Label l_welcomeUser;
 
+    @FXML
+    ComboBox cb_categorySearch;
+
     private String loggedInUsername = null;
 
     public final HomepageService homepageService = (HomepageService) getService(ServiceType.HOMEPAGE);
@@ -44,12 +50,14 @@ public class HomepageController implements Controller{
     // JOHN USE GROUP LAYOUT FOR THIS
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        cb_category.getItems().addAll("category1", "category2", "category3");
+        cb_categorySearch.getItems().addAll("category1", "category2", "category3");
+
+        /*
         VBox vBox = new VBox();
         HBox hBox = new HBox();
         hBox.paddingProperty().set(new Insets(25,25,25,25));
         hBox.spacingProperty().set(10);
-
-        cb_category.getItems().addAll("category1", "category2", "category3");
 
         for(int i = 0; i < 20; i++) {
             if(i%4 == 0 && i != 0) {
@@ -58,9 +66,10 @@ public class HomepageController implements Controller{
                 hBox.paddingProperty().set(new Insets(25,25,25,25));
                 hBox.spacingProperty().set(10);
             }
-            hBox.getChildren().add(new CardComponent("Hi", "Hello here"));
+            hBox.getChildren().add(new CardComponent("Title", "Description"));
         }
         scrollContainer.setContent(vBox);
+        */
     }
 
     public void button_itemSubmitClicked(){
@@ -96,6 +105,49 @@ public class HomepageController implements Controller{
         l_itemStatus.setText("");
         destory();
         Navigator.switchScene(SceneType.LOGIN);
+    }
+
+    public void button_itemSearchClicked(){
+        List<String> titleList = new ArrayList<>();
+        List<String> descList = new ArrayList<>();
+
+        String category = (String) cb_categorySearch.getValue();
+        List<Item> itemList = homepageService.search(category);
+
+        for (Item item : itemList) {
+            titleList.add(item.getTitle());
+            System.out.println(item.getTitle());
+            descList.add(item.getDescription());
+            System.out.println(item.getDescription());
+        }
+
+        reloadItems(titleList, descList);
+
+    }
+
+    public void reloadItems(List<String> titleList, List<String> descList) {
+        VBox vBox = new VBox();
+        HBox hBox = new HBox();
+        hBox.paddingProperty().set(new Insets(25,25,25,25));
+        hBox.spacingProperty().set(10);
+        int extra = 0;
+
+        for(int i = 0; i < titleList.size(); i++) {
+            if(i%4 == 0 && i != 0) {
+                vBox.getChildren().add(hBox);
+                hBox = new HBox();
+                hBox.paddingProperty().set(new Insets(25, 25, 25, 25));
+                hBox.spacingProperty().set(10);
+            }
+            else {
+                extra++;
+            }
+            hBox.getChildren().add(new CardComponent(titleList.get(i), descList.get(i)));
+            if ((i == (titleList.size() - 1)) && (extra%4 != 0)) {
+                vBox.getChildren().add(hBox);
+            }
+        }
+        scrollContainer.setContent(vBox);
     }
 
     @Override
