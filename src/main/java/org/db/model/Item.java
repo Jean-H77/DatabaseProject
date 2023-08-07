@@ -1,10 +1,10 @@
 package org.db.model;
 
 public class Item {
-    private String title;
-    private String description;
-    private String category;
-    private double price;
+    private final String title;
+    private final String description;
+    private final String category;
+    private final double price;
 
     public Item(String title, String description, String category, double price) {
         this.title = title;

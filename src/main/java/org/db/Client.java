@@ -12,7 +12,7 @@ import org.db.model.SceneType;
 import org.db.model.User;
 import org.db.service.Service;
 import org.db.service.ServiceType;
-import org.db.service.impl.HomepageService;
+import org.db.service.impl.ListingService;
 import org.db.service.impl.LoginService;
 import org.db.service.impl.RegistrationService;
 
@@ -59,7 +59,7 @@ public class Client extends Application {
     private static void setupServices(Database database) {
         SERVICES.put(ServiceType.LOGIN, new LoginService(database));
         SERVICES.put(ServiceType.REGISTRATION, new RegistrationService(database));
-        SERVICES.put(ServiceType.HOMEPAGE, new HomepageService(database));
+        SERVICES.put(ServiceType.HOMEPAGE, new ListingService(database));
     }
 
     public void setMyUser(User myUser) {

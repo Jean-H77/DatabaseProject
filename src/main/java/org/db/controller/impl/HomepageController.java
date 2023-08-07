@@ -8,12 +8,12 @@ import javafx.scene.layout.VBox;
 import org.db.Client;
 import org.db.controller.Controller;
 import org.db.controller.Navigator;
-import org.db.model.HomepageDetails;
+import org.db.database.Database;
 import org.db.model.Item;
 import org.db.model.SceneType;
 import org.db.model.User;
 import org.db.service.ServiceType;
-import org.db.service.impl.HomepageService;
+import org.db.service.impl.ListingService;
 
 import java.net.URL;
 import java.sql.Date;
@@ -43,64 +43,43 @@ public class HomepageController implements Controller{
     @FXML
     ComboBox cb_categorySearch;
 
-    private String loggedInUsername = null;
 
-    public final HomepageService homepageService = (HomepageService) getService(ServiceType.HOMEPAGE);
+    public final ListingService listingService = (ListingService) getService(ServiceType.HOMEPAGE);
 
-    // JOHN USE GROUP LAYOUT FOR THIS
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cb_category.getItems().addAll("category1", "category2", "category3");
         cb_categorySearch.getItems().addAll("category1", "category2", "category3");
-
-        /*
-        VBox vBox = new VBox();
-        HBox hBox = new HBox();
-        hBox.paddingProperty().set(new Insets(25,25,25,25));
-        hBox.spacingProperty().set(10);
-
-        for(int i = 0; i < 20; i++) {
-            if(i%4 == 0 && i != 0) {
-                vBox.getChildren().add(hBox);
-                hBox = new HBox();
-                hBox.paddingProperty().set(new Insets(25,25,25,25));
-                hBox.spacingProperty().set(10);
-            }
-            hBox.getChildren().add(new CardComponent("Title", "Description"));
-        }
-        scrollContainer.setContent(vBox);
-        */
     }
 
     public void button_itemSubmitClicked(){
         User loggedInUser = Client.getMyUser();
-        if (loggedInUser != null) {
-            loggedInUsername = loggedInUser.getUsername();
-            l_welcomeUser.setText(loggedInUsername);
-        }
+        if (loggedInUser != null)
+            l_welcomeUser.setText(loggedInUser.getUsername());
+
+        if(tf_tittle.getText().isEmpty() || ta_description.getText().isEmpty() || cb_category.getValue() == null || tf_price.getText().isEmpty())
+            return;
 
         String tittle = tf_tittle.getText();
         String description = ta_description.getText();
         String category = (String) cb_category.getValue();
         double price = Double.parseDouble(tf_price.getText());
-        String username = loggedInUsername;
-        Date numOfPost = Date.valueOf(LocalDate.now());
 
-        HomepageDetails homepageDetails = new HomepageDetails(tittle,description,category,price,username,numOfPost);
-        String response = homepageService.validate(homepageDetails);
+        Item item = new Item(tittle,description,category,price);
+
+        String response = listingService.getResponse(Database.TABLE.ITEMS);
+
+        l_itemStatus.setText(response);
 
         if(response.equals("Success")){
-            l_itemStatus.setText("New Item Added");
-            destory();
-            return;
+            listingService.addItem(item);
         }
-        l_itemStatus.setText("Daily Limit reached");
+
         destory();
-        return;
     }
 
     public void button_logoutClicked(){
-        loggedInUsername = null;
+        Client.getInstance().setMyUser(null);
         l_welcomeUser.setText("");
         l_itemStatus.setText("");
         destory();
@@ -112,7 +91,7 @@ public class HomepageController implements Controller{
         List<String> descList = new ArrayList<>();
 
         String category = (String) cb_categorySearch.getValue();
-        List<Item> itemList = homepageService.search(category);
+        List<Item> itemList = listingService.search(category);
 
         for (Item item : itemList) {
             titleList.add(item.getTitle());

@@ -1,5 +1,6 @@
 package org.db.database.impl;
 
+import org.db.Client;
 import org.db.database.Database;
 import org.db.model.*;
 
@@ -7,6 +8,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -69,40 +71,40 @@ public class MySQLDatabase extends Database {
         return false;
     }
 
-    public void addItem(HomepageDetails homepageDetails) {
-        String query = "INSERT INTO items(TITLE, DESCRIPTION, CATEGORY, PRICE, USERNAME, TIMES_POSTED) VALUES(?,?,?,?,?,?)";
+    public void addItem(Item item) {
+        String query = "INSERT INTO items(TITLE, DESCRIPTION, CATEGORY, PRICE, USERNAME) VALUES(?,?,?,?,?)";
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
-            preparedStatement.setString(1, homepageDetails.getTitle());
-            preparedStatement.setString(2, homepageDetails.getDescription());
-            preparedStatement.setString(3, homepageDetails.getCategory());
-            preparedStatement.setDouble(4, homepageDetails.getPrice());
-            preparedStatement.setString(5, homepageDetails.getUsername());
-            preparedStatement.setDate(6,homepageDetails.getDate());
+            preparedStatement.setString(1, item.getTitle());
+            preparedStatement.setString(2, item.getDescription());
+            preparedStatement.setString(3, item.getCategory());
+            preparedStatement.setDouble(4, item.getPrice());
+            preparedStatement.setString(5, Client.getMyUser().getUsername());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public int getPostCountForUserOnDate(String username, Date date) {
-        String query = "SELECT COUNT(*) AS postCount FROM items WHERE USERNAME = ? AND TIMES_POSTED = ?";
+    public List<LocalDate> getLastThreePostings(TABLE table) {
+        String query = "SELECT POSTED_TIMESTAMP FROM " + table.getCleanName() + " WHERE USERNAME = ? ORDER BY POSTED_TIMESTAMP DESC LIMIT 3";
+        List<LocalDate> dates = new ArrayList<>();
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
-            preparedStatement.setString(1, username);
-            preparedStatement.setDate(2, date);
+            preparedStatement.setString(1, Client.getMyUser().getUsername());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    return resultSet.getInt("postCount");
+                while (resultSet.next()) {
+                    System.out.println("Got timestamp");
+                    dates.add(resultSet.getTimestamp("POSTED_TIMESTAMP").toLocalDateTime().toLocalDate());
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return 0;
+        return dates;
     }
 
     public List<Item> searchItems(String categorySearch) {
         List<Item> itemList = new ArrayList<Item>();
-        String query = "SELECT * FROM items";
+        /*String query = "SELECT * FROM items";
         try (PreparedStatement stmt = getConnection().prepareStatement(query)) {
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
@@ -112,7 +114,7 @@ public class MySQLDatabase extends Database {
                     String category = resultSet.getString("CATEGORY");
                     double price = resultSet.getDouble("PRICE");
 
-                    Item item = new Item(title, description, category, price);
+                    Item item = new Item(title, description, category, price, poster);
 
                     itemList.add(item);
                 }
@@ -120,7 +122,7 @@ public class MySQLDatabase extends Database {
         }
         catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
 
         return itemList;
 
