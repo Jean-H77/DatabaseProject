@@ -30,3 +30,11 @@ CREATE TABLE IF NOT EXISTS items (
 									 KEY category_id (category_id),
 									 CONSTRAINT items_fk FOREIGN KEY (category_id) REFERENCES categories (category_id)
 );
+
+CREATE TABLE IF NOT EXISTS item_categories (
+                                     ITEM_ID INT NOT NULL,
+                                     CATEGORY_ID INT NOT NULL,
+                                     PRIMARY KEY (ITEM_ID, CATEGORY_ID),
+                                     FOREIGN KEY (ITEM_ID) REFERENCES items (ID),
+                                     FOREIGN KEY (CATEGORY_ID) REFERENCES categories (CATEGORY_ID)
+);
