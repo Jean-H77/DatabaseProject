@@ -155,6 +155,8 @@ public class MySQLDatabase extends Database {
         String description = "N/A";
         double price = 0.0;
         List<String> categories = new ArrayList<String>();
+        List<String> type = new ArrayList<String>();
+        List<String> maker = new ArrayList<String>();
 
         String query = "SELECT TITLE, DESCRIPTION, PRICE FROM items WHERE ITEM_ID = ?";
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
@@ -169,7 +171,7 @@ public class MySQLDatabase extends Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return new Item(title, description, categories, price);
+        return new Item(title, description, price, categories, type, maker);
     }
 
     public List<Item> searchItems(String categorySearch) {
