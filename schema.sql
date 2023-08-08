@@ -31,7 +31,6 @@ CREATE TABLE IF NOT EXISTS items (
 CREATE TABLE IF NOT EXISTS item_categories (
                                      ITEM_ID INT NOT NULL,
                                      CATEGORY_ID INT NOT NULL,
-                                     PRIMARY KEY (ITEM_ID, CATEGORY_ID),
                                      FOREIGN KEY (ITEM_ID) REFERENCES items (ITEM_ID),
                                      FOREIGN KEY (CATEGORY_ID) REFERENCES categories (CATEGORY_ID)
 );
