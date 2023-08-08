@@ -4,10 +4,7 @@ import org.db.Client;
 import org.db.database.Database;
 import org.db.model.*;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +16,7 @@ public class MySQLDatabase extends Database {
     @Override
     public void createUser(RegistrationDetails registrationDetails) {
         String query = "INSERT INTO users(USERNAME, PASSWORD, FIRST_NAME, LAST_NAME, EMAIL) VALUES(?,?,?,?,?)";
-        try(PreparedStatement preparedStatement =  getConnection().prepareStatement(query)) {
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
             preparedStatement.setString(1, registrationDetails.getUsername());
             preparedStatement.setString(2, registrationDetails.getPassword());
             preparedStatement.setString(3, registrationDetails.getFirstName());
@@ -71,15 +68,50 @@ public class MySQLDatabase extends Database {
         return false;
     }
 
+    // original
+//    public void addItem(Item item) {
+//        String query = "INSERT INTO items(TITLE, DESCRIPTION, CATEGORY, PRICE, USERNAME) VALUES(?,?,?,?,?)";
+//        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
+//            preparedStatement.setString(1, item.getTitle());
+//            preparedStatement.setString(2, item.getDescription());
+//            preparedStatement.setString(3, item.getCategory());
+//            preparedStatement.setDouble(4, item.getPrice());
+//            preparedStatement.setString(5, Client.getMyUser().getUsername());
+//            preparedStatement.executeUpdate();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
     public void addItem(Item item) {
-        String query = "INSERT INTO items(TITLE, DESCRIPTION, CATEGORY, PRICE, USERNAME) VALUES(?,?,?,?,?)";
-        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
-            preparedStatement.setString(1, item.getTitle());
-            preparedStatement.setString(2, item.getDescription());
-            preparedStatement.setString(3, item.getCategory());
-            preparedStatement.setDouble(4, item.getPrice());
-            preparedStatement.setString(5, Client.getMyUser().getUsername());
-            preparedStatement.executeUpdate();
+        String insertItemQuery = "INSERT INTO items(TITLE, DESCRIPTION, PRICE, USERNAME) VALUES(?,?,?,?)";
+        String insertCategoryQuery = "INSERT INTO item_categories(ITEM_ID, CATEGORY_ID) VALUES(?, ?)";
+
+        try (PreparedStatement insertItem = getConnection().prepareStatement(insertItemQuery, Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement insertCategory = getConnection().prepareStatement(insertCategoryQuery)) {
+
+            insertItem.setString(1, item.getTitle());
+            insertItem.setString(2, item.getDescription());
+            insertItem.setDouble(3, item.getPrice());
+            insertItem.setString(4, Client.getMyUser().getUsername());
+
+            int affectedRows = insertItem.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating item failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = insertItem.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int itemId = generatedKeys.getInt(1);
+
+                    for (String category : item.getCategories()) {
+                        insertCategory.setInt(1, itemId);
+                        // insert category here
+                        insertCategory.executeUpdate();
+                    }
+                } else {
+                    throw new SQLException("Creating item failed, no ID obtained.");
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -16,8 +16,6 @@ import org.db.service.ServiceType;
 import org.db.service.impl.ListingService;
 
 import java.net.URL;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -43,6 +41,13 @@ public class HomepageController implements Controller{
     @FXML
     ComboBox cb_categorySearch;
 
+    @FXML
+    CheckBox cb_Apparel;
+    @FXML
+    CheckBox cb_Appliances;
+    @FXML
+    CheckBox cb_Electronics;
+
 
     public final ListingService listingService = (ListingService) getService(ServiceType.HOMEPAGE);
 
@@ -57,17 +62,29 @@ public class HomepageController implements Controller{
         if (loggedInUser != null)
             l_welcomeUser.setText(loggedInUser.getUsername());
 
-        if(tf_tittle.getText().isEmpty() || ta_description.getText().isEmpty() || cb_category.getValue() == null || tf_price.getText().isEmpty())
+        if(tf_tittle.getText().isEmpty() || ta_description.getText().isEmpty() || tf_price.getText().isEmpty())
             return;
 
         String tittle = tf_tittle.getText();
         String description = ta_description.getText();
-        String category = (String) cb_category.getValue();
+        //String category = (String) cb_category.getValue(); // need to be changed
         double price = Double.parseDouble(tf_price.getText());
 
-        Item item = new Item(tittle,description,category,price);
+        List<String> selectedCategories = new ArrayList<>();
+        if (cb_Apparel.isSelected()) {
+            selectedCategories.add("apparel");
+        }
+        if (cb_Appliances.isSelected()) {
+            selectedCategories.add("appliances");
+        }
+        if (cb_Electronics.isSelected()) {
+            selectedCategories.add("electronics");
+        }
+
+        Item item = new Item(tittle,description,selectedCategories,price);
 
         String response = listingService.getResponse(Database.TABLE.ITEMS);
+
 
         l_itemStatus.setText(response);
 
@@ -99,9 +116,7 @@ public class HomepageController implements Controller{
             descList.add(item.getDescription());
             System.out.println(item.getDescription());
         }
-
         reloadItems(titleList, descList);
-
     }
 
     public void reloadItems(List<String> titleList, List<String> descList) {
