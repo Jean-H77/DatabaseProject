@@ -1,96 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.CheckListView?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.db.controller.impl.HomepageController">
    <children>
       <Label alignment="CENTER" layoutX="-1.0" layoutY="5.0" prefHeight="18.0" prefWidth="1080.0" text="Homepage" />
-      <Accordion layoutX="1.0" layoutY="23.0" prefHeight="697.0" prefWidth="202.0">
-        <panes>
-          <TitledPane animated="false" text="Add Item">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+      <ListView fx:id="itemListView" layoutX="331.0" layoutY="58.0" prefHeight="658.0" prefWidth="243.0" />
+      <Text layoutX="331.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search:" />
+      <ComboBox fx:id="searchComboBox" layoutX="390.0" layoutY="29.0" prefHeight="26.0" prefWidth="184.0" />
+      <TitledPane animated="false" layoutX="3.0" layoutY="35.0" prefHeight="681.0" prefWidth="313.0" text="Add Item">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <VBox layoutX="1.0" layoutY="1.0" prefHeight="658.0" prefWidth="307.0" spacing="15.0">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="644.0" prefWidth="202.0" spacing="15.0">
+                        <HBox prefHeight="37.0" prefWidth="313.0">
                            <children>
-                              <Label fx:id="l_welcomeUser" alignment="CENTER" prefHeight="17.0" prefWidth="75.0" text="Welcome!" textFill="#2f00ff" underline="true">
-                                 <font>
-                                    <Font name="Arial Rounded MT Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
-                                 <font>
-                                    <Font name="Arial Rounded MT Bold" size="13.0" />
-                                 </font></Text>
-                              <TextField fx:id="tf_tittle" />
-                              <Text layoutX="93.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description">
-                                 <font>
-                                    <Font name="Arial Rounded MT Bold" size="13.0" />
-                                 </font>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter item name:">
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin>
                               </Text>
-                              <TextArea fx:id="ta_description" prefHeight="200.0" prefWidth="200.0" />
-                              <Text layoutX="75.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Category" wrappingWidth="62.2900390625">
-                                 <font>
-                                    <Font name="Arial Rounded MT Bold" size="13.0" />
-                                 </font>
-                              </Text>
-                              <CheckBox fx:id="cb_Apparel" mnemonicParsing="false" prefHeight="18.0" prefWidth="87.0" text="Apparel" />
-                              <CheckBox fx:id="cb_Appliances" mnemonicParsing="false" prefHeight="18.0" prefWidth="89.0" text="Appliances" />
-                              <CheckBox fx:id="cb_Electronics" mnemonicParsing="false" prefHeight="18.0" prefWidth="90.0" text="Electronics" />
-                              <Text layoutX="75.0" layoutY="400.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" wrappingWidth="34.2900390625">
-                                 <font>
-                                    <Font name="Arial Rounded MT Bold" size="13.0" />
-                                 </font>
-                              </Text>
-                              <TextField fx:id="tf_price" layoutX="20.0" layoutY="72.0" />
-                              <Button layoutX="62.0" layoutY="603.0" mnemonicParsing="false" onAction="#button_itemSubmitClicked" prefHeight="0.0" prefWidth="98.0" style="-fx-background-color: #2196F3;" text="Subimt" textFill="WHITE">
-                                 <font>
-                                    <Font name="Arial Rounded MT Bold" size="13.0" />
-                                 </font>
-                              </Button>
-                              <Label fx:id="l_itemStatus" alignment="CENTER" layoutX="74.0" layoutY="70.0" textFill="RED">
-                                 <font>
-                                    <Font name="Arial Rounded MT Bold" size="15.0" />
-                                 </font>
-                              </Label>
-                              <Button mnemonicParsing="false" onAction="#button_logoutClicked" prefHeight="0.0" prefWidth="98.0" style="-fx-background-color: #b23b3b;" text="Logout" textFill="WHITE">
-                                 <font>
-                                    <Font name="Arial Rounded MT Bold" size="13.0" />
-                                 </font>
-                              </Button>
+                              <TextField fx:id="itemName" prefHeight="26.0" prefWidth="192.0">
+                                 <HBox.margin>
+                                    <Insets left="5.0" top="5.0" />
+                                 </HBox.margin>
+                              </TextField>
                            </children>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
-                        </VBox>
+                        </HBox>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" />
+                        <TextArea fx:id="description" prefHeight="72.0" prefWidth="307.0" wrapText="true" />
+                        <HBox prefHeight="37.0" prefWidth="307.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Select Category:">
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <ComboBox fx:id="categoryTypes" prefHeight="26.0" prefWidth="198.0">
+                                 <HBox.margin>
+                                    <Insets left="5.0" top="5.0" />
+                                 </HBox.margin>
+                              </ComboBox>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="371.0" prefWidth="307.0" spacing="3.0">
+                           <children>
+                              <VBox prefHeight="270.0" prefWidth="150.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Type:" />
+                                    <CheckListView fx:id="typeCheckListView" prefWidth="142.0" />
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="270.0" prefWidth="150.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Maker:" />
+                                    <CheckListView fx:id="makerCheckListView" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onSubmitClick" text="Submit">
+                           <VBox.margin>
+                              <Insets left="120.0" />
+                           </VBox.margin>
+                        </Button>
                      </children>
-                  </AnchorPane>
-            </content>
-          </TitledPane>
-          <TitledPane animated="false" prefWidth="202.0" text="Search Item">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <ComboBox fx:id="cb_categorySearch" layoutX="25.0" layoutY="24.0" prefWidth="150.0" />
-                        <Button layoutX="73.0" layoutY="103.0" mnemonicParsing="false" onAction="#button_itemSearchClicked" text="Search" />
-                     </children></AnchorPane>
-            </content>
-          </TitledPane>
-        </panes>
-      </Accordion>
-      <ScrollPane fx:id="scrollContainer" fitToWidth="true" layoutX="203.0" layoutY="23.0" prefHeight="697.0" prefWidth="860.0" />
+                     <padding>
+                        <Insets left="3.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
+      <TitledPane animated="false" layoutX="586.0" layoutY="29.0" prefHeight="687.0" prefWidth="491.0" text="Review Item">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        </content>
+      </TitledPane>
    </children>
 </AnchorPane>

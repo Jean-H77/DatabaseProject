@@ -8,13 +8,6 @@ public class Item {
     private final List<String> categories;
     private final double price;
 
-//    public Item(String title, String description, String category, double price) {
-//        this.title = title;
-//        this.description = description;
-//        this.category = category;
-//        this.price = price;
-//    }
-
     public Item(String title, String description, List<String> categories, double price) {
         this.title = title;
         this.description = description;

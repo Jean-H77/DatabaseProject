@@ -14,6 +14,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     implementation("com.zaxxer:HikariCP:4.0.3")
     implementation("mysql:mysql-connector-java:8.0.28")
+    implementation("org.controlsfx:controlsfx:8.40.14")
 }
 
 tasks.test {

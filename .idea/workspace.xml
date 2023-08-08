@@ -6,16 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="beb4391e-f41e-46b5-90bf-d712a0721b17" name="Changes" comment="Project setup">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/75ded5dc-ec8d-49b2-9f78-6843ea8765d5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/75ded5dc-ec8d-49b2-9f78-6843ea8765d5.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/item_schema.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/schema.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/HomepageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/HomepageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/database/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/database/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/database/impl/MySQLDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/database/impl/MySQLDatabase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/model/HomepageDetails.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/db/model/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/model/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/service/impl/HomepageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/service/impl/ListingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/db/homepage-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/db/homepage-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,8 +27,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Enum" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -45,32 +41,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/John/Dropbox/My PC (DESKTOP-23JBHS7)/Documents/GitHub/databaseProject/build/resources/main/org/db",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Problems",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/John/Dropbox/My PC (DESKTOP-23JBHS7)/Documents/GitHub/databaseProject/build/resources/main/org/db&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ],
-    "RunConfigurationTargetLRU": [
-      "75ded5dc-ec8d-49b2-9f78-6843ea8765d5"
+    &quot;RunConfigurationTargetLRU&quot;: [
+      &quot;75ded5dc-ec8d-49b2-9f78-6843ea8765d5&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\John\Dropbox\My PC (DESKTOP-23JBHS7)\Documents\GitHub\databaseProject\build\resources\main\org\db" />
@@ -134,7 +130,11 @@
       <workItem from="1690431686723" duration="2348000" />
       <workItem from="1690506078525" duration="1375000" />
       <workItem from="1691287380915" duration="352000" />
-      <workItem from="1691364433544" duration="3168000" />
+      <workItem from="1691364433544" duration="4061000" />
+      <workItem from="1691380282523" duration="739000" />
+      <workItem from="1691389447125" duration="118000" />
+      <workItem from="1691462304501" duration="1204000" />
+      <workItem from="1691463832415" duration="10353000" />
     </task>
     <task id="LOCAL-00001" summary="Project setup">
       <created>1689961706132</created>
