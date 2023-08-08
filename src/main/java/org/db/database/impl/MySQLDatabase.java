@@ -105,7 +105,7 @@ public class MySQLDatabase extends Database {
 
                     for (String category : item.getCategories()) {
                         insertCategory.setInt(1, itemId);
-                        // insert category here
+                        insertCategory.setInt(2, getCategoryID(category));
                         insertCategory.executeUpdate();
                     }
                 } else {
@@ -115,6 +115,21 @@ public class MySQLDatabase extends Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getCategoryID(String categoryName) {
+        String query = "SELECT CATEGORY_ID FROM categories WHERE CATEGORY_NAME = ?";
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
+            preparedStatement.setString(1, categoryName);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("CATEGORY_ID");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1; // Return a default value if category ID is not found
     }
 
     public List<LocalDate> getLastThreePostings(TABLE table) {
