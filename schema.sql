@@ -52,3 +52,13 @@ CREATE TABLE IF NOT EXISTS item_categories (
     FOREIGN KEY (ITEM_ID) REFERENCES items (ITEM_ID),
     FOREIGN KEY (TYPE_ID) REFERENCES types (TYPE_ID)
 );
+
+-- review table
+CREATE TABLE IF NOT EXISTS reviews (
+                                       ID INT NOT NULL AUTO_INCREMENT,
+                                       ITEM_ID INT NOT NULL,
+                                       USERNAME varchar(50) NOT NULL,
+                                       PRIMARY KEY (ID),
+                                       FOREIGN KEY (ITEM_ID) REFERENCES items(ITEM_ID),
+                                       FOREIGN KEY (USERNAME) REFERENCES users(USERNAME)
+);
