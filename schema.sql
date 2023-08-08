@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS categories (
                                      PRIMARY KEY (CATEGORY_ID)
 );
 
-INSERT INTO categories (CATEGORY_NAME) VALUES ('apparel'), ('appliances'), ('electronics');
+INSERT INTO categories (CATEGORY_NAME) VALUES ('Apparel'), ('Appliances'), ('Electronics'), ('Footwear'), ('Jewelry');
 
 CREATE TABLE IF NOT EXISTS items (
 									 ITEM_ID INT NOT NULL AUTO_INCREMENT,
