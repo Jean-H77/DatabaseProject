@@ -19,22 +19,19 @@ CREATE TABLE IF NOT EXISTS categories (
 INSERT INTO categories (CATEGORY_NAME) VALUES ('apparel'), ('appliances'), ('electronics');
 
 CREATE TABLE IF NOT EXISTS items (
-									 ID INT NOT NULL AUTO_INCREMENT,
+									 ITEM_ID INT NOT NULL AUTO_INCREMENT,
 									 TITLE varchar(100) NOT NULL,
 									 DESCRIPTION TEXT NOT NULL,
-									 CATEGORY_ID INT DEFAULT NULL,
 									 PRICE DOUBLE NOT NULL,
 									 USERNAME varchar(50) NOT NULL,
 									 POSTED_TIMESTAMP timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-									 PRIMARY KEY (ID),
-									 KEY category_id (category_id),
-									 CONSTRAINT items_fk FOREIGN KEY (category_id) REFERENCES categories (category_id)
+									 PRIMARY KEY (ITEM_ID)
 );
 
 CREATE TABLE IF NOT EXISTS item_categories (
                                      ITEM_ID INT NOT NULL,
                                      CATEGORY_ID INT NOT NULL,
                                      PRIMARY KEY (ITEM_ID, CATEGORY_ID),
-                                     FOREIGN KEY (ITEM_ID) REFERENCES items (ID),
+                                     FOREIGN KEY (ITEM_ID) REFERENCES items (ITEM_ID),
                                      FOREIGN KEY (CATEGORY_ID) REFERENCES categories (CATEGORY_ID)
 );
