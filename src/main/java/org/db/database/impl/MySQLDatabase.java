@@ -149,30 +149,45 @@ public class MySQLDatabase extends Database {
         return dates;
     }
 
+    public Item getItemFromID(int itemID) {
+        // Will return 'blank' item if an error occurs
+        String title = "Item Not Found";
+        String description = "N/A";
+        double price = 0.0;
+        List<String> categories = new ArrayList<String>();
+
+        String query = "SELECT TITLE, DESCRIPTION, PRICE FROM items WHERE ITEM_ID = ?";
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
+            preparedStatement.setInt(1, itemID);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    title = resultSet.getString("TITLE");
+                    description = resultSet.getString("DESCRIPTION");
+                    price = resultSet.getDouble("PRICE");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return new Item(title, description, categories, price);
+    }
+
     public List<Item> searchItems(String categorySearch) {
         List<Item> itemList = new ArrayList<Item>();
-        /*String query = "SELECT * FROM items";
+        int catID = getCategoryID(categorySearch);
+        String query = "SELECT ITEM_ID FROM item_categories WHERE CATEGORY_ID = ?";
         try (PreparedStatement stmt = getConnection().prepareStatement(query)) {
-            ResultSet resultSet = stmt.executeQuery();
-            while (resultSet.next()) {
-                if (resultSet.getString("CATEGORY").equals(categorySearch)) {
-                    String title = resultSet.getString("TITLE");
-                    String description = resultSet.getString("DESCRIPTION");
-                    String category = resultSet.getString("CATEGORY");
-                    double price = resultSet.getDouble("PRICE");
-
-                    Item item = new Item(title, description, category, price, poster);
-
-                    itemList.add(item);
+            stmt.setInt(1, catID);
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                while (resultSet.next()) {
+                    itemList.add(getItemFromID(resultSet.getInt("ITEM_ID")));
                 }
             }
         }
         catch (SQLException e) {
             e.printStackTrace();
-        }*/
-
+        }
         return itemList;
-
     }
 
 }
