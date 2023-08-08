@@ -5,12 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beb4391e-f41e-46b5-90bf-d712a0721b17" name="Changes" comment="Project setup">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/db/model/CategoryType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/75ded5dc-ec8d-49b2-9f78-6843ea8765d5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/75ded5dc-ec8d-49b2-9f78-6843ea8765d5.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/schema.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/HomepageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/HomepageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/database/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/database/Database.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/database/impl/MySQLDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/database/impl/MySQLDatabase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/db/model/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/model/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/service/impl/ListingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/service/impl/ListingService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/db/homepage-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/db/homepage-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

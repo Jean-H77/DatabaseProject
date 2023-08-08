@@ -6,9 +6,7 @@ import org.db.model.*;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class MySQLDatabase extends Database {
 
@@ -68,24 +66,9 @@ public class MySQLDatabase extends Database {
         return false;
     }
 
-    // original
-//    public void addItem(Item item) {
-//        String query = "INSERT INTO items(TITLE, DESCRIPTION, CATEGORY, PRICE, USERNAME) VALUES(?,?,?,?,?)";
-//        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
-//            preparedStatement.setString(1, item.getTitle());
-//            preparedStatement.setString(2, item.getDescription());
-//            preparedStatement.setString(3, item.getCategory());
-//            preparedStatement.setDouble(4, item.getPrice());
-//            preparedStatement.setString(5, Client.getMyUser().getUsername());
-//            preparedStatement.executeUpdate();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
     public void addItem(Item item) {
         String insertItemQuery = "INSERT INTO items(TITLE, DESCRIPTION, PRICE, USERNAME) VALUES(?,?,?,?)";
-        String insertCategoryQuery = "INSERT INTO item_categories(ITEM_ID, CATEGORY_ID) VALUES(?, ?)";
-
+        String insertCategoryQuery = "INSERT INTO item_categories(ITEM_ID, TYPE_ID, CAT_MAKER_ID, CAT_TYPE_ID) VALUES(?, ?, ?, ?)";
         try (PreparedStatement insertItem = getConnection().prepareStatement(insertItemQuery, Statement.RETURN_GENERATED_KEYS);
              PreparedStatement insertCategory = getConnection().prepareStatement(insertCategoryQuery)) {
 
@@ -102,12 +85,14 @@ public class MySQLDatabase extends Database {
             try (ResultSet generatedKeys = insertItem.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     int itemId = generatedKeys.getInt(1);
+                    String category = item.getCategory();
+                    insertCategory.setInt(1, itemId);
+                    insertCategory.setInt(2, getCategoryID(category, CategoryType.BASE));
+                    insertCategory.setInt(3, getCategoryID(item.getMaker(), CategoryType.MAKER));
+                    insertCategory.setInt(4, getCategoryID(item.getType(), CategoryType.TYPE));
 
-                    for (String category : item.getCategories()) {
-                        insertCategory.setInt(1, itemId);
-                        insertCategory.setInt(2, getCategoryID(category));
-                        insertCategory.executeUpdate();
-                    }
+                    insertCategory.executeUpdate();
+
                 } else {
                     throw new SQLException("Creating item failed, no ID obtained.");
                 }
@@ -117,13 +102,14 @@ public class MySQLDatabase extends Database {
         }
     }
 
-    public int getCategoryID(String categoryName) {
-        String query = "SELECT CATEGORY_ID FROM categories WHERE CATEGORY_NAME = ?";
+    @Override
+    public int getCategoryID(String categoryName, CategoryType type) {
+        String query = type.getQuery();
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
             preparedStatement.setString(1, categoryName);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    return resultSet.getInt("CATEGORY_ID");
+                    return resultSet.getInt(type.getPrimaryKeyName());
                 }
             }
         } catch (SQLException e) {
@@ -132,7 +118,7 @@ public class MySQLDatabase extends Database {
         return -1; // Return a default value if category ID is not found
     }
 
-    public List<LocalDate> getLastThreePostings(TABLE table) {
+    public List<LocalDate> getLastThreePostings(Table table) {
         String query = "SELECT POSTED_TIMESTAMP FROM " + table.getCleanName() + " WHERE USERNAME = ? ORDER BY POSTED_TIMESTAMP DESC LIMIT 3";
         List<LocalDate> dates = new ArrayList<>();
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
@@ -154,9 +140,9 @@ public class MySQLDatabase extends Database {
         String title = "Item Not Found";
         String description = "N/A";
         double price = 0.0;
-        List<String> categories = new ArrayList<String>();
-        List<String> type = new ArrayList<String>();
-        List<String> maker = new ArrayList<String>();
+        String category = "";
+        String type = "";
+        String maker = "";
 
         String query = "SELECT TITLE, DESCRIPTION, PRICE FROM items WHERE ITEM_ID = ?";
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
@@ -171,12 +157,12 @@ public class MySQLDatabase extends Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return new Item(title, description, price, categories, type, maker);
+        return new Item(title, description, price, category, type, maker);
     }
 
     public List<Item> searchItems(String categorySearch) {
         List<Item> itemList = new ArrayList<Item>();
-        int catID = getCategoryID(categorySearch);
+        int catID = getCategoryID(categorySearch, CategoryType.BASE);
         String query = "SELECT ITEM_ID FROM item_categories WHERE CATEGORY_ID = ?";
         try (PreparedStatement stmt = getConnection().prepareStatement(query)) {
             stmt.setInt(1, catID);
@@ -190,6 +176,34 @@ public class MySQLDatabase extends Database {
             e.printStackTrace();
         }
         return itemList;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, Set<String>>> loadCategories() {
+        HashMap<String, HashMap<String, Set<String>>> categories = new HashMap<>();
+        String query = "SELECT c.CATEGORY_NAME, m.MAKER_NAME, t.TYPE_NAME " +
+                "FROM categories c " +
+                "INNER JOIN categoryMakers m ON c.CATEGORY_ID = m.CATEGORY_ID " +
+                "INNER JOIN categoryTypes t ON c.CATEGORY_ID = t.CATEGORY_ID";
+        try(PreparedStatement statement = getConnection().prepareStatement(query)) {
+            try(ResultSet resultSet = statement.executeQuery()) {
+              while(resultSet.next()) {
+                  String categoryName = resultSet.getString("CATEGORY_NAME");
+                  String categoryMaker = resultSet.getString("MAKER_NAME");
+                  String categoryType = resultSet.getString("TYPE_NAME");
+
+                  HashMap<String, Set<String>> map = categories.computeIfAbsent(categoryName, x -> new HashMap<>());
+                  Set<String> typeList = map.computeIfAbsent("type", x -> new HashSet<>());
+                  typeList.add(categoryType);
+
+                  Set<String> makerList = map.computeIfAbsent("maker", x -> new HashSet<>());
+                  makerList.add(categoryMaker);
+              }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return categories;
     }
 
 }

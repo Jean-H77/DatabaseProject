@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
-<?import org.controlsfx.control.CheckListView?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.db.controller.impl.HomepageController">
    <children>
@@ -42,20 +41,6 @@
                         </HBox>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" />
                         <TextArea fx:id="description" prefHeight="72.0" prefWidth="307.0" wrapText="true" />
-                        <HBox prefHeight="37.0" prefWidth="307.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Select Category:">
-                                 <HBox.margin>
-                                    <Insets top="10.0" />
-                                 </HBox.margin>
-                              </Text>
-                              <ComboBox fx:id="categoryTypes" prefHeight="26.0" prefWidth="198.0">
-                                 <HBox.margin>
-                                    <Insets left="5.0" top="5.0" />
-                                 </HBox.margin>
-                              </ComboBox>
-                           </children>
-                        </HBox>
                         <HBox prefHeight="37.0" prefWidth="313.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter price:">
@@ -70,18 +55,30 @@
                               </TextField>
                            </children>
                         </HBox>
+                        <HBox prefHeight="37.0" prefWidth="307.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Select Category:">
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <ComboBox fx:id="categoryTypes" prefHeight="26.0" prefWidth="198.0">
+                                 <HBox.margin>
+                                    <Insets left="5.0" top="5.0" />
+                                 </HBox.margin>
+                              </ComboBox>
+                           </children>
+                        </HBox>
                         <HBox prefHeight="300.0" prefWidth="307.0" spacing="3.0">
                            <children>
-                              <VBox prefHeight="270.0" prefWidth="150.0">
+                              <VBox fx:id="typeVbox" prefHeight="270.0" prefWidth="150.0" style="-fx-border-color: gray;">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Type:" />
-                                    <CheckListView fx:id="typeCheckListView" prefWidth="142.0" />
                                  </children>
                               </VBox>
-                              <VBox prefHeight="270.0" prefWidth="150.0">
+                              <VBox fx:id="makerVbox" prefHeight="270.0" prefWidth="150.0" style="-fx-border-color: gray;">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Maker:" />
-                                    <CheckListView fx:id="makerCheckListView" prefWidth="142.0" />
                                  </children>
                               </VBox>
                            </children>

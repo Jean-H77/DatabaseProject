@@ -5,8 +5,10 @@ import org.db.model.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public abstract class Database {
 
@@ -22,17 +24,21 @@ public abstract class Database {
 
     public abstract void addItem(Item item);
 
-    public abstract List<LocalDate> getLastThreePostings(TABLE table);
+    public abstract List<LocalDate> getLastThreePostings(Table table);
 
     public abstract List<Item> searchItems(String category);
 
-    public enum TABLE {
+    public abstract HashMap<String, HashMap<String, Set<String>>> loadCategories();
+
+    public abstract int getCategoryID(String categoryName, CategoryType type);
+
+    public enum Table {
         ITEMS("items"),
         REVIEWS("reviews");
 
         private final String cleanName;
 
-        TABLE(String cleanName) {
+        Table(String cleanName) {
             this.cleanName = cleanName;
         }
 

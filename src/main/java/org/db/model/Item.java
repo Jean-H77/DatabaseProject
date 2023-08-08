@@ -1,20 +1,18 @@
 package org.db.model;
 
-import java.util.List;
-
 public class Item {
     private final String title;
     private final String description;
     private final double price;
-    private final List<String> categories;
-    private final List<String> type;
-    private final List<String> maker;
+    private final String category;
+    private final String type;
+    private final String maker;
 
 
-    public Item(String title, String description, double price, List<String> categories, List<String> type, List<String> maker) {
+    public Item(String title, String description, double price, String categories, String type, String maker) {
         this.title = title;
         this.description = description;
-        this.categories = categories;
+        this.category = categories;
         this.price = price;
         this.type = type;
         this.maker = maker;
@@ -33,15 +31,15 @@ public class Item {
         return price;
     }
 
-    public List<String> getCategories() {
-        return categories;
+    public String getCategory() {
+        return category;
     }
 
-    public List<String> getType() {
+    public String getType() {
         return type;
     }
 
-    public List<String> getMaker() {
+    public String getMaker() {
         return maker;
     }
 

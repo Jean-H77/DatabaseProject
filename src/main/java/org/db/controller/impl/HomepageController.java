@@ -1,9 +1,11 @@
 package org.db.controller.impl;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -19,10 +21,8 @@ import org.db.service.ServiceType;
 import org.db.service.impl.ListingService;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class HomepageController implements Controller{
 
@@ -31,6 +31,8 @@ public class HomepageController implements Controller{
     private final ObservableList<String> categoryList = FXCollections.observableArrayList();
 
     private final ObservableList<Item> itemList = FXCollections.observableArrayList();
+
+    private final HashMap<String, HashMap<String, Set<String>>> categories = new HashMap<>();
 
     @FXML
     private TextField itemName;
@@ -42,10 +44,10 @@ public class HomepageController implements Controller{
     private TextField price;
 
     @FXML
-    private CheckListView<String> typeCheckListView;
+    private VBox typeVbox;
 
     @FXML
-    private CheckListView<String> makerCheckListView;
+    private VBox makerVbox;
 
     @FXML
     private ComboBox<String> categoryTypes;
@@ -58,6 +60,9 @@ public class HomepageController implements Controller{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        categories.putAll(listingService.loadCategories());
+        typeVbox.getChildren().add(new Text("Type:"));
+        makerVbox.getChildren().add(new Text("Maker:"));
         itemListView.setCellFactory(param -> new ListCell<Item>() {
             @Override
             protected void updateItem(Item item, boolean empty) {
@@ -66,24 +71,38 @@ public class HomepageController implements Controller{
                 setGraphic(new Text(item.getTitle()));
             }
         });
-        String[] Categories = {"Apparel","Appliances","Electronics","Footwear","Jewelry"};
-        for(int i = 0; i < 5; i++) categoryList.add(Categories[i]);
-
+        categoryTypes.setOnAction(event -> handleCategoryChange(categoryTypes.getValue()));
+        categoryList.addAll(categories.keySet());
         categoryTypes.setItems(categoryList);
-        List<String> cats = new ArrayList<>();
-
-        cats.add("thing1");
-        cats.add("thing2");
-        cats.add("thing3");
-        cats.add("thing4");
-
-//        for(int i = 0; i < 25; i++) itemList.add(new Item("Item"+i, "This is Item"+i, cats, i));
-        for(int i = 0; i < 25; i++) itemList.add(new Item("Item Name"+i, "This is Item description"+i,-1,null,null,null ));
         itemListView.setItems(itemList);
     }
 
     private void selectItemToReview(Item item) {
 
+    }
+
+    private void handleCategoryChange(String category) {
+        resetRadioButtons(typeVbox);
+        resetRadioButtons(makerVbox);
+        HashMap<String, Set<String>> map = categories.get(category);
+        ToggleGroup typeGroup = new ToggleGroup();
+        ToggleGroup makerGroup = new ToggleGroup();
+        typeVbox.getChildren().add(new Text("Type:"));
+        makerVbox.getChildren().add(new Text("Maker:"));
+        for(Map.Entry<String, Set<String>> entry : map.entrySet()) {
+            String type = entry.getKey();
+            Set<String> list = entry.getValue();
+            for(String str : list) {
+                RadioButton radioButton = new RadioButton(str);
+                if(Objects.equals(type, "type")) {
+                    typeVbox.getChildren().add(radioButton);
+                    radioButton.setToggleGroup(typeGroup);
+                } else {
+                    makerVbox.getChildren().add(radioButton);
+                    radioButton.setToggleGroup(makerGroup);
+                }
+            }
+        }
     }
 
     @FXML
@@ -93,28 +112,39 @@ public class HomepageController implements Controller{
         String descriptionValue = description.getText();
         double priceinput = Double.parseDouble(price.getText());
         String selectedCategory = categoryTypes.getValue();
-        List<String> selectedTypes = typeCheckListView.getCheckModel().getCheckedItems();
-        List<String> selectedMakers = makerCheckListView.getCheckModel().getCheckedItems();
+        String type = getSelected(typeVbox);
+        String maker = getSelected(makerVbox);
 
-        // Create the item object
-        Item newItem = new Item(itemNameValue, descriptionValue, priceinput, Collections.singletonList(selectedCategory), selectedTypes, selectedMakers);
+        Item newItem = new Item(itemNameValue, descriptionValue, priceinput, selectedCategory, type, maker);
 
-        String response = listingService.getResponse(Database.TABLE.ITEMS);
+        String response = listingService.getResponse(Database.Table.ITEMS);
 
         if(response.equals("Success")){
-            listingService.addItem(newItem);
+           listingService.addItem(newItem);
         }
         destory();
     }
 
     @Override
     public void destory() {
+        resetRadioButtons(typeVbox);
+        resetRadioButtons(makerVbox);
         itemName.clear();
         description.clear();
         price.clear();
-        categoryTypes.getSelectionModel().clearSelection();
-        typeCheckListView.getCheckModel().clearChecks();
-        makerCheckListView.getCheckModel().clearChecks();
+    }
 
+    private void resetRadioButtons(VBox vBox) {
+        vBox.getChildren().clear();
+    }
+
+    private String getSelected(VBox vBox) {
+        for(Node node : vBox.getChildren()) {
+            if(node instanceof RadioButton) {
+                if(((RadioButton) node).isSelected())
+                    return ((RadioButton) node).getText();
+            }
+        }
+        return "None";
     }
 }
