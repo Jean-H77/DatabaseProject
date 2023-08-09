@@ -161,9 +161,9 @@ public class MySQLDatabase extends Database {
     }
 
     public List<Item> searchItems(String categorySearch) {
-        List<Item> itemList = new ArrayList<Item>();
+        List<Item> itemList = new ArrayList<>();
         int catID = getCategoryID(categorySearch, CategoryType.BASE);
-        String query = "SELECT ITEM_ID FROM item_categories WHERE CATEGORY_ID = ?";
+        String query = "SELECT ITEM_ID FROM item_categories WHERE TYPE_ID = ?";
         try (PreparedStatement stmt = getConnection().prepareStatement(query)) {
             stmt.setInt(1, catID);
             try (ResultSet resultSet = stmt.executeQuery()) {
@@ -176,6 +176,23 @@ public class MySQLDatabase extends Database {
             e.printStackTrace();
         }
         return itemList;
+    }
+
+    public List<String> getBaseCategories() {
+        List<String> categories = new ArrayList<>();
+        String query = "SELECT CATEGORY_NAME FROM categories";
+        try(PreparedStatement statement = getConnection().prepareStatement(query)) {
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    categories.add(resultSet.getString("CATEGORY_NAME"));
+                }
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return categories;
     }
 
     @Override

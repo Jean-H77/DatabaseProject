@@ -75,6 +75,7 @@ public class HomepageController implements Controller{
         categoryList.addAll(categories.keySet());
         categoryTypes.setItems(categoryList);
         itemListView.setItems(itemList);
+        searchComboBox.getItems().addAll(listingService.getBaseCategories());
     }
 
     private void selectItemToReview(Item item) {
@@ -106,16 +107,24 @@ public class HomepageController implements Controller{
     }
 
     @FXML
-    private void onSubmitClick() {
+    private void onSearchCategoryChosen() {
+        List<Item> items = listingService.searchItems(searchComboBox.getValue());
+        ObservableList<Item> itemsOL = FXCollections.observableArrayList();
+        itemsOL.setAll(items);
 
+        itemListView.setItems(itemsOL);
+    }
+
+    @FXML
+    private void onSubmitClick() {
         String itemNameValue = itemName.getText();
         String descriptionValue = description.getText();
-        double priceinput = Double.parseDouble(price.getText());
+        double priceInput = Double.parseDouble(price.getText());
         String selectedCategory = categoryTypes.getValue();
         String type = getSelected(typeVbox);
         String maker = getSelected(makerVbox);
 
-        Item newItem = new Item(itemNameValue, descriptionValue, priceinput, selectedCategory, type, maker);
+        Item newItem = new Item(itemNameValue, descriptionValue, priceInput, selectedCategory, type, maker);
 
         String response = listingService.getResponse(Database.Table.ITEMS);
 

@@ -44,6 +44,12 @@ public class ListingService extends Service {
        database.addItem(item);
     }
 
+    public List<Item> searchItems(String category) {
+        return database.searchItems(category);
+    }
+
+    public List<String> getBaseCategories() { return database.getBaseCategories(); }
+
     public HashMap<String, HashMap<String, Set<String>>> loadCategories() {
         return database.loadCategories();
     }

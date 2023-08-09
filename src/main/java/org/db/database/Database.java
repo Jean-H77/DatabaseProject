@@ -28,6 +28,8 @@ public abstract class Database {
 
     public abstract List<Item> searchItems(String category);
 
+    public abstract List<String> getBaseCategories();
+
     public abstract HashMap<String, HashMap<String, Set<String>>> loadCategories();
 
     public abstract int getCategoryID(String categoryName, CategoryType type);
