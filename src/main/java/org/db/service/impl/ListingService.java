@@ -1,7 +1,6 @@
 package org.db.service.impl;
 
 import org.db.database.Database;
-import org.db.model.CategoryType;
 import org.db.model.Item;
 import org.db.service.Service;
 
@@ -47,8 +46,6 @@ public class ListingService extends Service {
     public List<Item> searchItems(String category) {
         return database.searchItems(category);
     }
-
-    public List<String> getBaseCategories() { return database.getBaseCategories(); }
 
     public HashMap<String, HashMap<String, Set<String>>> loadCategories() {
         return database.loadCategories();

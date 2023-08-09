@@ -118,6 +118,7 @@ public class MySQLDatabase extends Database {
         return -1; // Return a default value if category ID is not found
     }
 
+    @Override
     public List<LocalDate> getLastThreePostings(Table table) {
         String query = "SELECT POSTED_TIMESTAMP FROM " + table.getCleanName() + " WHERE USERNAME = ? ORDER BY POSTED_TIMESTAMP DESC LIMIT 3";
         List<LocalDate> dates = new ArrayList<>();
@@ -125,7 +126,6 @@ public class MySQLDatabase extends Database {
             preparedStatement.setString(1, Client.getMyUser().getUsername());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    System.out.println("Got timestamp");
                     dates.add(resultSet.getTimestamp("POSTED_TIMESTAMP").toLocalDateTime().toLocalDate());
                 }
             }
@@ -135,15 +135,14 @@ public class MySQLDatabase extends Database {
         return dates;
     }
 
-    public Item getItemFromID(int itemID) {
-        // Will return 'blank' item if an error occurs
+    @Override
+    public Item getItem(int itemID) {
         String title = "Item Not Found";
         String description = "N/A";
         double price = 0.0;
         String category = "";
         String type = "";
         String maker = "";
-
         String query = "SELECT TITLE, DESCRIPTION, PRICE FROM items WHERE ITEM_ID = ?";
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
             preparedStatement.setInt(1, itemID);
@@ -152,6 +151,13 @@ public class MySQLDatabase extends Database {
                     title = resultSet.getString("TITLE");
                     description = resultSet.getString("DESCRIPTION");
                     price = resultSet.getDouble("PRICE");
+
+                    Category cat = getCategories(itemID);
+                    if(cat != null) {
+                        category = getBaseCategoryName(cat);
+                        type = getCategoryTypeName(cat);
+                        maker = getCategoryMakerName(cat);
+                    }
                 }
             }
         } catch (SQLException e) {
@@ -160,6 +166,77 @@ public class MySQLDatabase extends Database {
         return new Item(title, description, price, category, type, maker);
     }
 
+    @Override
+    public String getCategoryTypeName(Category category) {
+        String query = "SELECT TYPE_NAME FROM categoryTypes WHERE TYPE_ID = ? AND CATEGORY_ID = ?";
+        try(PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
+            preparedStatement.setInt(1, category.getTypeCategoryId());
+            preparedStatement.setInt(2, category.getBaseCategoryId());
+            try(ResultSet rs = preparedStatement.executeQuery()) {
+                if(rs.next()) {
+                    return rs.getString("TYPE_NAME");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    @Override
+    public String getCategoryMakerName(Category category) {
+        String query = "SELECT MAKER_NAME FROM categoryMakers WHERE MAKER_ID = ? AND CATEGORY_ID = ?";
+        try(PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
+            preparedStatement.setInt(1, category.getMakerCategoryId());
+            preparedStatement.setInt(2, category.getBaseCategoryId());
+            try(ResultSet rs = preparedStatement.executeQuery()) {
+                if(rs.next()) {
+                    return rs.getString("MAKER_NAME");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    @Override
+    public String getBaseCategoryName(Category category) {
+        String query = "SELECT CATEGORY_NAME FROM categories WHERE CATEGORY_ID = ?";
+        try(PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
+            preparedStatement.setInt(1, category.getBaseCategoryId());
+            try(ResultSet rs = preparedStatement.executeQuery()) {
+                if(rs.next()) {
+                    return rs.getString("CATEGORY_NAME");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    @Override
+    public Category getCategories(int itemID) {
+        String query = "SELECT * FROM item_categories WHERE ITEM_ID = ? LIMIT 1";
+        try(PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
+            preparedStatement.setInt(1, itemID);
+            try(ResultSet rs = preparedStatement.executeQuery()) {
+                if(rs.next()) {
+                    return new Category(
+                      rs.getInt("TYPE_ID"),
+                      rs.getInt("CAT_MAKER_ID"),
+                      rs.getInt("CAT_TYPE_ID")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public List<Item> searchItems(String categorySearch) {
         List<Item> itemList = new ArrayList<>();
         int catID = getCategoryID(categorySearch, CategoryType.BASE);
@@ -168,7 +245,7 @@ public class MySQLDatabase extends Database {
             stmt.setInt(1, catID);
             try (ResultSet resultSet = stmt.executeQuery()) {
                 while (resultSet.next()) {
-                    itemList.add(getItemFromID(resultSet.getInt("ITEM_ID")));
+                    itemList.add(getItem(resultSet.getInt("ITEM_ID")));
                 }
             }
         }
@@ -176,23 +253,6 @@ public class MySQLDatabase extends Database {
             e.printStackTrace();
         }
         return itemList;
-    }
-
-    public List<String> getBaseCategories() {
-        List<String> categories = new ArrayList<>();
-        String query = "SELECT CATEGORY_NAME FROM categories";
-        try(PreparedStatement statement = getConnection().prepareStatement(query)) {
-            try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    categories.add(resultSet.getString("CATEGORY_NAME"));
-                }
-            }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return categories;
     }
 
     @Override

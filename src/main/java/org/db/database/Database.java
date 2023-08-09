@@ -28,11 +28,19 @@ public abstract class Database {
 
     public abstract List<Item> searchItems(String category);
 
-    public abstract List<String> getBaseCategories();
-
     public abstract HashMap<String, HashMap<String, Set<String>>> loadCategories();
 
     public abstract int getCategoryID(String categoryName, CategoryType type);
+
+    public abstract Item getItem(int itemID);
+
+    public abstract Category getCategories(int itemID);
+
+    public abstract String getCategoryTypeName(Category category);
+
+    public abstract String getCategoryMakerName(Category category);
+
+    public abstract String getBaseCategoryName(Category category);
 
     public enum Table {
         ITEMS("items"),

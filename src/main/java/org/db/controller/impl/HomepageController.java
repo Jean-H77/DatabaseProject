@@ -1,28 +1,20 @@
 package org.db.controller.impl;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import org.controlsfx.control.CheckListView;
-import org.controlsfx.control.PopOver;
-import org.db.Client;
 import org.db.controller.Controller;
 import org.db.database.Database;
 import org.db.model.Item;
-import org.db.model.User;
 import org.db.service.ServiceType;
 import org.db.service.impl.ListingService;
 
 import java.net.URL;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class HomepageController implements Controller{
 
@@ -66,16 +58,21 @@ public class HomepageController implements Controller{
         itemListView.setCellFactory(param -> new ListCell<Item>() {
             @Override
             protected void updateItem(Item item, boolean empty) {
-                if(item == null || empty) return;
-                setOnMouseClicked(event -> selectItemToReview(item));
-                setGraphic(new Text(item.getTitle()));
+                super.updateItem(item, empty);
+                if(empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    setOnMouseClicked(event -> selectItemToReview(item));
+                    setText(item.getTitle() + " ["+item.getMaker()+"]");
+                }
             }
         });
         categoryTypes.setOnAction(event -> handleCategoryChange(categoryTypes.getValue()));
         categoryList.addAll(categories.keySet());
         categoryTypes.setItems(categoryList);
         itemListView.setItems(itemList);
-        searchComboBox.getItems().addAll(listingService.getBaseCategories());
+        searchComboBox.getItems().addAll(categories.keySet());
     }
 
     private void selectItemToReview(Item item) {
@@ -108,11 +105,9 @@ public class HomepageController implements Controller{
 
     @FXML
     private void onSearchCategoryChosen() {
-        List<Item> items = listingService.searchItems(searchComboBox.getValue());
-        ObservableList<Item> itemsOL = FXCollections.observableArrayList();
-        itemsOL.setAll(items);
-
-        itemListView.setItems(itemsOL);
+        itemList.clear();
+        itemList.setAll(listingService.searchItems(searchComboBox.getValue()));
+        itemListView.refresh();
     }
 
     @FXML
@@ -130,6 +125,9 @@ public class HomepageController implements Controller{
 
         if(response.equals("Success")){
            listingService.addItem(newItem);
+           if(searchComboBox.getValue().equals(selectedCategory)) {
+               itemList.add(newItem);
+           }
         }
         destory();
     }
