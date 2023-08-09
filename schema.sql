@@ -62,6 +62,7 @@ CREATE TABLE IF NOT EXISTS reviews (
                                        ID INT NOT NULL AUTO_INCREMENT,
                                        ITEM_ID INT NOT NULL,
                                        USERNAME varchar(50) NOT NULL,
+                                       POSTED_TIMESTAMP timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
                                        PRIMARY KEY (ID),
                                        FOREIGN KEY (ITEM_ID) REFERENCES items(ITEM_ID),
                                        FOREIGN KEY (USERNAME) REFERENCES users(USERNAME)
