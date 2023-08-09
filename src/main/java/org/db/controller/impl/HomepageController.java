@@ -137,7 +137,7 @@ public class HomepageController implements Controller{
         reviewName.setText(item.getTitle());
         qualityComboBox.getSelectionModel().clearSelection();
         reviewDescription.setText(item.getDescription());
-        reviewPrice.setText(item.getPrice()+"$");
+        reviewPrice.setText("$" + item.getPrice());
         posterReviewText.setText(item.getPoster());
         StringBuilder categories = new StringBuilder();
         categories.append(item.getCategory()).append(",");

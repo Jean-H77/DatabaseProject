@@ -37,7 +37,7 @@ public class ListingService extends Service {
     public String getResponse(Database.Table table) {
         if(getPostCount(table) < 3)
             return "Success";
-        return "You cannot post more than 3 items per day.";
+        return "You cannot post more than 3 times per day.";
     }
 
     public void addItem(Item item) {

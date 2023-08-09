@@ -1,2 +1,5 @@
-YouTube Video:
-    https://www.youtube.com/watch?v=pfdGj-dzVRs&ab_channel=Team6
+YouTube Videos:
+    Phase 1:
+        https://www.youtube.com/watch?v=pfdGj-dzVRs
+    Phase 2:
+        https://www.youtube.com/watch?v=lPJJuGr2e-M
