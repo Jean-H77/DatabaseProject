@@ -97,21 +97,14 @@
             </AnchorPane>
         </content>
       </TitledPane>
-      <TitledPane animated="false" layoutX="586.0" layoutY="29.0" prefHeight="687.0" prefWidth="491.0" text="Review Item">
+      <TitledPane animated="false" layoutX="586.0" layoutY="29.0" prefHeight="687.0" prefWidth="491.0" text="Item Details">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <VBox prefHeight="658.0" prefWidth="491.0">
                      <children>
-                        <HBox prefHeight="39.0" prefWidth="491.0" spacing="5.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Temp" />
-                           </children>
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </VBox.margin>
-                        </HBox>
+                        <VBox fx:id="itemDetails" prefHeight="200.0" prefWidth="100.0" />
+                        <VBox fx:id="itemReviews" prefHeight="200.0" prefWidth="100.0" />
                      </children>
                   </VBox>
                </children></AnchorPane>

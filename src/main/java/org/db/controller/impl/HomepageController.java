@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.db.controller.Controller;
@@ -42,6 +43,12 @@ public class HomepageController implements Controller{
     private VBox makerVbox;
 
     @FXML
+    private VBox itemDetails;
+
+    @FXML
+    private VBox itemReviews;
+
+    @FXML
     private ComboBox<String> categoryTypes;
 
     @FXML
@@ -63,7 +70,7 @@ public class HomepageController implements Controller{
                     setText(null);
                     setGraphic(null);
                 } else {
-                    setOnMouseClicked(event -> selectItemToReview(item));
+                    setOnMouseClicked(event -> selectItem(item));
                     setText(item.getTitle() + " ["+item.getMaker()+"]");
                 }
             }
@@ -75,8 +82,14 @@ public class HomepageController implements Controller{
         searchComboBox.getItems().addAll(categories.keySet());
     }
 
-    private void selectItemToReview(Item item) {
+    private void selectItem(Item item) {
+        itemDetails.getChildren().add(new Text("Details:"));
+        itemDetails.getChildren().add(new Text("Title: " + item.getTitle()));
+        itemDetails.getChildren().add(new Text("Description: " + item.getDescription()));
+        itemDetails.getChildren().add(new Text("Price: $" + item.getPrice()));
 
+        itemReviews.getChildren().add(new Text("Reviews:"));
+        
     }
 
     private void handleCategoryChange(String category) {
