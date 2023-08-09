@@ -42,6 +42,10 @@ public abstract class Database {
 
     public abstract String getBaseCategoryName(Category category);
 
+    public abstract List<Review> getReviews(int itemId);
+
+    public abstract void postReview(Review review);
+
     public enum Table {
         ITEMS("items"),
         REVIEWS("reviews");

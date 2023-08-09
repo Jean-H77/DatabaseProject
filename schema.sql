@@ -62,6 +62,8 @@ CREATE TABLE IF NOT EXISTS reviews (
                                        ID INT NOT NULL AUTO_INCREMENT,
                                        ITEM_ID INT NOT NULL,
                                        USERNAME varchar(50) NOT NULL,
+                                       REVIEW varchar(100) NOT NULL,
+                                       QUALITY varchar(15) NOT NULL,
                                        POSTED_TIMESTAMP timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
                                        PRIMARY KEY (ID),
                                        FOREIGN KEY (ITEM_ID) REFERENCES items(ITEM_ID),
@@ -80,8 +82,8 @@ INSERT INTO categoryMakers (MAKER_NAME, CATEGORY_ID) VALUES
 ;
 
 INSERT INTO categoryTypes (TYPE_NAME, CATEGORY_ID) VALUES
-('None',1), ('Shirt', 1), ('Pants', 1), ('Jacket', 1),
-('None',2), ('Fridge', 2), ('Blender', 2), ('Washing machine', 2),
-('None',3), ('Phone', 3), ('TV', 3), ('Computer', 3),
-('None',4), ('Running', 4), ('Tennis', 4), ('Sandals', 4),
-('None',5), ('Earring', 5), ('Bracelet', 5), ('Necklace', 5)
+('None',1), ('Shirt', 1), ('Pants', 1), ('Jacket', 1), ('Briefs', 1), ('Shorts', 1), ('Socks', 1), ('Hat', 1), ('Sweater', 1),
+('None',2), ('Fridge', 2), ('Blender', 2), ('Washing machine', 2), ('Toaster', 2), ('Oven', 2),
+('None',3), ('Phone', 3), ('TV', 3), ('Computer', 3), ('Headphones', 3), ('Keyboard', 3), ('Mouse', 3),
+('None',4), ('Running', 4), ('Tennis', 4), ('Sandals', 4), ('Street', 4), ('Walking', 4),
+('None',5), ('Earring', 5), ('Bracelet', 5), ('Necklace', 5), ('Ring', 5)

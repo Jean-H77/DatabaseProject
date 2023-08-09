@@ -143,7 +143,9 @@ public class MySQLDatabase extends Database {
         String category = "";
         String type = "";
         String maker = "";
-        String query = "SELECT TITLE, DESCRIPTION, PRICE FROM items WHERE ITEM_ID = ?";
+        String poster = "";
+        Timestamp timestamp = null;
+        String query = "SELECT * FROM items WHERE ITEM_ID = ?";
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
             preparedStatement.setInt(1, itemID);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -151,6 +153,8 @@ public class MySQLDatabase extends Database {
                     title = resultSet.getString("TITLE");
                     description = resultSet.getString("DESCRIPTION");
                     price = resultSet.getDouble("PRICE");
+                    poster = resultSet.getString("USERNAME");
+                    timestamp = resultSet.getTimestamp("POSTED_TIMESTAMP");
 
                     Category cat = getCategories(itemID);
                     if(cat != null) {
@@ -163,7 +167,10 @@ public class MySQLDatabase extends Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return new Item(title, description, price, category, type, maker);
+        Item item = new Item(title, poster, description, price, category, type, maker);
+        item.setKey(itemID);
+        item.setTimestamp(timestamp);
+        return item;
     }
 
     @Override
@@ -283,4 +290,41 @@ public class MySQLDatabase extends Database {
         return categories;
     }
 
+    @Override
+    public List<Review> getReviews(int itemId) {
+        List<Review> reviews = new ArrayList<>();
+        String query = "SELECT * FROM reviews WHERE ITEM_ID = ?";
+        try(PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
+            preparedStatement.setInt(1, itemId);
+            try(ResultSet rs = preparedStatement.executeQuery()) {
+                while(rs.next()) {
+                    String username = rs.getString("USERNAME");
+                    String review = rs.getString("REVIEW");
+                    String quality = rs.getString("QUALITY");
+                    Timestamp timestamp = rs.getTimestamp("POSTED_TIMESTAMP");
+                    reviews.add(new Review(itemId, review, username, quality, timestamp));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return reviews;
+    }
+
+    @Override
+    public void postReview(Review review) {
+        String query = "INSERT INTO reviews (ITEM_ID, USERNAME, REVIEW, QUALITY) VALUES (?, ?, ?, ?)";
+        try(PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
+            preparedStatement.setInt(1, review.getItemId());
+            preparedStatement.setString(2, review.getPoster());
+            preparedStatement.setString(3,review.getDescription());
+            preparedStatement.setString(4, review.getQuality());
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating review failed, no rows affected.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

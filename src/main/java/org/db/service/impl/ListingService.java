@@ -2,6 +2,7 @@ package org.db.service.impl;
 
 import org.db.database.Database;
 import org.db.model.Item;
+import org.db.model.Review;
 import org.db.service.Service;
 
 import java.time.LocalDate;
@@ -26,7 +27,7 @@ public class ListingService extends Service {
             if (localDate.equals(LocalDate.now()))
                 sameDayCount++;
         }
-        return 0;
+        return sameDayCount;
     }
 
     public List<Item> search(String category) {
@@ -49,6 +50,14 @@ public class ListingService extends Service {
 
     public HashMap<String, HashMap<String, Set<String>>> loadCategories() {
         return database.loadCategories();
+    }
+
+    public void postReview(Review review) {
+        database.postReview(review);
+    }
+
+    public List<Review> getReviews(int itemId) {
+        return database.getReviews(itemId);
     }
 
 }

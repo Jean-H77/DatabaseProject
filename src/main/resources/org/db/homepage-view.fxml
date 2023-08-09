@@ -19,15 +19,15 @@
       <ListView fx:id="itemListView" layoutX="331.0" layoutY="58.0" prefHeight="658.0" prefWidth="243.0" />
       <Text layoutX="331.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search:" />
       <ComboBox fx:id="searchComboBox" layoutX="390.0" layoutY="29.0" onAction="#onSearchCategoryChosen" prefHeight="26.0" prefWidth="184.0" />
-      <TitledPane animated="false" layoutX="3.0" layoutY="35.0" prefHeight="681.0" prefWidth="313.0" text="Add Item">
+      <TitledPane animated="false" collapsible="false" layoutX="3.0" layoutY="35.0" prefHeight="681.0" prefWidth="313.0" text="Add Item">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <VBox layoutX="1.0" layoutY="1.0" prefHeight="658.0" prefWidth="307.0" spacing="15.0">
+                  <VBox layoutX="1.0" layoutY="1.0" prefHeight="658.0" prefWidth="307.0" spacing="13.0">
                      <children>
                         <HBox prefHeight="37.0" prefWidth="313.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter item name:">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter item name:" underline="true">
                                  <HBox.margin>
                                     <Insets top="10.0" />
                                  </HBox.margin>
@@ -39,7 +39,7 @@
                               </TextField>
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" underline="true" />
                         <TextArea fx:id="description" prefHeight="72.0" prefWidth="307.0" wrapText="true" />
                         <HBox prefHeight="37.0" prefWidth="313.0">
                            <children>
@@ -57,7 +57,7 @@
                         </HBox>
                         <HBox prefHeight="37.0" prefWidth="307.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Select Category:">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Select Category:" underline="true">
                                  <HBox.margin>
                                     <Insets top="10.0" />
                                  </HBox.margin>
@@ -83,6 +83,7 @@
                               </VBox>
                            </children>
                         </HBox>
+                        <Label fx:id="addItemErrorLabel" alignment="CENTER" prefHeight="18.0" prefWidth="310.0" text="Error Message here" textFill="RED" />
                         <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onSubmitClick" text="Submit">
                            <VBox.margin>
                               <Insets left="120.0" />
@@ -97,16 +98,42 @@
             </AnchorPane>
         </content>
       </TitledPane>
-      <TitledPane animated="false" layoutX="586.0" layoutY="29.0" prefHeight="687.0" prefWidth="491.0" text="Item Details">
+      <TitledPane fx:id="reviewTitledPane" animated="false" collapsible="false" layoutX="586.0" layoutY="29.0" prefHeight="687.0" prefWidth="491.0" text="Item Review">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <VBox prefHeight="658.0" prefWidth="491.0">
+                  <VBox alignment="CENTER" prefHeight="658.0" prefWidth="491.0" spacing="5.0">
                      <children>
-                        <VBox fx:id="itemDetails" prefHeight="200.0" prefWidth="100.0" />
-                        <VBox fx:id="itemReviews" prefHeight="200.0" prefWidth="100.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" underline="true" />
+                        <Text fx:id="reviewName" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description" underline="true" />
+                        <Text fx:id="reviewDescription" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price" underline="true" />
+                        <Text fx:id="reviewPrice" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Categories" underline="true" />
+                        <Text fx:id="reviewCategories" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Poster" underline="true" />
+                        <Text fx:id="posterReviewText" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Review:" underline="true" />
+                        <HBox alignment="CENTER" prefHeight="44.0" prefWidth="481.0" spacing="5.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quality:" underline="true" />
+                              <ComboBox fx:id="qualityComboBox" prefWidth="150.0" />
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </HBox>
+                        <TextArea fx:id="reviewTextArea" prefHeight="99.0" prefWidth="491.0" wrapText="true" />
+                        <Button mnemonicParsing="false" onAction="#onSubmitReviewButton" text="Post Review" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Past Reviews" underline="true" />
+                        <ListView fx:id="pastReviewsListView" prefHeight="132.0" prefWidth="481.0" />
                      </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" />
+                     </padding>
                   </VBox>
+                  <Label fx:id="reviewItemErrorLabel" alignment="CENTER" layoutX="-2.0" layoutY="6.0" prefHeight="18.0" prefWidth="491.0" text="Error message here" textFill="RED" />
                </children></AnchorPane>
         </content>
       </TitledPane>

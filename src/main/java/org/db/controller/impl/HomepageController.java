@@ -5,17 +5,20 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import org.db.Client;
 import org.db.controller.Controller;
 import org.db.database.Database;
 import org.db.model.Item;
+import org.db.model.Review;
 import org.db.service.ServiceType;
 import org.db.service.impl.ListingService;
 
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class HomepageController implements Controller{
 
@@ -24,6 +27,8 @@ public class HomepageController implements Controller{
     private final ObservableList<String> categoryList = FXCollections.observableArrayList();
 
     private final ObservableList<Item> itemList = FXCollections.observableArrayList();
+
+    private final ObservableList<String> reviewList = FXCollections.observableArrayList();
 
     private final HashMap<String, HashMap<String, Set<String>>> categories = new HashMap<>();
 
@@ -43,10 +48,22 @@ public class HomepageController implements Controller{
     private VBox makerVbox;
 
     @FXML
-    private VBox itemDetails;
+    private Text reviewName;
 
     @FXML
-    private VBox itemReviews;
+    private Text reviewDescription;
+
+    @FXML
+    private Text reviewPrice;
+
+    @FXML
+    private Text reviewCategories;
+
+    @FXML
+    private TextArea reviewTextArea;
+
+    @FXML
+    private ListView<String> pastReviewsListView;
 
     @FXML
     private ComboBox<String> categoryTypes;
@@ -56,6 +73,23 @@ public class HomepageController implements Controller{
 
     @FXML
     private ComboBox<String> searchComboBox;
+
+    @FXML
+    private TitledPane reviewTitledPane;
+
+    @FXML
+    private Label addItemErrorLabel;
+
+    @FXML
+    private Label reviewItemErrorLabel;
+
+    @FXML
+    private Text posterReviewText;
+
+    @FXML
+    private ComboBox<String> qualityComboBox;
+
+    private Item item;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -80,16 +114,42 @@ public class HomepageController implements Controller{
         categoryTypes.setItems(categoryList);
         itemListView.setItems(itemList);
         searchComboBox.getItems().addAll(categories.keySet());
+        pastReviewsListView.setItems(reviewList);
+        qualityComboBox.setItems(FXCollections.observableArrayList("Excellent", "Good", "Fair", "Poor"));
+        addItemErrorLabel.setText("");
+        reviewItemErrorLabel.setText("");
+        disableReviewPane();
+    }
+
+    private void enableReviewPane() {
+        reviewTitledPane.setDisable(false);
+    }
+
+    private void disableReviewPane() {
+        reviewTitledPane.setDisable(true);
     }
 
     private void selectItem(Item item) {
-        itemDetails.getChildren().add(new Text("Details:"));
-        itemDetails.getChildren().add(new Text("Title: " + item.getTitle()));
-        itemDetails.getChildren().add(new Text("Description: " + item.getDescription()));
-        itemDetails.getChildren().add(new Text("Price: $" + item.getPrice()));
-
-        itemReviews.getChildren().add(new Text("Reviews:"));
-        
+        this.item = item;
+        enableReviewPane();
+        reviewItemErrorLabel.setText("");
+        reviewTextArea.setText("");
+        reviewName.setText(item.getTitle());
+        qualityComboBox.getSelectionModel().clearSelection();
+        reviewDescription.setText(item.getDescription());
+        reviewPrice.setText(item.getPrice()+"$");
+        posterReviewText.setText(item.getPoster());
+        StringBuilder categories = new StringBuilder();
+        categories.append(item.getCategory()).append(",");
+        if(!Objects.equals(item.getMaker(), "None"))
+            categories.append(item.getMaker()).append(",");
+        if(!Objects.equals(item.getType(), "None"))
+            categories.append(item.getType()).append(",");
+        reviewCategories.setText(categories.substring(0, categories.lastIndexOf(",")));
+        reviewList.clear();
+        reviewList.setAll(listingService.getReviews(item.getKey())
+                .stream().map(Review::getDescription).collect(Collectors.toList()));
+        pastReviewsListView.refresh();
     }
 
     private void handleCategoryChange(String category) {
@@ -131,18 +191,49 @@ public class HomepageController implements Controller{
         String selectedCategory = categoryTypes.getValue();
         String type = getSelected(typeVbox);
         String maker = getSelected(makerVbox);
-
-        Item newItem = new Item(itemNameValue, descriptionValue, priceInput, selectedCategory, type, maker);
-
+        Item newItem = new Item(itemNameValue, Client.getMyUser().getUsername(), descriptionValue, priceInput, selectedCategory, type, maker);
         String response = listingService.getResponse(Database.Table.ITEMS);
-
-        if(response.equals("Success")){
+        if(response.equals("Success")) {
            listingService.addItem(newItem);
            if(searchComboBox.getValue().equals(selectedCategory)) {
-               itemList.add(newItem);
+               onSearchCategoryChosen();
            }
         }
+        addItemErrorLabel.setText(response);
         destory();
+    }
+
+    @FXML
+    private void onSubmitReviewButton() {
+        if(item == null) return;
+        if(reviewTitledPane.isDisabled()) return;
+        String postLimitResponse = listingService.getResponse(Database.Table.REVIEWS);
+        if(!Objects.equals(postLimitResponse, "Success")) {
+            reviewItemErrorLabel.setText(postLimitResponse);
+            return;
+        }
+        if(item.getPoster().equalsIgnoreCase(Client.getMyUser().getUsername())) {
+         //   reviewItemErrorLabel.setText("You cannot review your own item.");
+          //  return;
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        String review = reviewTextArea.getText();
+        String quality;
+        SingleSelectionModel<String> selectedModel = qualityComboBox.getSelectionModel();
+        if((quality = selectedModel.getSelectedItem()) == null || Objects.equals(quality = selectedModel.getSelectedItem(), "")) {
+            reviewItemErrorLabel.setText("You need to select a quality before posting your review");
+            return;
+        }
+        if(review.isEmpty()) {
+            reviewItemErrorLabel.setText("You need to add a description to your review before posting your review");
+            return;
+        }
+        stringBuilder.append(review).append(" - ").append(quality);
+        reviewList.add(stringBuilder.toString());
+        reviewTextArea.setText("");
+        reviewItemErrorLabel.setText("You have successfully posted a review!");
+        listingService.postReview(new Review(item.getKey(), stringBuilder.toString(), Client.getMyUser().getUsername(), quality, new Timestamp(System.currentTimeMillis())));
+        selectItem(item);
     }
 
     @Override
