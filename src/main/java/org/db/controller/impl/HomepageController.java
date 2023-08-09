@@ -213,8 +213,8 @@ public class HomepageController implements Controller{
             return;
         }
         if(item.getPoster().equalsIgnoreCase(Client.getMyUser().getUsername())) {
-         //   reviewItemErrorLabel.setText("You cannot review your own item.");
-          //  return;
+            reviewItemErrorLabel.setText("You cannot review your own item.");
+            return;
         }
         StringBuilder stringBuilder = new StringBuilder();
         String review = reviewTextArea.getText();
