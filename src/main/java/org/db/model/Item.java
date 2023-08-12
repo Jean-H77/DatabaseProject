@@ -12,6 +12,7 @@ public class Item {
     private final String maker;
     private Timestamp timestamp;
     private int key;
+    private boolean listUser;
 
     public Item(String title, String poster, String description, double price, String categories, String type, String maker) {
         this.title = title;
@@ -66,5 +67,13 @@ public class Item {
 
     public void setKey(int key) {
         this.key = key;
+    }
+
+    public boolean isListUser() {
+        return listUser;
+    }
+
+    public void setListUser(boolean listUser) {
+        this.listUser = listUser;
     }
 }

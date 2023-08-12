@@ -12,6 +12,7 @@ import org.db.model.SceneType;
 import org.db.model.User;
 import org.db.service.Service;
 import org.db.service.ServiceType;
+import org.db.service.impl.AdvancedSearchService;
 import org.db.service.impl.ListingService;
 import org.db.service.impl.LoginService;
 import org.db.service.impl.RegistrationService;
@@ -60,6 +61,7 @@ public class Client extends Application {
         SERVICES.put(ServiceType.LOGIN, new LoginService(database));
         SERVICES.put(ServiceType.REGISTRATION, new RegistrationService(database));
         SERVICES.put(ServiceType.HOMEPAGE, new ListingService(database));
+        SERVICES.put(ServiceType.ADVANCED_SEARCH, new AdvancedSearchService(database));
     }
 
     public void setMyUser(User myUser) {

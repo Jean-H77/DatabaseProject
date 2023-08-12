@@ -109,7 +109,10 @@ public class HomepageController implements Controller {
                     setGraphic(null);
                 } else {
                     setOnMouseClicked(event -> selectItem(item));
-                    setText(item.getTitle() + " [" + item.getMaker() + "]");
+                    if(item.isListUser())
+                        setText(item.getPoster());
+                    else
+                        setText(item.getTitle() + " [" + item.getMaker() + "]");
                 }
             }
         });
@@ -278,4 +281,9 @@ public class HomepageController implements Controller {
         }
         return "None";
     }
+
+    public ObservableList<Item> getItemList() {
+        return itemList;
+    }
 }
+
