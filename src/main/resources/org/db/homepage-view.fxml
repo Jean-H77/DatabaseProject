@@ -16,9 +16,9 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.db.controller.impl.HomepageController">
    <children>
       <Label alignment="CENTER" layoutX="-1.0" layoutY="5.0" prefHeight="18.0" prefWidth="1080.0" text="Homepage" />
-      <ListView fx:id="itemListView" layoutX="331.0" layoutY="58.0" prefHeight="658.0" prefWidth="243.0" />
-      <Text layoutX="331.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search:" />
-      <ComboBox fx:id="searchComboBox" layoutX="390.0" layoutY="29.0" onAction="#onSearchCategoryChosen" prefHeight="26.0" prefWidth="184.0" />
+      <ListView fx:id="itemListView" layoutX="331.0" layoutY="107.0" prefHeight="609.0" prefWidth="243.0" />
+      <Text layoutX="331.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search:" />
+      <ComboBox fx:id="searchComboBox" layoutX="390.0" layoutY="77.0" onAction="#onSearchCategoryChosen" prefHeight="26.0" prefWidth="184.0" promptText="Category" />
       <TitledPane animated="false" collapsible="false" layoutX="3.0" layoutY="35.0" prefHeight="681.0" prefWidth="313.0" text="Add Item">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -137,5 +137,6 @@
                </children></AnchorPane>
         </content>
       </TitledPane>
+      <Button layoutX="332.0" layoutY="35.0" mnemonicParsing="false" onAction="#onAdvancedSearchClick" text="Advanced Search" />
    </children>
 </AnchorPane>

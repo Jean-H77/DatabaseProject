@@ -3,10 +3,13 @@ package org.db.controller.impl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import org.db.Client;
 import org.db.controller.Controller;
 import org.db.database.Database;
@@ -15,12 +18,13 @@ import org.db.model.Review;
 import org.db.service.ServiceType;
 import org.db.service.impl.ListingService;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class HomepageController implements Controller{
+public class HomepageController implements Controller {
 
     public final ListingService listingService = (ListingService) getService(ServiceType.HOMEPAGE);
 
@@ -100,12 +104,12 @@ public class HomepageController implements Controller{
             @Override
             protected void updateItem(Item item, boolean empty) {
                 super.updateItem(item, empty);
-                if(empty || item == null) {
+                if (empty || item == null) {
                     setText(null);
                     setGraphic(null);
                 } else {
                     setOnMouseClicked(event -> selectItem(item));
-                    setText(item.getTitle() + " ["+item.getMaker()+"]");
+                    setText(item.getTitle() + " [" + item.getMaker() + "]");
                 }
             }
         });
@@ -141,9 +145,9 @@ public class HomepageController implements Controller{
         posterReviewText.setText(item.getPoster());
         StringBuilder categories = new StringBuilder();
         categories.append(item.getCategory()).append(",");
-        if(!Objects.equals(item.getMaker(), "None"))
+        if (!Objects.equals(item.getMaker(), "None"))
             categories.append(item.getMaker()).append(",");
-        if(!Objects.equals(item.getType(), "None"))
+        if (!Objects.equals(item.getType(), "None"))
             categories.append(item.getType()).append(",");
         reviewCategories.setText(categories.substring(0, categories.lastIndexOf(",")));
         reviewList.clear();
@@ -160,12 +164,12 @@ public class HomepageController implements Controller{
         ToggleGroup makerGroup = new ToggleGroup();
         typeVbox.getChildren().add(new Text("Type:"));
         makerVbox.getChildren().add(new Text("Maker:"));
-        for(Map.Entry<String, Set<String>> entry : map.entrySet()) {
+        for (Map.Entry<String, Set<String>> entry : map.entrySet()) {
             String type = entry.getKey();
             Set<String> list = entry.getValue();
-            for(String str : list) {
+            for (String str : list) {
                 RadioButton radioButton = new RadioButton(str);
-                if(Objects.equals(type, "type")) {
+                if (Objects.equals(type, "type")) {
                     typeVbox.getChildren().add(radioButton);
                     radioButton.setToggleGroup(typeGroup);
                 } else {
@@ -193,11 +197,11 @@ public class HomepageController implements Controller{
         String maker = getSelected(makerVbox);
         Item newItem = new Item(itemNameValue, Client.getMyUser().getUsername(), descriptionValue, priceInput, selectedCategory, type, maker);
         String response = listingService.getResponse(Database.Table.ITEMS);
-        if(response.equals("Success")) {
-           listingService.addItem(newItem);
-           if(searchComboBox.getValue().equals(selectedCategory)) {
-               onSearchCategoryChosen();
-           }
+        if (response.equals("Success")) {
+            listingService.addItem(newItem);
+            if (searchComboBox.getValue().equals(selectedCategory)) {
+                onSearchCategoryChosen();
+            }
         }
         addItemErrorLabel.setText(response);
         destory();
@@ -205,14 +209,14 @@ public class HomepageController implements Controller{
 
     @FXML
     private void onSubmitReviewButton() {
-        if(item == null) return;
-        if(reviewTitledPane.isDisabled()) return;
+        if (item == null) return;
+        if (reviewTitledPane.isDisabled()) return;
         String postLimitResponse = listingService.getResponse(Database.Table.REVIEWS);
-        if(!Objects.equals(postLimitResponse, "Success")) {
+        if (!Objects.equals(postLimitResponse, "Success")) {
             reviewItemErrorLabel.setText(postLimitResponse);
             return;
         }
-        if(item.getPoster().equalsIgnoreCase(Client.getMyUser().getUsername())) {
+        if (item.getPoster().equalsIgnoreCase(Client.getMyUser().getUsername())) {
             reviewItemErrorLabel.setText("You cannot review your own item.");
             return;
         }
@@ -220,11 +224,11 @@ public class HomepageController implements Controller{
         String review = reviewTextArea.getText();
         String quality;
         SingleSelectionModel<String> selectedModel = qualityComboBox.getSelectionModel();
-        if((quality = selectedModel.getSelectedItem()) == null || Objects.equals(quality = selectedModel.getSelectedItem(), "")) {
+        if ((quality = selectedModel.getSelectedItem()) == null || Objects.equals(quality = selectedModel.getSelectedItem(), "")) {
             reviewItemErrorLabel.setText("You need to select a quality before posting your review");
             return;
         }
-        if(review.isEmpty()) {
+        if (review.isEmpty()) {
             reviewItemErrorLabel.setText("You need to add a description to your review before posting your review");
             return;
         }
@@ -234,6 +238,22 @@ public class HomepageController implements Controller{
         reviewItemErrorLabel.setText("You have successfully posted a review!");
         listingService.postReview(new Review(item.getKey(), stringBuilder.toString(), Client.getMyUser().getUsername(), quality, new Timestamp(System.currentTimeMillis())));
         selectItem(item);
+    }
+
+    @FXML
+    private void onAdvancedSearchClick() {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(Client.class.getResource("advancedsearch-view.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 460, 518);
+            Stage stage = new Stage();
+            stage.setTitle("Advanced Search");
+            stage.setScene(scene);
+            ((AdvancedSearchController)fxmlLoader.getController()).addCategories(categories.keySet());
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

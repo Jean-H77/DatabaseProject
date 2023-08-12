@@ -5,16 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beb4391e-f41e-46b5-90bf-d712a0721b17" name="Changes" comment="Project setup">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/db/model/Review.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/AdvancedSearchController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/75ded5dc-ec8d-49b2-9f78-6843ea8765d5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/75ded5dc-ec8d-49b2-9f78-6843ea8765d5.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/schema.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/CardComponent.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/HomepageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/HomepageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/database/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/database/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/database/impl/MySQLDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/database/impl/MySQLDatabase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/model/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/model/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/service/impl/ListingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/service/impl/ListingService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/db/homepage-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/db/homepage-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -140,7 +134,11 @@
       <workItem from="1691462304501" duration="1204000" />
       <workItem from="1691463832415" duration="10353000" />
       <workItem from="1691542858209" duration="6863000" />
-      <workItem from="1691555864943" duration="6074000" />
+      <workItem from="1691555864943" duration="6268000" />
+      <workItem from="1691562439076" duration="311000" />
+      <workItem from="1691612752620" duration="117000" />
+      <workItem from="1691625174814" duration="51000" />
+      <workItem from="1691798729213" duration="2906000" />
     </task>
     <task id="LOCAL-00001" summary="Project setup">
       <created>1689961706132</created>
