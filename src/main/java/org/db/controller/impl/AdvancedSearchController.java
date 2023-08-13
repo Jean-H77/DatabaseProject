@@ -45,7 +45,7 @@ public class AdvancedSearchController implements Controller {
     @FXML
     private void searchMostExpensiveOnSearchButtonClick() {
         if(searchMostExpensiveCategoryComboBox.getValue() != null || !Objects.equals(searchMostExpensiveCategoryComboBox.getValue(), "")) {
-            String category = searchMostExpensiveCategoryComboBox.getValue().replace("All", "*");
+            String category = searchMostExpensiveCategoryComboBox.getValue();
             List<Item> result = advancedSearchService.searchMostExpensiveItemsByCategory(category);
             ((HomepageController) Navigator.cachedControllers.get(SceneType.HOME_PAGE)).getItemList().setAll(result);
         }
