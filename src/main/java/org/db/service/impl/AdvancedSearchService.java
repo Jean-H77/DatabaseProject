@@ -28,8 +28,8 @@ public class AdvancedSearchService extends Service {
 
     private List<Item> findMostExpensiveItemInCategory(String category) {
         List<Item> mostExpensiveItems = new ArrayList<>();
-
         List<Item> itemsInCategory = database.searchItems(category);
+
         double maxPrice = Double.MIN_VALUE;
         Item mostExpensiveItem = null;
 
