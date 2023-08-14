@@ -15,9 +15,9 @@
       <Label alignment="CENTER" contentDisplay="CENTER" layoutY="6.0" prefHeight="17.0" prefWidth="460.0" text="Advanced Search" />
       <Accordion layoutX="-2.0" layoutY="23.0" prefHeight="76.0" prefWidth="460.0">
         <panes>
-          <TitledPane animated="false" text="Search most expensive item in category">
-            <content>
-              <AnchorPane minHeight="200.0" minWidth="460.0" prefHeight="180.0" prefWidth="200.0">
+            <TitledPane animated="false" text="Search most expensive item in category">
+               <content>
+                  <AnchorPane minHeight="200.0" minWidth="460.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="460.0" spacing="15.0">
                            <children>
@@ -32,11 +32,35 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-            </content>
-          </TitledPane>
+               </content>
+            </TitledPane>
           <TitledPane animated="false" text="Search user by date and category">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="200.0" minWidth="460.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="460.0" spacing="15.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Category 1:" />
+                                    <ComboBox fx:id="searchUserDateCat1ComboBox" prefWidth="150.0" promptText="Category" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Category 2:" />
+                                    <ComboBox fx:id="searchUserDateCat2ComboBox" prefWidth="150.0" promptText="Category" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#searchUserDateCatOnSearchButtonClick" text="Search" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
             </content>
           </TitledPane>
           <TitledPane animated="false" text="Search Item by review quality">

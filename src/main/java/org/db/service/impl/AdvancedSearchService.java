@@ -4,6 +4,7 @@ import org.db.Client;
 import org.db.database.Database;
 import org.db.model.Item;
 import org.db.model.Review;
+import org.db.model.User;
 import org.db.service.Service;
 
 import java.util.*;
@@ -47,6 +48,12 @@ public class AdvancedSearchService extends Service {
         }
 
         return mostExpensiveItems;
+    }
+
+    public List<Item> searchUsersByDateAndCategory(String cat1, String cat2) {
+        List<Item> userItems = new ArrayList<>();
+        // W.I.P.
+        return userItems;
     }
 
     public List<Item> searchItemsByReviewQualityType(String qualityType) {
