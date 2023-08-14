@@ -253,6 +253,13 @@ public class HomepageController implements Controller {
             stage.setTitle("Advanced Search");
             stage.setScene(scene);
             ((AdvancedSearchController)fxmlLoader.getController()).addCategories(categories.keySet());
+
+            Set ratings = new LinkedHashSet();
+            String [] quality = {"Excellent", "Good", "Fair", "Poor"};
+            for(int i = 0 ;i < quality.length; i++){
+                ratings.add(quality[i]);
+            }
+            ((AdvancedSearchController)fxmlLoader.getController()).addRatingTypes(ratings);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

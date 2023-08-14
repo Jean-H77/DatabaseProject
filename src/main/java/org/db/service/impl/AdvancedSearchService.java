@@ -1,7 +1,9 @@
 package org.db.service.impl;
 
+import org.db.Client;
 import org.db.database.Database;
 import org.db.model.Item;
+import org.db.model.Review;
 import org.db.service.Service;
 
 import java.util.*;
@@ -45,5 +47,11 @@ public class AdvancedSearchService extends Service {
         }
 
         return mostExpensiveItems;
+    }
+
+    public List<Item> searchItemsByReviewQualityType(String qualityType) {
+        List<Item> itemsWithQuality = new ArrayList<>();
+        // in progress
+        return itemsWithQuality;
     }
 }

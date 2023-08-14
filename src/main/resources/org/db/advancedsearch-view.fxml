@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="518.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.db.controller.impl.AdvancedSearchController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutY="6.0" prefHeight="17.0" prefWidth="460.0" text="Advanced Search" />
@@ -26,9 +25,9 @@
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Category:" />
                                     <ComboBox fx:id="searchMostExpensiveCategoryComboBox" prefWidth="150.0" promptText="Category" />
+                                    <Button mnemonicParsing="false" onAction="#searchMostExpensiveOnSearchButtonClick" text="Search" />
                                  </children>
                               </HBox>
-                              <Button mnemonicParsing="false" onAction="#searchMostExpensiveOnSearchButtonClick" text="Search" />
                            </children>
                         </VBox>
                      </children>
@@ -51,9 +50,23 @@
               </content>
             </TitledPane>
             <TitledPane animated="false" text="Search users who posted type of review quality">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
+               <content>
+                  <AnchorPane minHeight="200.0" minWidth="460.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="460.0" spacing="15.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Category:" />
+                                    <ComboBox fx:id="selectReviewTypeComboBox" prefWidth="150.0" promptText="Rating" />
+                                    <Button mnemonicParsing="false" onAction="#selectReviewTypeSearch" text="Search" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
             </TitledPane>
             <TitledPane animated="false" text="Search user by reviews filter by review quality on item they posted">
               <content>

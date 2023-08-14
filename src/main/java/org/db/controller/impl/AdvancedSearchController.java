@@ -21,12 +21,19 @@ public class AdvancedSearchController implements Controller {
     @FXML
     private ComboBox<String> searchMostExpensiveCategoryComboBox;
 
+    @FXML
+    private ComboBox<String> selectReviewTypeComboBox;
+
     private final AdvancedSearchService advancedSearchService = (AdvancedSearchService) getService(ServiceType.ADVANCED_SEARCH);
 
     public void addCategories(Set<String> cats) {
         searchMostExpensiveCategoryComboBox.getItems().addAll(cats);
         searchMostExpensiveCategoryComboBox.getItems().add("All");
     }
+    public void addRatingTypes(Set<String> ratingTypes) {
+        selectReviewTypeComboBox.getItems().addAll(ratingTypes);
+    }
+
     @FXML
     private void searchMostExpensiveCategoryComboBox() {
 
@@ -50,4 +57,12 @@ public class AdvancedSearchController implements Controller {
             ((HomepageController) Navigator.cachedControllers.get(SceneType.HOME_PAGE)).getItemList().setAll(result);
         }
     }
+
+    @FXML
+    private void selectReviewTypeSearch(){
+        String reviewType = selectReviewTypeComboBox.getValue();
+        List<Item> itemsWithReview = advancedSearchService.searchItemsByReviewQualityType(reviewType);
+        ((HomepageController) Navigator.cachedControllers.get(SceneType.HOME_PAGE)).getItemList().setAll(itemsWithReview);
+    }
+
 }
