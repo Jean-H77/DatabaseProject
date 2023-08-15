@@ -136,8 +136,26 @@ public class HomepageController implements Controller {
         reviewTitledPane.setDisable(true);
     }
 
+    private void clearItem() {
+        reviewItemErrorLabel.setText("");
+        reviewTextArea.setText("");
+        reviewName.setText("");
+        qualityComboBox.getSelectionModel().clearSelection();
+        reviewDescription.setText("");
+        reviewPrice.setText("");
+        posterReviewText.setText("");
+        reviewCategories.setText("");
+        reviewList.clear();
+        pastReviewsListView.refresh();
+        disableReviewPane();
+    }
+
     private void selectItem(Item item) {
         this.item = item;
+        if(item.isListUser()) {
+            clearItem();
+            return;
+        }
         enableReviewPane();
         reviewItemErrorLabel.setText("");
         reviewTextArea.setText("");
