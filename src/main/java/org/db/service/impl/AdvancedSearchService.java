@@ -96,6 +96,12 @@ public class AdvancedSearchService extends Service {
         return userItems;
     }
 
+    public List<Item> searchUsersByMostPosts() {
+        List<Item> userItem = new ArrayList<>();
+        // W.I.P.
+        return userItem;
+    }
+
     public List<Item> searchItemsByReviewQualityType(String qualityType) {
         List<Item> itemsWithRatedQuality = new ArrayList<>();
         int itemCount = database.getTotalItemCount();

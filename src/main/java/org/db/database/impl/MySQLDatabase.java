@@ -263,6 +263,24 @@ public class MySQLDatabase extends Database {
     }
 
     @Override
+    public List<Item> searchItemsByDay(int year, int month, int date) {
+        List<Item> itemList = new ArrayList<>();
+        String query = "SELECT * FROM items WHERE DATE(POSTED_TIMESTAMP) = ?";
+        try (PreparedStatement stmt = getConnection().prepareStatement(query)) {
+            stmt.setString(1, ("'" + year + "-" + month + "-" + date + "'"));
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                while (resultSet.next()) {
+                    itemList.add(getItem(resultSet.getInt("ITEM_ID")));
+                }
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return itemList;
+    }
+
+    @Override
     public HashMap<String, HashMap<String, Set<String>>> loadCategories() {
         HashMap<String, HashMap<String, Set<String>>> categories = new HashMap<>();
         String query = "SELECT c.CATEGORY_NAME, m.MAKER_NAME, t.TYPE_NAME " +
