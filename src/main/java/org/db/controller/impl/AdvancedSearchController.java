@@ -1,12 +1,14 @@
 package org.db.controller.impl;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 import org.db.controller.Controller;
 import org.db.controller.Navigator;
 import org.db.model.Item;
 import org.db.model.SceneType;
-import org.db.model.User;
 import org.db.service.ServiceType;
 import org.db.service.impl.AdvancedSearchService;
 
@@ -15,7 +17,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class AdvancedSearchController implements Controller {
 
@@ -31,6 +32,9 @@ public class AdvancedSearchController implements Controller {
     @FXML
     private ComboBox<String> selectReviewTypeComboBox;
 
+    @FXML
+    private ListView<String> usernameListView;
+
     private final AdvancedSearchService advancedSearchService = (AdvancedSearchService) getService(ServiceType.ADVANCED_SEARCH);
 
     public void addCategories(Set<String> cats) {
@@ -41,11 +45,6 @@ public class AdvancedSearchController implements Controller {
     }
     public void addRatingTypes(Set<String> ratingTypes) {
         selectReviewTypeComboBox.getItems().addAll(ratingTypes);
-    }
-
-    @FXML
-    private void searchMostExpensiveCategoryComboBox() {
-
     }
 
     @Override
@@ -87,6 +86,9 @@ public class AdvancedSearchController implements Controller {
         String reviewType = selectReviewTypeComboBox.getValue();
         List<Item> itemsWithReview = advancedSearchService.searchItemsByReviewQualityType(reviewType);
         ((HomepageController) Navigator.cachedControllers.get(SceneType.HOME_PAGE)).getItemList().setAll(itemsWithReview);
+        List<String> reviews = advancedSearchService.joinUserByReviewQualityType(reviewType);
+        ObservableList<String> usernameObservableList = FXCollections.observableArrayList(reviews);
+        usernameListView.setItems(usernameObservableList);
     }
 
 }

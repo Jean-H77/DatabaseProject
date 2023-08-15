@@ -1,15 +1,12 @@
 package org.db.service.impl;
 
-import org.db.Client;
 import org.db.controller.Navigator;
 import org.db.controller.impl.HomepageController;
 import org.db.database.Database;
 import org.db.model.Item;
 import org.db.model.Review;
 import org.db.model.SceneType;
-import org.db.model.User;
 import org.db.service.Service;
-import org.db.service.ServiceType;
 
 import java.util.*;
 
@@ -74,5 +71,27 @@ public class AdvancedSearchService extends Service {
             }
         }
         return itemsWithRatedQuality;
+    }
+
+    public List<String> joinUserByReviewQualityType(String qualityType) {
+        List<String> userRatings = new ArrayList<>();
+
+        int itemCount = database.getTotalItemCount();
+        for (int i = 0; i < itemCount; i++) {
+            List<Review> reviews = ((HomepageController) Navigator.cachedControllers.get(SceneType.HOME_PAGE)).listingService.getReviews(i);
+            for (Review review : reviews) {
+                if (review.getQuality().equals(qualityType)) {
+                    String username = review.getPoster();
+                    String rating = review.getQuality();
+                    int id = review.getItemId();
+                    Item item = database.getItem(id);
+                    String itemName = item.getTitle();
+
+                    String userRating = "User: " + username + "\nRating: " + rating + "\nItem: " + itemName;
+                    userRatings.add(userRating);
+                }
+            }
+        }
+        return userRatings;
     }
 }
