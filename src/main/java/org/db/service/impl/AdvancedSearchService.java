@@ -1,11 +1,15 @@
 package org.db.service.impl;
 
 import org.db.Client;
+import org.db.controller.Navigator;
+import org.db.controller.impl.HomepageController;
 import org.db.database.Database;
 import org.db.model.Item;
 import org.db.model.Review;
+import org.db.model.SceneType;
 import org.db.model.User;
 import org.db.service.Service;
+import org.db.service.ServiceType;
 
 import java.util.*;
 
@@ -14,6 +18,7 @@ public class AdvancedSearchService extends Service {
     public AdvancedSearchService(Database database) {
         super(database);
     }
+
 
     public List<Item> searchMostExpensiveItemsByCategory(String category) {
         List<Item> mostExpensiveItems = new ArrayList<>();
@@ -57,8 +62,17 @@ public class AdvancedSearchService extends Service {
     }
 
     public List<Item> searchItemsByReviewQualityType(String qualityType) {
-        List<Item> itemsWithQuality = new ArrayList<>();
-        // in progress
-        return itemsWithQuality;
+        List<Item> itemsWithRatedQuality = new ArrayList<>();
+        int itemCount = database.getTotalItemCount();
+        for(int i = 0; i < itemCount; i++){
+            List<Review> reviews = ((HomepageController) Navigator.cachedControllers.get(SceneType.HOME_PAGE)).listingService.getReviews(i);
+            for (Review review : reviews) {
+                if (review.getQuality().equals(qualityType)) {
+                    Item item = database.getItem(review.getItemId());
+                    itemsWithRatedQuality.add(item);
+                }
+            }
+        }
+        return itemsWithRatedQuality;
     }
 }

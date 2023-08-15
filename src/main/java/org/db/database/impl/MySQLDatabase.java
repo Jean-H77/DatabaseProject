@@ -327,4 +327,19 @@ public class MySQLDatabase extends Database {
             e.printStackTrace();
         }
     }
+
+    public int getTotalItemCount() {
+        int itemCount = 0;
+        String query = "SELECT COUNT(*) AS ITEM_COUNT FROM items";
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    itemCount = resultSet.getInt("ITEM_COUNT");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return itemCount;
+    }
 }

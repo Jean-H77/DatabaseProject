@@ -46,6 +46,8 @@ public abstract class Database {
 
     public abstract void postReview(Review review);
 
+    public abstract int getTotalItemCount();
+
     public enum Table {
         ITEMS("items"),
         REVIEWS("reviews");
