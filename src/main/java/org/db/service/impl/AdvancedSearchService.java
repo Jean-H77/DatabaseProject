@@ -54,7 +54,45 @@ public class AdvancedSearchService extends Service {
 
     public List<Item> searchUsersByDateAndCategory(String cat1, String cat2) {
         List<Item> userItems = new ArrayList<>();
-        // W.I.P.
+        List<Item> itemsInCat1 = database.searchItems(cat1);
+        List<Item> itemsInCat2 = database.searchItems(cat2);
+        long cat1TS;
+        long cat2TS;
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+
+        for(Item cat1Item : itemsInCat1) {
+            cat1TS = cat1Item.getTimestamp().getTime();
+            cal1.setTimeInMillis(cat1TS);
+            int cal1year = cal1.get(Calendar.YEAR);
+            int cal1date = cal1.get(Calendar.DATE);
+            int cal1month = cal1.get(Calendar.MONTH);
+            for(Item cat2Item : itemsInCat2) {
+                cat2TS = cat2Item.getTimestamp().getTime();
+                cal2.setTimeInMillis(cat2TS);
+                int cal2year = cal2.get(Calendar.YEAR);
+                int cal2date = cal2.get(Calendar.DATE);
+                int cal2month = cal2.get(Calendar.MONTH);
+                if(
+                (cat1Item.getPoster().equals(cat2Item.getPoster()))
+                && (cal1year == cal2year)
+                && (cal1date == cal2date)
+                && (cal1month == cal2month)
+                ) {
+                    boolean exists = false;
+                    for(Item item : userItems) {
+                        if(item.getPoster().equals(cat1Item.getPoster())) {
+                            exists = true;
+                            break;
+                        }
+                    }
+                    if(!exists) {
+                        cat1Item.setListUser(true);
+                        userItems.add(cat1Item);
+                    }
+                }
+            }
+        }
         return userItems;
     }
 

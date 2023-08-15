@@ -73,6 +73,7 @@ public class AdvancedSearchController implements Controller {
         || !Objects.equals(searchUserDateCat1ComboBox.getValue(), ""))
         && (searchUserDateCat2ComboBox.getValue() != null
         || !Objects.equals(searchUserDateCat2ComboBox.getValue(), ""))
+        && (!searchUserDateCat1ComboBox.getValue().equals(searchUserDateCat2ComboBox.getValue()))
         ) {
             String cat1 = searchUserDateCat1ComboBox.getValue();
             String cat2 = searchUserDateCat2ComboBox.getValue();
