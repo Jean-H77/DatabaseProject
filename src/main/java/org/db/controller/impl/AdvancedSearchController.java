@@ -35,6 +35,9 @@ public class AdvancedSearchController implements Controller {
     @FXML
     private ListView<String> usernameListView;
 
+    @FXML
+    private ListView<String>  filteredUserNameListView;
+
     private final AdvancedSearchService advancedSearchService = (AdvancedSearchService) getService(ServiceType.ADVANCED_SEARCH);
 
     public void addCategories(Set<String> cats) {
@@ -90,6 +93,13 @@ public class AdvancedSearchController implements Controller {
         List<String> reviews = advancedSearchService.joinUserByReviewQualityType(reviewType);
         ObservableList<String> usernameObservableList = FXCollections.observableArrayList(reviews);
         usernameListView.setItems(usernameObservableList);
+    }
+
+    @FXML
+    private void filterPoorAndNullOnSearchButtonClick(){
+        List<String> itemsWithFilteredReview = advancedSearchService.getUsersWithPoorOrNoReviews();
+        ObservableList<String> usernameObservableList = FXCollections.observableArrayList(itemsWithFilteredReview);
+        filteredUserNameListView.setItems(usernameObservableList);
     }
 
 }

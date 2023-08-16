@@ -130,12 +130,17 @@ public class AdvancedSearchService extends Service {
                     int id = review.getItemId();
                     Item item = database.getItem(id);
                     String itemName = item.getTitle();
-
                     String userRating = "User: " + username + "\nRating: " + rating + "\nItem: " + itemName;
                     userRatings.add(userRating);
                 }
             }
         }
         return userRatings;
+    }
+
+    public List<String> getUsersWithPoorOrNoReviews() {
+        List<String> filteredUserRatings;
+        filteredUserRatings =  database.getUsersWithPoorOrNoReviewsQuery();
+        return filteredUserRatings;
     }
 }

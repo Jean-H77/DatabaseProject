@@ -16,7 +16,6 @@ public class ListingService extends Service {
     public ListingService(Database database) {
         super(database);
     }
-
     public int getPostCount(Database.Table table) {
         List<LocalDate> localDates = database.getLastThreePostings(table);
         int size = localDates.size();
@@ -59,5 +58,4 @@ public class ListingService extends Service {
     public List<Review> getReviews(int itemId) {
         return database.getReviews(itemId);
     }
-
 }

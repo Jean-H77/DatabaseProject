@@ -360,4 +360,29 @@ public class MySQLDatabase extends Database {
         }
         return itemCount;
     }
+
+    public List<String> getUsersWithPoorOrNoReviewsQuery() {
+        List<String> resultList = new ArrayList<>();
+
+        String query = "SELECT DISTINCT u.USERNAME " +
+                "FROM users u " +
+                "JOIN items i ON u.USERNAME = i.USERNAME " +
+                "LEFT JOIN reviews r ON i.ITEM_ID = r.ITEM_ID " +
+                "WHERE (r.QUALITY IS NULL OR r.QUALITY != 'Poor') " +
+                "GROUP BY u.USERNAME " +
+                "HAVING COUNT(i.ITEM_ID) = COUNT(r.ITEM_ID)";
+
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    String username = resultSet.getString("USERNAME");
+                    resultList.add(username);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return resultList;
+    }
 }

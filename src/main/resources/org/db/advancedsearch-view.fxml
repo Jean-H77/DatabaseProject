@@ -94,10 +94,24 @@
                   </AnchorPane>
                </content>
             </TitledPane>
-            <TitledPane animated="false" text="Search user by reviews filter by review quality on item they posted">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
+            <TitledPane animated="false" layoutX="10.0" layoutY="10.0" text="Search user by reviews filter by review quality on item they posted">
+               <content>
+                  <AnchorPane minHeight="200.0" minWidth="460.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="460.0" spacing="15.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filter out poor and null reviews" />
+                                    <Button mnemonicParsing="false" onAction="#filterPoorAndNullOnSearchButtonClick" text="Search" />
+                                 </children>
+                              </HBox>
+                              <ListView fx:id="filteredUserNameListView" prefHeight="179.0" prefWidth="460.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
             </TitledPane>
         </panes>
       </Accordion>

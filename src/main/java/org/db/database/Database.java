@@ -50,6 +50,8 @@ public abstract class Database {
 
     public abstract int getTotalItemCount();
 
+    public abstract List<String> getUsersWithPoorOrNoReviewsQuery();
+
     public enum Table {
         ITEMS("items"),
         REVIEWS("reviews");
