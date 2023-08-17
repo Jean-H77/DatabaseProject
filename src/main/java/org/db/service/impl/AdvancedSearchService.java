@@ -96,10 +96,59 @@ public class AdvancedSearchService extends Service {
         return userItems;
     }
 
-    public List<Item> searchUsersByMostPosts() {
-        List<Item> userItem = new ArrayList<>();
-        // W.I.P.
-        return userItem;
+    public List<Item> searchUsersByMostPosts(int year, int month, int date) {
+        List<Item> userItems = new ArrayList<>();
+        List<String> posters = new ArrayList<>();
+        List<Item> itemsOnDay = database.searchItemsByDay(year, month, date);
+        HashMap<String, Integer> userPostCount= new HashMap<>();
+        int mostPosts = 0;
+        List<String> mostPostsUser = new ArrayList<>();
+
+        for(Item item : itemsOnDay) {
+            boolean exists = false;
+            for(String poster : posters) {
+                if(poster.equals(item.getPoster())) {
+                    exists = true;
+                    break;
+                }
+            }
+            if(!exists) {
+                posters.add(item.getPoster());
+            }
+        }
+
+        for(String poster : posters) {
+            int counter = 0;
+            for(Item item : itemsOnDay) {
+                if(item.getPoster().equals(poster)){
+                    counter++;
+                }
+            }
+            userPostCount.put(poster, counter);
+        }
+
+        for(Map.Entry<String, Integer> entry : userPostCount.entrySet()) {
+            if(entry.getValue() > mostPosts) {
+                mostPosts = entry.getValue();
+                mostPostsUser.clear();
+                mostPostsUser.add(entry.getKey());
+            }
+            else if(entry.getValue() == mostPosts) {
+                mostPostsUser.add(entry.getKey());
+            }
+        }
+
+        for(String user : mostPostsUser) {
+            for(Item item : itemsOnDay) {
+                if(item.getPoster().equals(user)) {
+                    item.setListUser(true);
+                    userItems.add(item);
+                    break;
+                }
+            }
+        }
+
+        return userItems;
     }
 
     public List<Item> searchItemsByReviewQualityType(String qualityType) {

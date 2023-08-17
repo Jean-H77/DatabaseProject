@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import org.db.controller.Controller;
 import org.db.controller.Navigator;
@@ -28,6 +29,9 @@ public class AdvancedSearchController implements Controller {
 
     @FXML
     private ComboBox<String> searchUserDateCat2ComboBox;
+
+    @FXML
+    private DatePicker userMostPostsDP;
 
     @FXML
     private ComboBox<String> selectReviewTypeComboBox;
@@ -81,6 +85,19 @@ public class AdvancedSearchController implements Controller {
             String cat1 = searchUserDateCat1ComboBox.getValue();
             String cat2 = searchUserDateCat2ComboBox.getValue();
             List<Item> result = advancedSearchService.searchUsersByDateAndCategory(cat1, cat2);
+            ((HomepageController) Navigator.cachedControllers.get(SceneType.HOME_PAGE)).getItemList().setAll(result);
+        }
+    }
+
+    @FXML
+    private void searchUserMostPostsOnButtonClick() {
+        if(userMostPostsDP.getValue() != null) {
+            int year = userMostPostsDP.getValue().getYear();
+            int month = userMostPostsDP.getValue().getMonthValue();
+            int date = userMostPostsDP.getValue().getDayOfMonth();
+
+            List<Item> result = advancedSearchService.searchUsersByMostPosts(year, month, date);
+
             ((HomepageController) Navigator.cachedControllers.get(SceneType.HOME_PAGE)).getItemList().setAll(result);
         }
     }

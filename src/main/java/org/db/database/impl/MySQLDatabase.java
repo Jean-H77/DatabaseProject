@@ -267,7 +267,7 @@ public class MySQLDatabase extends Database {
         List<Item> itemList = new ArrayList<>();
         String query = "SELECT * FROM items WHERE DATE(POSTED_TIMESTAMP) = ?";
         try (PreparedStatement stmt = getConnection().prepareStatement(query)) {
-            stmt.setString(1, ("'" + year + "-" + month + "-" + date + "'"));
+            stmt.setString(1, (year + "-" + month + "-" + date));
             try (ResultSet resultSet = stmt.executeQuery()) {
                 while (resultSet.next()) {
                     itemList.add(getItem(resultSet.getInt("ITEM_ID")));
