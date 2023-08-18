@@ -409,10 +409,6 @@ public class MySQLDatabase extends Database {
         return usernames;
     }
 
-    @Override
-    public List<Item> getPositiveFeedbackItems() {
-        return null;
-    }
 
 
 }
