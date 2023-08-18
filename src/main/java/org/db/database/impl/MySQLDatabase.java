@@ -364,20 +364,28 @@ public class MySQLDatabase extends Database {
     public List<String> getUsersWithPoorOrNoReviewsQuery() {
         List<String> resultList = new ArrayList<>();
 
-        String query = "SELECT DISTINCT u.USERNAME " +
+        String query = "SELECT u.USERNAME " +
                 "FROM users u " +
                 "JOIN items i ON u.USERNAME = i.USERNAME " +
                 "LEFT JOIN reviews r ON i.ITEM_ID = r.ITEM_ID " +
                 "WHERE (r.QUALITY IS NULL OR r.QUALITY != 'Poor') " +
+                "AND NOT EXISTS (" +
+                "    SELECT 1 " +
+                "    FROM items i2 " +
+                "    LEFT JOIN reviews r2 ON i2.ITEM_ID = r2.ITEM_ID " +
+                "    WHERE (r2.QUALITY = 'Poor' OR r2.QUALITY IS NULL) " +
+                "    AND i2.USERNAME = u.USERNAME" +
+                ") " +
                 "GROUP BY u.USERNAME " +
                 "HAVING COUNT(i.ITEM_ID) = COUNT(r.ITEM_ID)";
 
-        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                while (resultSet.next()) {
-                    String username = resultSet.getString("USERNAME");
-                    resultList.add(username);
-                }
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                String username = resultSet.getString("USERNAME");
+                resultList.add(username);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -385,4 +393,26 @@ public class MySQLDatabase extends Database {
 
         return resultList;
     }
+
+    public List<String> getAllUsernames() {
+        List<String> usernames = new ArrayList<>();
+        String query = "SELECT USERNAME FROM users";
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                String username = resultSet.getString("USERNAME");
+                usernames.add(username);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return usernames;
+    }
+
+    @Override
+    public List<Item> getPositiveFeedbackItems() {
+        return null;
+    }
+
+
 }
