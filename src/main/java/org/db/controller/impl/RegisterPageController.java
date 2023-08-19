@@ -57,7 +57,7 @@ public class RegisterPageController implements Controller {
         String response = registrationService.validate(registrationDetails);
 
         if(response.equals("Success")) {
-            Navigator.switchScene(SceneType.HOME_PAGE);
+            Navigator.switchScene(SceneType.LOGIN);
             return;
         }
         label_unmatchedPassword.setText(response);

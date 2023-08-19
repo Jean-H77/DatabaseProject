@@ -192,4 +192,11 @@ public class AdvancedSearchService extends Service {
         filteredUserRatings =  database.getUsersWithPoorOrNoReviewsQuery();
         return filteredUserRatings;
     }
+
+
+    public List<String> getAllUserNames(){
+        List<String> allUsersList;
+        allUsersList = database.getAllUsernames();
+        return allUsersList;
+    }
 }

@@ -12,6 +12,7 @@ import java.util.Set;
 
 public abstract class Database {
 
+
     protected Connection getConnection() throws SQLException {
         return Datasource.getInstance().getConnection();
     }
@@ -51,6 +52,8 @@ public abstract class Database {
     public abstract int getTotalItemCount();
 
     public abstract List<String> getUsersWithPoorOrNoReviewsQuery();
+
+    public abstract List<String> getAllUsernames();
 
     public enum Table {
         ITEMS("items"),

@@ -37,10 +37,16 @@ public class AdvancedSearchController implements Controller {
     private ComboBox<String> selectReviewTypeComboBox;
 
     @FXML
+    private ComboBox<String> selectUserComboBox;
+
+    @FXML
     private ListView<String> usernameListView;
 
     @FXML
     private ListView<String>  filteredUserNameListView;
+
+    @FXML
+    private ListView<String>  usersPositiveCommentItemsListView;
 
     private final AdvancedSearchService advancedSearchService = (AdvancedSearchService) getService(ServiceType.ADVANCED_SEARCH);
 
@@ -61,7 +67,7 @@ public class AdvancedSearchController implements Controller {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        populateUsersComboBoxSelection();
     }
 
     @FXML
@@ -118,5 +124,20 @@ public class AdvancedSearchController implements Controller {
         ObservableList<String> usernameObservableList = FXCollections.observableArrayList(itemsWithFilteredReview);
         filteredUserNameListView.setItems(usernameObservableList);
     }
+
+    @FXML
+    private void searchPositiveCommentsOnSearchButtonClick(){
+        List<String> usersItemsWithPositiveComments = advancedSearchService.getUsersWithPoorOrNoReviews();
+        ObservableList<String> usernameObservableList = FXCollections.observableArrayList(usersItemsWithPositiveComments);
+        filteredUserNameListView.setItems(usernameObservableList);
+    }
+
+    private void populateUsersComboBoxSelection(){
+        List<String> usernames = advancedSearchService.getAllUserNames();
+        selectUserComboBox.getItems().addAll(usernames);
+    }
+
+
+
 
 }
