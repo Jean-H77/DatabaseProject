@@ -14,10 +14,7 @@ import org.db.service.ServiceType;
 import org.db.service.impl.AdvancedSearchService;
 
 import java.net.URL;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 public class AdvancedSearchController implements Controller {
 
@@ -133,6 +130,13 @@ public class AdvancedSearchController implements Controller {
     }
 
     private void populateUsersComboBoxSelection(){
+        Set ratings = new LinkedHashSet();
+        String [] quality = {"Excellent", "Good", "Fair", "Poor"};
+        for(int i = 0 ;i < quality.length; i++){
+            ratings.add(quality[i]);
+        }
+        addRatingTypes(ratings);
+
         List<String> usernames = advancedSearchService.getAllUserNames();
         selectUserComboBox.getItems().addAll(usernames);
     }
