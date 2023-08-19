@@ -20,7 +20,10 @@
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Category:" />
                                     <ComboBox fx:id="searchMostExpensiveCategoryComboBox" prefWidth="150.0" promptText="- Selection -" />
-                                    <Button mnemonicParsing="false" onAction="#searchMostExpensiveOnSearchButtonClick" text="Search" />
+                                    <Button mnemonicParsing="false" onAction="#searchMostExpensiveOnSearchButtonClick" style="-fx-background-color: #64B5F6;" text="Search" textFill="WHITE">
+                                       <font>
+                                          <Font name="Arial Rounded MT Bold" size="12.0" />
+                                       </font></Button>
                                  </children>
                               </HBox>
                            </children>
@@ -49,7 +52,10 @@
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#searchUserDateCatOnSearchButtonClick" text="Search" />
+                                    <Button mnemonicParsing="false" onAction="#searchUserDateCatOnSearchButtonClick" style="-fx-background-color: #64B5F6;" text="Search" textFill="WHITE">
+                                       <font>
+                                          <Font name="Arial Rounded MT Bold" size="12.0" />
+                                       </font></Button>
                                  </children>
                               </HBox>
                            </children>
@@ -68,7 +74,10 @@
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User:" />
                                     <ComboBox fx:id="selectUserComboBox" prefWidth="150.0" promptText="- Selection -" />
-                                    <Button mnemonicParsing="false" onAction="#searchPositiveCommentsOnSearchButtonClick" text="Search" />
+                                    <Button mnemonicParsing="false" onAction="#searchPositiveCommentsOnSearchButtonClick" style="-fx-background-color: #64B5F6;" text="Search" textFill="WHITE">
+                                       <font>
+                                          <Font name="Arial Rounded MT Bold" size="12.0" />
+                                       </font></Button>
                                  </children>
                               </HBox>
                               <ListView fx:id="usernameListView1" prefHeight="179.0" prefWidth="460.0" />
@@ -91,10 +100,13 @@
                               </HBox>
                               <HBox alignment="CENTER">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#searchUserMostPostsOnButtonClick" text="Search">
+                                    <Button mnemonicParsing="false" onAction="#searchUserMostPostsOnButtonClick" style="-fx-background-color: #64B5F6;" text="Search" textFill="WHITE">
                                        <HBox.margin>
                                           <Insets top="10.0" />
                                        </HBox.margin>
+                                       <font>
+                                          <Font name="Arial Rounded MT Bold" size="12.0" />
+                                       </font>
                                     </Button>
                                  </children>
                               </HBox>
@@ -113,7 +125,10 @@
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Category:" />
                                     <ComboBox fx:id="selectReviewTypeComboBox" prefWidth="150.0" promptText="- Selection -" />
-                                    <Button mnemonicParsing="false" onAction="#selectReviewTypeSearch" text="Search" />
+                                    <Button mnemonicParsing="false" onAction="#selectReviewTypeSearch" style="-fx-background-color: #64B5F6;" text="Search" textFill="WHITE">
+                                       <font>
+                                          <Font name="Arial Rounded MT Bold" size="12.0" />
+                                       </font></Button>
                                  </children>
                               </HBox>
                               <ListView fx:id="usernameListView" prefHeight="179.0" prefWidth="460.0" />
@@ -132,7 +147,10 @@
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filter out poor and null reviews" />
-                                    <Button mnemonicParsing="false" onAction="#filterPoorAndNullOnSearchButtonClick" text="Search" />
+                                    <Button mnemonicParsing="false" onAction="#filterPoorAndNullOnSearchButtonClick" style="-fx-background-color: #64B5F6;" text="Search" textFill="WHITE">
+                                       <font>
+                                          <Font name="Arial Rounded MT Bold" size="12.0" />
+                                       </font></Button>
                                  </children>
                               </HBox>
                               <ListView fx:id="filteredUserNameListView" prefHeight="179.0" prefWidth="460.0" />
