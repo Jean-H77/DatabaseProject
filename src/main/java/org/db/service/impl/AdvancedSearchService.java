@@ -193,6 +193,12 @@ public class AdvancedSearchService extends Service {
         return filteredUserRatings;
     }
 
+    public List<Item> filterPositiveCommentsOnSearchButtonClick(String selectedUser) {
+        List<Item> filteredUserRatings;
+        filteredUserRatings = database.getItemsByUserWithoutPoorOrFairReviews(selectedUser);
+        return filteredUserRatings;
+    }
+
 
     public List<String> getAllUserNames(){
         List<String> allUsersList;

@@ -42,9 +42,6 @@ public class AdvancedSearchController implements Controller {
     @FXML
     private ListView<String>  filteredUserNameListView;
 
-    @FXML
-    private ListView<String>  usersPositiveCommentItemsListView;
-
     private final AdvancedSearchService advancedSearchService = (AdvancedSearchService) getService(ServiceType.ADVANCED_SEARCH);
 
     public void addCategories(Set<String> cats) {
@@ -123,10 +120,10 @@ public class AdvancedSearchController implements Controller {
     }
 
     @FXML
-    private void searchPositiveCommentsOnSearchButtonClick(){
-        List<String> usersItemsWithPositiveComments = advancedSearchService.getUsersWithPoorOrNoReviews();
-        ObservableList<String> usernameObservableList = FXCollections.observableArrayList(usersItemsWithPositiveComments);
-        filteredUserNameListView.setItems(usernameObservableList);
+    private void filterItemsGivenCommentsOnSearchButtonClick(){
+        String selectedUser = selectUserComboBox.getValue();
+        List<Item> usersItemsWithPositiveComments = advancedSearchService.filterPositiveCommentsOnSearchButtonClick(selectedUser);
+        ((HomepageController) Navigator.cachedControllers.get(SceneType.HOME_PAGE)).getItemList().setAll(usersItemsWithPositiveComments);
     }
 
     private void populateUsersComboBoxSelection(){
@@ -136,12 +133,9 @@ public class AdvancedSearchController implements Controller {
             ratings.add(quality[i]);
         }
         addRatingTypes(ratings);
-
         List<String> usernames = advancedSearchService.getAllUserNames();
         selectUserComboBox.getItems().addAll(usernames);
     }
-
-
 
 
 }

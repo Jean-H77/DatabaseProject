@@ -410,5 +410,49 @@ public class MySQLDatabase extends Database {
     }
 
 
+    public List<Item> getItemsByUserWithoutPoorOrFairReviews(String username) {
+        List<Item> items = new ArrayList<>();
 
+        String query = "SELECT i.ITEM_ID, i.TITLE, i.DESCRIPTION, i.PRICE, i.USERNAME, i.POSTED_TIMESTAMP " +
+                "FROM items i " +
+                "WHERE i.USERNAME = ? " +
+                "AND NOT EXISTS (" +
+                "   SELECT 1 FROM reviews r " +
+                "   WHERE r.ITEM_ID = i.ITEM_ID " +
+                "   AND (UPPER(r.REVIEW) LIKE '%POOR%' OR UPPER(r.REVIEW) LIKE '%FAIR%')" +
+                ")";
+
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
+            preparedStatement.setString(1, username);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    int itemID = resultSet.getInt("ITEM_ID");
+                    String title = resultSet.getString("TITLE");
+                    String description = resultSet.getString("DESCRIPTION");
+                    double price = resultSet.getDouble("PRICE");
+                    String poster = resultSet.getString("USERNAME");
+                    Timestamp timestamp = resultSet.getTimestamp("POSTED_TIMESTAMP");
+
+                    Category cat = getCategories(itemID);
+                    String categories = "";
+                    String type = "";
+                    String maker = "";
+                    if (cat != null) {
+                        categories = getBaseCategoryName(cat);
+                        type = getCategoryTypeName(cat);
+                        maker = getCategoryMakerName(cat);
+                    }
+
+                    Item item = new Item(title, poster, description, price, categories, type, maker);
+                    item.setKey(itemID);
+                    item.setTimestamp(timestamp);
+                    items.add(item);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return items;
+    }
 }

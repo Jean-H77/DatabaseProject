@@ -55,6 +55,8 @@ public abstract class Database {
 
     public abstract List<String> getAllUsernames();
 
+    public abstract List<Item> getItemsByUserWithoutPoorOrFairReviews(String username);
+
     public enum Table {
         ITEMS("items"),
         REVIEWS("reviews");
