@@ -220,10 +220,17 @@ public class HomepageController implements Controller {
         String response = listingService.getResponse(Database.Table.ITEMS);
         if (response.equals("Success")) {
             listingService.addItem(newItem);
-            if (searchComboBox.getValue().equals(selectedCategory)) {
-                onSearchCategoryChosen();
+
+            if (searchComboBox != null) {
+                if (selectedCategory != null && selectedCategory.equals(searchComboBox.getValue())) {
+                    onSearchCategoryChosen();
+                } else {
+                    searchComboBox.setValue(selectedCategory);
+                    onSearchCategoryChosen();
+                }
             }
         }
+
         addItemErrorLabel.setText(response);
         destory();
     }
