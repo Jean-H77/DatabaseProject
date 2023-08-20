@@ -219,8 +219,7 @@ public class HomepageController implements Controller {
         Item newItem = new Item(itemNameValue, Client.getMyUser().getUsername(), descriptionValue, priceInput, selectedCategory, type, maker);
         String response = listingService.getResponse(Database.Table.ITEMS);
         if (response.equals("Success")) {
-            listingService.addItem(newItem);
-
+            listingService.addItem(newItem);//
             if (searchComboBox != null) {
                 if (selectedCategory != null && selectedCategory.equals(searchComboBox.getValue())) {
                     onSearchCategoryChosen();
