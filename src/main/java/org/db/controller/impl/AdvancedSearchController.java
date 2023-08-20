@@ -18,6 +18,10 @@ import java.util.*;
 
 public class AdvancedSearchController implements Controller {
 
+    private final ObservableList<String> usernameObservableList = FXCollections.observableArrayList();
+
+    private final ObservableList<String> usernameObservableList2 = FXCollections.observableArrayList();
+
     @FXML
     private ComboBox<String> searchMostExpensiveCategoryComboBox;
 
@@ -62,14 +66,15 @@ public class AdvancedSearchController implements Controller {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         populateUsersComboBoxSelection();
+        usernameListView.setItems(usernameObservableList);
+        filteredUserNameListView.setItems(usernameObservableList2);
     }
 
     @FXML
     private void searchMostExpensiveOnSearchButtonClick() {
         if(searchMostExpensiveCategoryComboBox.getValue() != null || !Objects.equals(searchMostExpensiveCategoryComboBox.getValue(), "")) {
             String category = searchMostExpensiveCategoryComboBox.getValue();
-            List<Item> result = advancedSearchService.searchMostExpensiveItemsByCategory(category);
-            ((HomepageController) Navigator.cachedControllers.get(SceneType.HOME_PAGE)).getItemList().setAll(result);
+            advancedSearchService.searchMostExpensiveItemsByCategory(category).thenAccept(items -> ((HomepageController) Navigator.cachedControllers.get(SceneType.HOME_PAGE)).getItemList().setAll(items));
         }
     }
 
@@ -84,8 +89,7 @@ public class AdvancedSearchController implements Controller {
         ) {
             String cat1 = searchUserDateCat1ComboBox.getValue();
             String cat2 = searchUserDateCat2ComboBox.getValue();
-            List<Item> result = advancedSearchService.searchUsersByDateAndCategory(cat1, cat2);
-            ((HomepageController) Navigator.cachedControllers.get(SceneType.HOME_PAGE)).getItemList().setAll(result);
+            advancedSearchService.searchUsersByDateAndCategory(cat1, cat2).thenAccept(items -> ((HomepageController) Navigator.cachedControllers.get(SceneType.HOME_PAGE)).getItemList().setAll(items));
         }
     }
 
@@ -95,35 +99,26 @@ public class AdvancedSearchController implements Controller {
             int year = userMostPostsDP.getValue().getYear();
             int month = userMostPostsDP.getValue().getMonthValue();
             int date = userMostPostsDP.getValue().getDayOfMonth();
-
-            List<Item> result = advancedSearchService.searchUsersByMostPosts(year, month, date);
-
-            ((HomepageController) Navigator.cachedControllers.get(SceneType.HOME_PAGE)).getItemList().setAll(result);
+            advancedSearchService.searchUsersByMostPosts(year, month, date).thenAccept(items -> ((HomepageController) Navigator.cachedControllers.get(SceneType.HOME_PAGE)).getItemList().setAll(items));
         }
     }
 
     @FXML
     private void selectReviewTypeSearch(){
         String reviewType = selectReviewTypeComboBox.getValue();
-        List<Item> itemsWithReview = advancedSearchService.searchItemsByReviewQualityType(reviewType);
-        ((HomepageController) Navigator.cachedControllers.get(SceneType.HOME_PAGE)).getItemList().setAll(itemsWithReview);
-        List<String> reviews = advancedSearchService.joinUserByReviewQualityType(reviewType);
-        ObservableList<String> usernameObservableList = FXCollections.observableArrayList(reviews);
-        usernameListView.setItems(usernameObservableList);
+        advancedSearchService.searchItemsByReviewQualityType(reviewType).thenAccept(items -> ((HomepageController) Navigator.cachedControllers.get(SceneType.HOME_PAGE)).getItemList().setAll(items));
+        advancedSearchService.joinUserByReviewQualityType(reviewType).thenAccept(usernameObservableList::setAll);
     }
 
     @FXML
     private void filterPoorAndNullOnSearchButtonClick(){
-        List<String> itemsWithFilteredReview = advancedSearchService.getUsersWithPoorOrNoReviews();
-        ObservableList<String> usernameObservableList = FXCollections.observableArrayList(itemsWithFilteredReview);
-        filteredUserNameListView.setItems(usernameObservableList);
+        advancedSearchService.getUsersWithPoorOrNoReviews().thenAccept(usernameObservableList2::setAll);
     }
 
     @FXML
     private void filterItemsGivenCommentsOnSearchButtonClick(){
         String selectedUser = selectUserComboBox.getValue();
-        List<Item> usersItemsWithPositiveComments = advancedSearchService.filterPositiveCommentsOnSearchButtonClick(selectedUser);
-        ((HomepageController) Navigator.cachedControllers.get(SceneType.HOME_PAGE)).getItemList().setAll(usersItemsWithPositiveComments);
+        advancedSearchService.filterPositiveCommentsOnSearchButtonClick(selectedUser).thenAccept(items -> ((HomepageController) Navigator.cachedControllers.get(SceneType.HOME_PAGE)).getItemList().setAll(items));
     }
 
     private void populateUsersComboBoxSelection(){
@@ -133,8 +128,7 @@ public class AdvancedSearchController implements Controller {
             ratings.add(quality[i]);
         }
         addRatingTypes(ratings);
-        List<String> usernames = advancedSearchService.getAllUserNames();
-        selectUserComboBox.getItems().addAll(usernames);
+        advancedSearchService.getAllUserNames().thenAccept(usernames -> selectUserComboBox.getItems().addAll(usernames));
     }
 
 

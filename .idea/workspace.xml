@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beb4391e-f41e-46b5-90bf-d712a0721b17" name="Changes" comment="Project setup">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/db/service/impl/AdvancedSearchService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/AdvancedSearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/AdvancedSearchController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/HomepageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/HomepageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/model/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/model/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/service/ServiceType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/service/ServiceType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/service/impl/AdvancedSearchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/service/impl/AdvancedSearchService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,6 +95,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Client" />
         <item itemvalue="Database Script.schema.sql" />
       </list>
     </recent_temporary>
@@ -141,6 +138,11 @@
       <workItem from="1691612752620" duration="117000" />
       <workItem from="1691625174814" duration="51000" />
       <workItem from="1691798729213" duration="4803000" />
+      <workItem from="1692000538524" duration="607000" />
+      <workItem from="1692129036757" duration="103000" />
+      <workItem from="1692560723692" duration="127000" />
+      <workItem from="1692560904264" duration="611000" />
+      <workItem from="1692566129265" duration="1219000" />
     </task>
     <task id="LOCAL-00001" summary="Project setup">
       <created>1689961706132</created>
