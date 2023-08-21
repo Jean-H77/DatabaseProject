@@ -11,6 +11,7 @@ import org.db.service.Service;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 public class AdvancedSearchService extends Service {
 
@@ -22,7 +23,7 @@ public class AdvancedSearchService extends Service {
     public CompletableFuture<List<Item>> searchMostExpensiveItemsByCategory(String category) {
         return CompletableFuture.supplyAsync(() -> {
             List<Item> mostExpensiveItems = new ArrayList<>();
-            Map<String, HashMap<String, Set<String>>> categories = database.loadCategories();
+            Map<String, HashMap<String, Set<String>>> categories = ((HomepageController)Navigator.cachedControllers.get(SceneType.HOME_PAGE)).getCategories();
             for (String categoryName : categories.keySet()) {
                 if (category.equals("All")) {
                     try {
@@ -44,24 +45,9 @@ public class AdvancedSearchService extends Service {
 
     private CompletableFuture<List<Item>> findMostExpensiveItemInCategory(String category) {
         return CompletableFuture.supplyAsync(() -> {
-            List<Item> mostExpensiveItems = new ArrayList<>();
             List<Item> itemsInCategory = database.searchItems(category);
-
-            double maxPrice = Double.MIN_VALUE;
-            Item mostExpensiveItem = null;
-
-            for (Item item : itemsInCategory) {
-                if (item.getPrice() > maxPrice) {
-                    maxPrice = item.getPrice();
-                    mostExpensiveItem = item;
-                }
-            }
-
-            if (mostExpensiveItem != null) {
-                mostExpensiveItems.add(mostExpensiveItem);
-            }
-
-            return mostExpensiveItems;
+            double maxPrice = itemsInCategory.stream().mapToDouble(Item::getPrice).filter(item -> item >= 0.0).max().orElse(0.0);
+            return itemsInCategory.stream().filter(item -> item.getPrice() == maxPrice).collect(Collectors.toList());
         });
     }
 

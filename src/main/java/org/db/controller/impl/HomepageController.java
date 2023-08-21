@@ -112,7 +112,7 @@ public class HomepageController implements Controller {
                     if(item.isListUser())
                         setText(item.getPoster());
                     else
-                        setText(item.getTitle() + " [" + item.getMaker() + "]");
+                        setText(item.getTitle() + (item.getMaker() != null ? (" [" + item.getMaker() + "]") : ""));
                 }
             }
         });
@@ -308,6 +308,10 @@ public class HomepageController implements Controller {
 
     public ObservableList<Item> getItemList() {
         return itemList;
+    }
+
+    public HashMap<String, HashMap<String, Set<String>>> getCategories() {
+        return categories;
     }
 }
 

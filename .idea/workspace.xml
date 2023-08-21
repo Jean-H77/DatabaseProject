@@ -7,6 +7,10 @@
     <list default="true" id="beb4391e-f41e-46b5-90bf-d712a0721b17" name="Changes" comment="Project setup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/AdvancedSearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/AdvancedSearchController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/HomepageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/controller/impl/HomepageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/database/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/database/Database.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/database/Datasource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/database/Datasource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/db/database/impl/MySQLDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/database/impl/MySQLDatabase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/db/service/impl/AdvancedSearchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/db/service/impl/AdvancedSearchService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -142,7 +146,8 @@
       <workItem from="1692129036757" duration="103000" />
       <workItem from="1692560723692" duration="127000" />
       <workItem from="1692560904264" duration="611000" />
-      <workItem from="1692566129265" duration="1219000" />
+      <workItem from="1692566129265" duration="2169000" />
+      <workItem from="1692635068334" duration="3312000" />
     </task>
     <task id="LOCAL-00001" summary="Project setup">
       <created>1689961706132</created>

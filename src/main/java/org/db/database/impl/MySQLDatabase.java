@@ -244,6 +244,14 @@ public class MySQLDatabase extends Database {
     }
 
     @Override
+    public List<Item> searchMostExpensiveItemsInEachCategory(String category) {
+        List<Item> itemList = new ArrayList<>();
+        int catID = getCategoryID(category, CategoryType.BASE);
+
+        return null;
+    }
+
+    @Override
     public List<Item> searchItems(String categorySearch) {
         List<Item> itemList = new ArrayList<>();
         int catID = getCategoryID(categorySearch, CategoryType.BASE);

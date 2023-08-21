@@ -1,5 +1,6 @@
 package org.db.controller.impl;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -74,7 +75,7 @@ public class AdvancedSearchController implements Controller {
     private void searchMostExpensiveOnSearchButtonClick() {
         if(searchMostExpensiveCategoryComboBox.getValue() != null || !Objects.equals(searchMostExpensiveCategoryComboBox.getValue(), "")) {
             String category = searchMostExpensiveCategoryComboBox.getValue();
-            advancedSearchService.searchMostExpensiveItemsByCategory(category).thenAccept(items -> ((HomepageController) Navigator.cachedControllers.get(SceneType.HOME_PAGE)).getItemList().setAll(items));
+            advancedSearchService.searchMostExpensiveItemsByCategory(category).thenAccept(items -> Platform.runLater(() -> ((HomepageController) Navigator.cachedControllers.get(SceneType.HOME_PAGE)).getItemList().setAll(items)));
         }
     }
 
